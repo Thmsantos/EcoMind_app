@@ -64,7 +64,6 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        overflow: 'hidden'
     },
 
     viewLogo: {
@@ -114,7 +113,6 @@ const styles = StyleSheet.create({
     },
 
     viewBtnAcessarCalculadora:{
-
         width: 300,
         height: 135,
         backgroundColor: "#71BE70",
