@@ -2,37 +2,38 @@ import React from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const logo = require("../../../assets/images/logo.png");
-
-export default function Login() {
+export default function ResetPassword() {
     return (
         <View style={styles.container}>
-            {/* Logo */}
-            <Image source={logo} style={styles.logo} />
-
-            {/* Texto "Bem vindo!" na posição correta */}
-            <Text style={styles.welcomeText}>Bem vindo!</Text>
-
-            {/* Campos de entrada */}
+          
+            
+            {/* Mensagem principal */}
+            <Text style={styles.title}>E-mail de redefinição de senha enviado</Text>
+            <Text style={styles.subtitle}>Verifique seu endereço de email para concluir o cadastro.</Text>
+            
+            {/* Ícone do envelope */}
+            <Icon name="envelope" size={6} color="black" style={styles.icon} />
+            
+            {/* Texto informativo */}
+            <Text style={styles.info}>Enviamos um email de verificação para o email @gmail.com</Text>
+            
+            {/* Campo de entrada */}
             <View style={styles.inputContainer}>
-                <Icon name="envelope" size={24} color="#888" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
+                <TextInput style={styles.input} placeholder="Digite o código.." placeholderTextColor="#aaa" />
             </View>
+            
+            {/* Botões */}
+            <TouchableOpacity>
+    <Text style={styles.linkReenviar}>Reenviar código</Text>
+</TouchableOpacity>
 
-            <View style={styles.inputContainer}>
-                <Icon name="lock" size={24} color="#888" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#aaa" secureTextEntry />
-            </View>
+<TouchableOpacity style={styles.button}>
+    <Text style={styles.buttonText}>Verificar Código</Text>
+</TouchableOpacity>
 
-            {/* Botão de Login */}
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-
-            {/* Links */}
-            <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-            <Text style={styles.register}>Não tem conta? Cadastre-se</Text>
-
+<TouchableOpacity>
+    <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
+</TouchableOpacity>
             {/* Navbar */}
             <View style={styles.navbar}>
                 <TouchableOpacity style={styles.navItem}>
@@ -59,23 +60,33 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         padding: 20,
+    
     },
-    logo: {
-        width: 120, // Aumentei um pouco a logo
-        height: 120,
-        marginTop: -90, // Ajuste para subir a logo
-        alignSelf: 'center',
-    },
-    welcomeText: {
-        fontSize: 40,
-        marginTop: 22, // Pequeno espaçamento da logo
-        textAlign: 'center',
+    title: {
+        fontSize: 30,
+        marginTop: -40, // Pequeno espaçamento da logo
         alignSelf: 'flex-start',
-        marginVertical: 50, // Mais espaçamento
+        marginVertical: 1, // Mais espaçamento
         fontWeight: '600',
         fontFamily: 'Roboto',
         letterSpacing: 1, // Pequeno espaçamento entre letras para um design mais limpo
-        
+    },
+    subtitle: {
+
+        color: '#00000',
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 2,
+        marginTop: 40,
+    },
+    icon: {
+        marginVertical: 15,
+    },
+    info: {
+        color: '#00000',
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 2,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -83,50 +94,49 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: '#f5f5f5',
         borderRadius: 18, // Bordas mais arredondadas
-        marginVertical: 19, // Mais espaçamento entre os campos
+        marginVertical: 35,// Mais espaçamento entre os campos
         paddingHorizontal: 15,
         height: 60, // Altura maior dos campos
         elevation: 3, // Pequena sombra para destacar
         borderWidth: 2, // Adiciona a borda preta
         borderColor: '#000', // Define a cor da borda como preta
+        marginBottom: 3,
+  
     },
     input: {
         flex: 1,
-        fontSize: 22, // Texto maior nos campos
+        fontSize: 22,
+        color: '#00000',
         padding: 15,
-        color: '#333',
+        
     },
-    icon: {
-        marginRight: 15,
-
+    linkReenviar: {
+        color: '#000',
+    fontSize: 20,
+    marginBottom: 25,
+    
+    marginLeft: -180, // Pequeno ajuste para não ficar grudado na borda esquerda
+},
+    linkVoltar: {
+        color: '#000',
+        marginVertical: 30,// Mais espaçamento entre os campo
+        fontSize: 20,
+         // Mantém o link "Voltar para página inicial" na posição desejada
+        textAlign: 'center', // Garante que ele permaneça centralizado
     },
     button: {
         backgroundColor: '#71BE70',
-        padding: 18, // Aumentei o padding
-        borderRadius: 25, // Deixei arredondado
+        padding: 18,
+        borderRadius: 25,
         width: '100%',
         alignItems: 'center',
-        marginVertical: 15, // Mais espaçamento
-        elevation: 3, // Pequena sombra
-        marginTop: 35, // Pequeno espaçamento da logo
+        marginTop: 4, // Mantém o botão no mesmo lugar
+        marginBottom: 0, // Remove qualquer espaço extra abaixo do botão
     },
     buttonText: {
-        color: '#00000',
-        fontSize: 28, // Texto maior no botão
+        color: '#000',
+        fontSize: 28,
         fontWeight: 'bold',
-        
-    },
-    forgotPassword: {
-        color: '#71BE70',
-        fontSize: 25,
-        
-
-        
-    },
-    register: {
-        color: '#333',
-        marginTop: 20, // Aumentei o espaçamento entre "Esqueceu a senha?" e "Cadastre-se"
-        fontSize: 25,
     },
     navbar: {
         flexDirection: 'row',
@@ -138,17 +148,14 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-      },
-    
-      navItem: {
+    },
+    navItem: {
         alignItems: 'center',
-      },
-    
-      navText: {
+    },
+    navText: {
         fontSize: 14,
         color: 'black',
         marginTop: 5,
         textAlign: 'center',
-      },
-    });
-    
+    },
+});
