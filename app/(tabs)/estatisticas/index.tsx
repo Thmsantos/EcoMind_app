@@ -13,21 +13,52 @@ export default function Resultados(){
             <Text style={styles.nomeAppLogo}>EcoMind</Text >
         </Text>
 
-        <View style={styles.viewMain}>
 
-          
-            <View style={styles.contentEstatisticas}>
+        <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <View style={styles.viewMain}>
 
-                    <View style={styles.groupText}>
-                        <Text><Text>Mes:</Text> Fev, 22</Text>
-                        <Text><Text>Consumo:</Text> 300kg cO2</Text>
-                        <Text><Text>Balanço:</Text> Você está há {'\n'} 
-                        dois meses diminuindo sua produção de co2</Text>
-                    </View>
-         
+
+            
+                <View style={styles.contentEstatisticas}>
+                    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                            <View style={styles.groupText}>
+                                <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
+                                <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
+                                <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
+                                <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
+                            </View>
+                    </ScrollView>
+                </View>
+            
+
+                <View style={styles.contentEstatisticas}>
+
+                    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                                <View style={styles.groupText}>
+                                        <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
+                                        <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                        <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
+                                        <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
+                                        <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
+                                </View>
+                        </ScrollView>
+                </View>
+
+                <View style={styles.contentEstatisticas}>
+                    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+                                <View style={styles.groupText}>
+                                    <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
+                                    <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                    <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
+                                    <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
+                                    <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
+                                </View>
+                    </ScrollView>
+                </View>
+
             </View>
-
-        </View>
+        </ScrollView>
        
         <View style={styles.navbar}>
                 <TouchableOpacity style={styles.navItem}>
@@ -66,7 +97,6 @@ const styles = StyleSheet.create({
     imageLogo: {
         width: 65,
         height: 65,
-        backgroundSize: "cover"
     },
 
     viewImagemLogo: {
@@ -80,8 +110,9 @@ const styles = StyleSheet.create({
     },
 
     viewMain: {
-        flex: 1,
-        paddingTop: 50      
+        flex: 1,  
+        paddingTop: 30,    
+        gap: 30
     },
 
     estatisticas: {
@@ -89,18 +120,42 @@ const styles = StyleSheet.create({
     },
 
     groupText: {
+        flexDirection: "column"
+        
               
 
     },
 
+    emoji: {
+        position: "absolute",
+        top: 10,
+        left: 250
+    },
+
+    textResult: {
+        fontSize: 20
+
+    },
+
+    textBold: {
+        fontWeight: 700,
+        fontSize: 20
+
+    },
+
     contentEstatisticas:{
+        borderWidth: 2,    
+        borderColor: '#00000', 
+        borderStyle: 'solid',
+        margin: "auto",
         width: 350,
         height: 150,
         padding: 20,
         backgroundColor:"#71BE70",
         borderRadius: 20,
         gap: 8,
-        flexDirection: "row"
+        flexDirection: "row",
+        paddingTop: 20
     },
 
     navbar:{
