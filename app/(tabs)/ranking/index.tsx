@@ -1,40 +1,51 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, TextInput, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function Login() {
+export default function Profile() {
+    // Dados de exemplo para o ranking
+    const rankingData = [
+        { id: 1, name: 'User01', progress: 0.8 }, // Adicionado progresso para exemplo
+        { id: 2, name: 'User02', progress: 0.6 },
+        { id: 3, name: 'User03', progress: 0.4 },
+        { id: 4, name: 'User04', progress: 0.2 },
+        // Adicione mais usuários conforme necessário
+    ];
+
     return (
         <View style={styles.container}>
-            {/* Logo */}
+            {/* Cabeçalho */}
             <View style={styles.header}>
                 <View style={styles.headerContent}>
                     <Image source={require("../../../assets/images/logo.png")} style={styles.logo} />
-                    <Text style={styles.headerTitle}>Ranking</Text>
+                    <Text style={styles.headerTitle}>Ranking de Economia</Text> 
                 </View>
-            </View>  
+            </View> 
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-                
-                {/* Texto "Bem vindo!" na posição correta */}
-                <Text style={styles.welcomeText}>Redução ao ultimo mes:  10% do consumo = pontos</Text>
+                {/* Texto explicativo */}
+                <Text style={styles.text2}>
+                Esse mês, você ganhou 334 pontos por reduzir 10% do seu CO2! Continue assim!
+                </Text>
 
-                {/* Campos de entrada */}
-                <View style={styles.inputContainer}>
-                    <Icon name="envelope" size={24} color="#888" style={styles.icon} />
-                    <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
+                {/* Ranking */}
+                <View style={styles.rankingContainer}>
+                    {rankingData.map((user) => (
+                        <View key={user.id} style={styles.rankingItem}>
+                            <View style={styles.rankingItemContent}>
+                                <View style={styles.rankingPosition}>
+                                    <Text style={styles.rankingPositionText}>{user.id}</Text>
+                                </View>
+                                <View style={styles.userInfo}>
+                                    <Text style={styles.rankingName}>{user.name}</Text>
+                                    <View style={styles.progressBar}>
+                                        <View style={[styles.progress, { width: `${user.progress * 100}%` }]} />
+                                    </View>
+                                </View>
+                            </View> 
+                        </View> 
+                    ))}
                 </View>
-
-                <View style={styles.inputContainer}>
-                    <Icon name="lock" size={24} color="#888" style={styles.icon} />
-                    <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#aaa" secureTextEntry />
-                </View>
-
-                {/* Botão de Login */}
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-
-              
             </ScrollView>
 
             {/* Navbar */}
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: '#71BE70',
         width: '100%',
-        height: 100,  // Aumentei um pouco para centralizar melhor
+        height: 100, 
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 20,
@@ -77,8 +88,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     logo: {
-        width: 65,  
-        height: 65,
+        width: 70, 
+        height: 70,
         marginRight: -15,
     },
     headerTitle: {
@@ -91,70 +102,76 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingBottom: 2,
     },
-    welcomeText: {
-        fontSize: 19,
+    text2: {
         color: '#00000',
-        marginVertical: 90,
+        fontSize: 25,
+        textAlign: 'center',
+        marginVertical: 30,
     },
-    inputContainer: {
+    rankingContainer: {
+        width: '90%',
+        marginTop: 25,
+    },
+    rankingItem: {
+        backgroundColor: '#E8F5E9',
+        padding: 15,
+        marginBottom: 22,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: '#71BE70',
+    },
+    rankingItemContent: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 18, // Bordas mais arredondadas
-        marginVertical: 19, // Mais espaçamento entre os campos
-        paddingHorizontal: 15,
-        height: 60, // Altura maior dos campos
-        elevation: 3, // Pequena sombra para destacar
-        borderWidth: 2, // Adiciona a borda preta
-        borderColor: '#000', // Define a cor da borda como preta
     },
-    input: {
-        flex: 1,
-        fontSize: 22, // Texto maior nos campos
-        padding: 15,
-        color: '#333',
-    },
-    icon: {
+    rankingPosition: {
+        backgroundColor: '#71BE70',
+        width: 35,
+        height: 35,
+        borderRadius: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
         marginRight: 15,
     },
-    button: {
-        backgroundColor: '#71BE70',
-        padding: 18, // Aumentei o padding
-        borderRadius: 25, // Deixei arredondado
-        width: '100%',
-        alignItems: 'center',
-        marginVertical: 15, // Mais espaçamento
-        elevation: 3, // Pequena sombra
-        marginTop: 35, // Pequeno espaçamento da logo
-    },
-    buttonText: {
-        color: '#00000',
-        fontSize: 28, // Texto maior no botão
+    rankingPositionText: {
+        color: 'white',
         fontWeight: 'bold',
     },
-   
-   
-        navbar: {
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            backgroundColor: '#F8F8F8',
-            paddingVertical: 10,
-            width: '100%',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            borderTopWidth: 1,
-            borderTopColor: '#DADADA',
-        },
-        navItem: {
-            alignItems: 'center',
-        },
-        navText: {
-            fontSize: 14,
-            color: 'black',
-            marginTop: 5,
-        },
-    });
-    
+    userInfo: {
+        flex: 1,
+    },
+    rankingName: {
+        fontSize: 20,
+        marginBottom: 5,
+    },
+    progressBar: {
+        height: 8,
+        backgroundColor: '#00000',
+        borderRadius: 4,
+        overflow: 'hidden',
+    },
+    progress: {
+        height: '100%',
+        backgroundColor: '#71BE70',
+    },
+    navbar: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: '#71BE70',
+        paddingVertical: 10,
+        width: '100%',
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    navItem: {
+        alignItems: 'center',
+    },
+    navText: {
+        fontSize: 14,
+        color: 'black',
+        marginTop: 5,
+        textAlign: 'center',
+    },
+});
