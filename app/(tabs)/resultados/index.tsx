@@ -1,3 +1,4 @@
+import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -45,20 +46,7 @@ export default function Resultados(){
 
 
 
-        <View style={styles.navbar}>
-         <TouchableOpacity style={styles.navItem}>
-           <FontAwesome name="calculator" size={24} color="black" />
-           <Text style={styles.navText}>Calculadora</Text>
-         </TouchableOpacity>
-         <TouchableOpacity style={styles.navItem}>
-           <FontAwesome name="home" size={24} color="black" />
-           <Text style={styles.navText}>Home</Text>
-         </TouchableOpacity>
-         <TouchableOpacity style={styles.navItem}>
-           <FontAwesome name="user" size={24} color="black" />
-           <Text style={styles.navText}>Perfil</Text>
-         </TouchableOpacity>
-     </View>
+       <Navbar />
     </View>
     )
 }
