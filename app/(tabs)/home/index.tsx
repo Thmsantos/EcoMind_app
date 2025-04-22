@@ -1,16 +1,28 @@
 import React from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native';
+
+import { router } from 'expo-router';
+import Navbar from '../../../components/navbar/navbar';
 const logo = require("../../../assets/images/logo.png");
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 
 export default function Home() {
+  
   return (
+    
     <View style={styles.view1}>
       
       {/* Cabeçalho com o botão "Entrar" */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity style={styles.entrarBtn}>
+        <TouchableOpacity
+          style={styles.entrarBtn}
+          onPress={() => {
+            console.log('Botão Entrar clicado!');
+            router.push("/(tabs)/login");
+          }}
+        >
           <Text style={styles.entrarText}>Entrar</Text>
         </TouchableOpacity>
       </View>
@@ -42,21 +54,7 @@ export default function Home() {
         <Text style={styles.rankingItem}>🥉 3º Lugar - <Text style={styles.bold}>User03</Text> | 400 pts</Text>
       </View>
 
-      {/* Navbar */}
-      <View style={styles.navbar}>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="calculator" size={24} color="black" />
-          <Text style={styles.navText}>Calculadora</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="home" size={24} color="black" />
-          <Text style={styles.navText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <Icon name="user" size={24} color="black" />
-          <Text style={styles.navText}>Perfil</Text>
-        </TouchableOpacity>
-      </View>
+      <Navbar />
       
     </View>
   );
@@ -71,7 +69,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12, 
   },
 
-  /* Novo estilo para o container da logo */
+
   logoContainer: {
     justifyContent: 'center', 
     alignItems: 'center',
@@ -83,31 +81,29 @@ const styles = StyleSheet.create({
   logo: {
     width: 290, 
     height: 180, 
-    resizeMode: 'contain',
     marginVertical: -22,
 
     
   },
 
-  headerContainer: {
-    width: '100%',
-    paddingHorizontal: 25,
-    paddingVertical: 5,
-    alignItems: 'flex-end',
-    marginVertical: -30
-  },
+headerContainer: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    zIndex: 100,
+},
 
-  entrarBtn: {
+
+entrarBtn: {
     backgroundColor: '#71BE70',
+    padding: 10,
     paddingVertical: 8,
     paddingHorizontal: 22,
-    marginRight: -30,
     borderRadius: 20,
-    marginTop: -50, // Adicione um valor negativo para subir o botão
-
-    
-
-  },
+    borderWidth: 2,
+    zIndex: 100, 
+      
+},
 
   entrarText: {
     fontSize: 16,

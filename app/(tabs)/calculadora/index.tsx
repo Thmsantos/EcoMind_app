@@ -2,6 +2,8 @@ import { SetStateAction, useState } from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView, TextInput, FlatList} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { RadioButton } from 'react-native-paper';
+import { router } from 'expo-router';
+import Navbar from '@/components/navbar/navbar';
 
 export default function Calculadora(){
 
@@ -176,25 +178,13 @@ export default function Calculadora(){
                 </ScrollView>
 
                 <TouchableOpacity style={styles.btnCalcular} onPress={() => Alert.alert('Botão Customizado Pressionado!')}>
-                                                <Text style={styles.textbtnCalcular}>Calcular CO³</Text>
+                                                <Text style={styles.textbtnCalcular}
+                                                 onPress={() => router.push('/(tabs)/resultados')}>Calcular CO³</Text>
                 </TouchableOpacity>
             </ScrollView>
 
 
-            <View style={styles.navbar}>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="calculator" size={24} color="black" />
-                    <Text style={styles.navText}>Calculadora</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="home" size={24} color="black" />
-                    <Text style={styles.navText}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <FontAwesome name="user" size={24} color="black" />
-                    <Text style={styles.navText}>Perfil</Text>
-                </TouchableOpacity>
-            </View>
+            <Navbar />
 
             
         </View>
@@ -290,8 +280,6 @@ const styles = StyleSheet.create({
         display: "flex",
         justifyContent: "center",
         alignItems: "center"
-
-
     },
 
     listaLocomocao: {
@@ -310,14 +298,14 @@ const styles = StyleSheet.create({
 
     btnSalvar: {
         width: 126,
-        height: 24,
+        height: 40,
         backgroundColor: "#71BE70",
         borderRadius: 24,
     },
 
     textBtnSalvar: {
         textAlign: "center",
-        fontWeight: 700
+         fontWeight: 700
     },
 
     row : {

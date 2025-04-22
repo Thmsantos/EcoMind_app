@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -25,7 +26,8 @@ export default function Login() {
             </View>
 
             {/* Botão de Login */}
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+            onPress={() => router.push('/(tabs)/home')}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
@@ -33,21 +35,7 @@ export default function Login() {
             <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
             <Text style={styles.register}>Não tem conta? Cadastre-se</Text>
 
-            {/* Navbar */}
-            <View style={styles.navbar}>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="calculator" size={24} color="black" />
-                    <Text style={styles.navText}>Calculadora</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="home" size={24} color="black" />
-                    <Text style={styles.navText}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="user" size={24} color="black" />
-                    <Text style={styles.navText}>Perfil</Text>
-                </TouchableOpacity>
-            </View>
+            
         </View>
     );
 }

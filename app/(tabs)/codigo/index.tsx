@@ -1,3 +1,4 @@
+import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -34,21 +35,8 @@ export default function ResetPassword() {
 <TouchableOpacity>
     <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
 </TouchableOpacity>
-            {/* Navbar */}
-            <View style={styles.navbar}>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="calculator" size={24} color="black" />
-                    <Text style={styles.navText}>Calculadora</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="home" size={24} color="black" />
-                    <Text style={styles.navText}>Home</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="user" size={24} color="black" />
-                    <Text style={styles.navText}>Perfil</Text>
-                </TouchableOpacity>
-            </View>
+
+            <Navbar />
         </View>
     );
 }
