@@ -54,7 +54,7 @@ export default function Home() {
         <Text style={styles.rankingItem}>🥉 3º Lugar - <Text style={styles.bold}>User03</Text> | 400 pts</Text>
       </View>
 
-      <Navbar />
+      
       
     </View>
   );

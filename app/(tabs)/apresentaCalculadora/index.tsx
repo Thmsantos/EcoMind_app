@@ -1,54 +1,90 @@
+import TypeWriterText from '@/components/animacao/chatBot';
 import Navbar from '@/components/navbar/navbar';
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 
 
 
 export default function TabOneScreen() {
-  return (
-   <View style={styles.container}>
-    <Text style={styles.viewLogo}>
-        <View style={styles.viewImagemLogo}>
+    const [balloonIndex, setBalloonIndex] = useState(0); 
+    const [showButton, setShowButton] = useState(false); 
+  
+   
+    const onBalloonFinish = () => {
+        setTimeout(() => {
+          if (balloonIndex < 2) {
+            setBalloonIndex(balloonIndex + 1);
+          } else {
+            setShowButton(true);
+          }
+        }, 200); 
+      };
+      
+  
+    return (
+      <View style={styles.container}>
+        <Text style={styles.viewLogo}>
+          <View style={styles.viewImagemLogo}>
             <Image source={require("../../../assets/images/logo.png")} style={styles.imageLogo} />
-        </View>
-        <Text style={styles.nomeAppLogo}>EcoMind</Text >
-    </Text>
-
-    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} showsVerticalScrollIndicator={true}>
-        <View style={styles.viewMain}>
-            <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat} >
-                <Text style={styles.textoMsg}>Você sabia que suas atividades diárias geram emissões de carbono?</Text>
-            </ImageBackground>
-
-            <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat} >
-                <Text style={styles.textoMsg}>Coisas como transporte e consumo de energia impactam o meio ambiente.</Text>
-            </ImageBackground>
-
-            <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat} >
-                <Text style={styles.textoMsg}>Mas não se preocupe! O primeiro passo para reduzir esse impacto é conhecer o seu consumo.</Text>
-            </ImageBackground>
-
-            <View style={styles.viewBtnAcessarCalculadora}>
-                <View style={styles.viewBtnIcone} >
-                    <Image source={require("../../../assets/images/iconePlanta.png")}/>
-                    <Text style={styles.textBtnAcessarCalculadora}>Descubra seu Impacto no{" "}
+          </View>
+          <Text style={styles.nomeAppLogo}>EcoMind</Text>
+        </Text>
+  
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} showsVerticalScrollIndicator={true}>
+          <View style={styles.viewMain}>
+            {balloonIndex >= 0 && (
+              <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
+                <TypeWriterText 
+                  text="Você sabia que suas atividades diárias geram emissões de carbono?"
+                  speed={40}
+                  style={styles.textoMsg}
+                  onFinish={onBalloonFinish}  
+                />
+              </ImageBackground>
+            )}
+  
+            {balloonIndex >= 1 && (
+              <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
+                <TypeWriterText 
+                  text="Coisas como transporte e consumo de energia impactam o meio ambiente."
+                  style={styles.textoMsg}
+                  onFinish={onBalloonFinish}  
+                />
+              </ImageBackground>
+            )}
+  
+            {balloonIndex >= 2 && (
+              <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
+                <TypeWriterText 
+                  text="Mas não se preocupe! O primeiro passo para reduzir esse impacto é conhecer o seu consumo."
+                  style={styles.textoMsg}
+                  onFinish={onBalloonFinish}  
+                />
+              </ImageBackground>
+            )}
+  
+            
+            {showButton && (
+              <View style={styles.viewBtnAcessarCalculadora}>
+                <View style={styles.viewBtnIcone}>
+                  <Image source={require("../../../assets/images/iconePlanta.png")} />
+                  <Text style={styles.textBtnAcessarCalculadora}>Descubra seu Impacto no{" "}
                     <Text style={styles.textoDestaque}>Meio Ambiente</Text>
-                    </Text>
+                  </Text>
                 </View>
                 <TouchableOpacity style={styles.btnAcessarCalculadora} onPress={() => router.push('/(tabs)/calculadora')}>
-                    <Text style={styles.btnTextAcessarCalculadora}>Calculadora</Text>
+                  <Text style={styles.btnTextAcessarCalculadora}>Calculadora</Text>
                 </TouchableOpacity>
-            </View>
-        </View>
-    </ScrollView>
-
-
-    <Navbar />
-   </View>
-
-  );
-}
+              </View>
+            )}
+          </View>
+        </ScrollView>
+  
+        <Navbar />
+      </View>
+    );
+  }
 
 const styles = StyleSheet.create({
     container: {
@@ -142,30 +178,5 @@ const styles = StyleSheet.create({
         paddingTop: 6,
         textAlign: "center",
         fontWeight: 800
-    },
-
-    navbar:{
-        position: 'absolute',  
-        top: 676,                
-        left: 0,
-        right: 0,
-        height: 60,   
-        padding: 10,         
-        backgroundColor: "#71BE70", 
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        zIndex: 0,
-    },
-
-    navItem:{
-        alignItems: 'center'
-    },
-
-    navText:{
-        fontSize: 14,
-        color: 'black',
-        marginTop: 5,
     }
 })
