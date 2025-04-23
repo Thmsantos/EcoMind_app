@@ -1,5 +1,5 @@
 import Navbar from '@/components/navbar/navbar';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -14,42 +14,41 @@ export default function ResetPassword() {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>E-mail de redefinição de senha enviado</Text>
-            <Text style={styles.subtitle}>Verifique seu endereço de email para concluir o cadastro.</Text>
+            <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail </Text>
 
+                
             {/* Ícone do envelope */}
             <Icon name="envelope" size={50} color="black" style={styles.icon} />
 
-            {/* Texto informativo */}
-            <Text style={styles.info}>Enviamos um email de verificação para o email @gmail.com</Text>
 
             {/* Campo de código de verificação */}
             <View style={styles.codeContainer}>
                 {code.map((digit, index) => (
                     <TextInput
-                        key={index}
-                        style={styles.input}
-                        keyboardType="numeric"
-                        maxLength={1}
-                        value={digit}
-                        onChangeText={(text) => handleChange(text, index)}
+                    key={index}
+                    style={styles.input}
+                    keyboardType="numeric"
+                    maxLength={1}
+                    value={digit}
+                    onChangeText={(text) => handleChange(text, index)}
                     />
                 ))}
             </View>
 
             {/* Botões */}
-            <TouchableOpacity>
-                <Text style={styles.linkReenviar}>Reenviar código</Text>
-            </TouchableOpacity>
 
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Verificar Código</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
+                <Text style={styles.linkReenviar}>Reenviar código</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
                 <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
             </TouchableOpacity>
-            <Navbar />
+       
         </View>
     );
 }
@@ -63,7 +62,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     title: {
-        fontSize: 30,
+        fontSize: 25,
         fontWeight: '600',
         textAlign: 'center',
     },
@@ -95,26 +94,30 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
     linkReenviar: {
+        padding: 20,
         fontSize: 20,
-        marginBottom: 25,
         textAlign: 'center',
     },
     button: {
+        width: 370,
         backgroundColor: '#71BE70',
-        paddingVertical: 20,
-        borderRadius: 25,
-        width: '100%',
-        alignItems: 'center',
-        marginVertical: 10,
+        padding: 10,
+        paddingVertical: 12,
+        paddingHorizontal:10,
+        borderRadius: 30,
+        borderWidth: 0,
+        zIndex: 100,
+        alignItems: "center",
+
+    
     },
     buttonText: {
-        fontSize: 30,
-        fontWeight: 'bold',
+        fontSize: 25,
+        fontWeight: '700',
     },
     linkVoltar: {
         fontSize: 20,
         textAlign: 'center',
-        marginVertical: 20,
     },
     navbar: {
         flexDirection: 'row',
