@@ -27,6 +27,7 @@ export default function Home() {
         <Text style={styles.text3}><Text style={styles.green}>Reduza sua pegada. </Text>{'\n'} Aumente sua conscientização</Text>
       </View>
 
+
       <View style={styles.containerBotaos}>
         <TouchableOpacity
             style={styles.logarBtn}

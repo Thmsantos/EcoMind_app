@@ -7,6 +7,11 @@ import Navbar from '@/components/navbar/navbar';
 
 export default function Calculadora(){
 
+    const [valorEletricidade, setValorEletricidade] = useState('R$');
+    const [valorGas, setValorGas] = useState('R$');
+    const [transporteSelecionado, setTransporteSelecionado] = useState('');
+
+
     const dados = [
         { id: '1', nome: 'Moto', KM: '230 KM' },
         { id: '2', nome: 'Carro', KM: '230 KM'},
@@ -42,15 +47,15 @@ export default function Calculadora(){
                             maxLength={40}             
                             style={styles.textInput}
                         />
-                        <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                        <RadioButton.Group  value={valorEletricidade} onValueChange={setValorEletricidade} >
                             <View style={styles.radioItem}>
-                                <RadioButton value="Opcao 1" color={selectedValue === "Opcao 1" ?  "#71BE70" : "#000"}  />
+                                <RadioButton value="Opcao 1" color={valorEletricidade === "Opcao 1" ?  "#71BE70" : "#000"}  />
                                 <Text style={styles.textRadio}>R$</Text>
                             </View>
                         </RadioButton.Group>
-                        <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                        <RadioButton.Group   value={valorEletricidade} onValueChange={setValorEletricidade} >
                             <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 2" color={selectedValue === "Opcao 2" ?  "#71BE70" : "#000"} />
+                                    <RadioButton value="Opcao 2" color={valorEletricidade === "Opcao 2" ?  "#71BE70" : "#000"} />
                                     <Text style={styles.textRadio}>KW</Text>
                                 </View>
                         </RadioButton.Group>
@@ -66,15 +71,15 @@ export default function Calculadora(){
                             maxLength={40}             
                             style={styles.textInput}
                         />
-                        <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                        <RadioButton.Group value={valorGas} onValueChange={setValorGas} >
                             <View style={styles.radioItem}>
-                                <RadioButton value="Opcao 3" color={selectedValue === "Opcao 3" ?  "#71BE70" : "#000"} />
+                                <RadioButton value="Opcao 3" color={valorGas === "Opcao 3" ?  "#71BE70" : "#000"} />
                                 <Text style={styles.textRadio}>R$</Text>
                             </View>
                         </RadioButton.Group>
-                        <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                        <RadioButton.Group value={valorGas} onValueChange={setValorGas} >
                             <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 4" color={selectedValue === "Opcao 4" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 4" color={valorGas === "Opcao 4" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>KW</Text>
                                 </View>
                         </RadioButton.Group>
@@ -84,60 +89,60 @@ export default function Calculadora(){
                     <Text style={styles.textTitulo}>Locomoção</Text>
                     <View  style={styles.listaLocomocao}>
                         <View style={styles.listaUm}>
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado} >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 5" color={selectedValue === "Opcao 5" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 5" color={transporteSelecionado === "Opcao 5" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Moto</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 6" color={selectedValue === "Opcao 6" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 6" color={transporteSelecionado === "Opcao 6" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Carro</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
                                     <RadioButton value="Opcao 7" color={selectedValue === "Opcao 7" ?  "#71BE70" : "#000"} />
                                     <Text style={styles.textRadio}>Barco</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 8" color={selectedValue === "Opcao 8" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 8" color={transporteSelecionado === "Opcao 8" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Caminhão</Text>
                                 </View>
                             </RadioButton.Group>
                         </View>
 
                         <View style={styles.listaDois}>
-                        <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                        <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 9" color={selectedValue === "Opcao 9" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 9" color={transporteSelecionado === "Opcao 9" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Ônibus</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 10"  color={selectedValue === "Opcao 10" ?  "#71BE70" : "#000"} />
+                                    <RadioButton value="Opcao 10"  color={transporteSelecionado === "Opcao 10" ?  "#71BE70" : "#000"} />
                                     <Text style={styles.textRadio}>Avião</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado}  >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 11" color={selectedValue === "Opcao 11" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 11" color={transporteSelecionado === "Opcao 11" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Helicóptero</Text>
                                 </View>
                             </RadioButton.Group>
 
-                            <RadioButton.Group onValueChange={handleChange} value={selectedValue} >
+                            <RadioButton.Group value={transporteSelecionado} onValueChange={setTransporteSelecionado} >
                                 <View style={styles.radioItem}>
-                                    <RadioButton value="Opcao 12" color={selectedValue === "Opcao 12" ?  "#71BE70" : "#000"}  />
+                                    <RadioButton value="Opcao 12" color={transporteSelecionado === "Opcao 12" ?  "#71BE70" : "#000"}  />
                                     <Text style={styles.textRadio}>Trem</Text>
                                 </View>
                             </RadioButton.Group>
@@ -183,10 +188,7 @@ export default function Calculadora(){
                 </TouchableOpacity>
             </ScrollView>
 
-
-            <Navbar />
-
-            
+            <Navbar />            
         </View>
     )
 }
