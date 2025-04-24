@@ -1,42 +1,54 @@
 import Navbar from '@/components/navbar/navbar';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ResetPassword() {
+    const [code, setCode] = useState(["", "", "", ""]);
+
+    const handleChange = (text: string, index: number) => {
+        const newCode = [...code];
+        newCode[index] = text;
+        setCode(newCode);
+    };
+
     return (
         <View style={styles.container}>
-          
-            
-            {/* Mensagem principal */}
-            <Text style={styles.title}>E-mail de redefinição de senha enviado</Text>
-            <Text style={styles.subtitle}>Verifique seu endereço de email para concluir o cadastro.</Text>
-            
+            <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail </Text>
+
+                
             {/* Ícone do envelope */}
-            <Icon name="envelope" size={6} color="black" style={styles.icon} />
-            
-            {/* Texto informativo */}
-            <Text style={styles.info}>Enviamos um email de verificação para o email @gmail.com</Text>
-            
-            {/* Campo de entrada */}
-            <View style={styles.inputContainer}>
-                <TextInput style={styles.input} placeholder="Digite o código.." placeholderTextColor="#aaa" />
+            <Icon name="envelope" size={50} color="black" style={styles.icon} />
+
+
+            {/* Campo de código de verificação */}
+            <View style={styles.codeContainer}>
+                {code.map((digit, index) => (
+                    <TextInput
+                    key={index}
+                    style={styles.input}
+                    keyboardType="numeric"
+                    maxLength={1}
+                    value={digit}
+                    onChangeText={(text) => handleChange(text, index)}
+                    />
+                ))}
             </View>
-            
+
             {/* Botões */}
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}>Verificar Código</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity>
-    <Text style={styles.linkReenviar}>Reenviar código</Text>
-</TouchableOpacity>
+                <Text style={styles.linkReenviar}>Reenviar código</Text>
+            </TouchableOpacity>
 
-<TouchableOpacity style={styles.button}>
-    <Text style={styles.buttonText}>Verificar Código</Text>
-</TouchableOpacity>
-
-<TouchableOpacity>
-    <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
-</TouchableOpacity>
-
-            <Navbar />
+            <TouchableOpacity>
+                <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
+            </TouchableOpacity>
+       
         </View>
     );
 }
@@ -48,83 +60,64 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#fff',
         padding: 20,
-    
     },
     title: {
-        fontSize: 30,
-        marginTop: -40, // Pequeno espaçamento da logo
-        alignSelf: 'flex-start',
-        marginVertical: 1, // Mais espaçamento
+        fontSize: 25,
         fontWeight: '600',
-        fontFamily: 'Roboto',
-        letterSpacing: 1, // Pequeno espaçamento entre letras para um design mais limpo
+        textAlign: 'center',
     },
     subtitle: {
-
-        color: '#00000',
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: 2,
-        marginTop: 40,
+        marginVertical: 10,
     },
     icon: {
         marginVertical: 15,
     },
     info: {
-        color: '#00000',
         fontSize: 20,
         textAlign: 'center',
-        marginBottom: 2,
     },
-    inputContainer: {
+    codeContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 18, // Bordas mais arredondadas
-        marginVertical: 35,// Mais espaçamento entre os campos
-        paddingHorizontal: 15,
-        height: 60, // Altura maior dos campos
-        elevation: 3, // Pequena sombra para destacar
-        borderWidth: 2, // Adiciona a borda preta
-        borderColor: '#000', // Define a cor da borda como preta
-        marginBottom: 3,
-  
+        justifyContent: 'space-between',
+        width: '60%',
+        marginVertical: 20,
     },
     input: {
-        flex: 1,
+        width: 50,
+        height: 50,
         fontSize: 22,
-        color: '#00000',
-        padding: 15,
-        
+        textAlign: 'center',
+        borderWidth: 2,
+        borderColor: '#000',
+        borderRadius: 10,
     },
     linkReenviar: {
-        color: '#000',
-    fontSize: 20,
-    marginBottom: 25,
-    
-    marginLeft: -180, // Pequeno ajuste para não ficar grudado na borda esquerda
-},
-    linkVoltar: {
-        color: '#000',
-        marginVertical: 30,// Mais espaçamento entre os campo
+        padding: 20,
         fontSize: 20,
-         // Mantém o link "Voltar para página inicial" na posição desejada
-        textAlign: 'center', // Garante que ele permaneça centralizado
+        textAlign: 'center',
     },
     button: {
+        width: 370,
         backgroundColor: '#71BE70',
-        padding: 18,
-        borderRadius: 25,
-        width: '100%',
-        alignItems: 'center',
-        marginTop: 4, // Mantém o botão no mesmo lugar
-        marginBottom: 0, // Remove qualquer espaço extra abaixo do botão
+        padding: 10,
+        paddingVertical: 12,
+        paddingHorizontal:10,
+        borderRadius: 30,
+        borderWidth: 0,
+        zIndex: 100,
+        alignItems: "center",
+
+    
     },
     buttonText: {
-        color: '#000',
-        fontSize: 28,
-        fontWeight: 'bold',
+        fontSize: 25,
+        fontWeight: '700',
+    },
+    linkVoltar: {
+        fontSize: 20,
+        textAlign: 'center',
     },
     navbar: {
         flexDirection: 'row',
@@ -133,8 +126,6 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         width: '100%',
         position: 'absolute',
-        left: 0,
-        right: 0,
         bottom: 0,
     },
     navItem: {

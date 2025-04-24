@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native';
 
 import { router } from 'expo-router';
 import Navbar from '../../../components/navbar/navbar';
-const logo = require("../../../assets/images/logo.png");
+const logo = require("../../../assets/images/logo-home.png");
 
 
 
@@ -16,15 +16,6 @@ export default function Home() {
       
       {/* Cabeçalho com o botão "Entrar" */}
       <View style={styles.headerContainer}>
-        <TouchableOpacity
-          style={styles.entrarBtn}
-          onPress={() => {
-            console.log('Botão Entrar clicado!');
-            router.push("/(tabs)/login");
-          }}
-        >
-          <Text style={styles.entrarText}>Entrar</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Container da Logo */}
@@ -32,35 +23,47 @@ export default function Home() {
         <Image source={logo} style={styles.logo} />
       </View>
 
-      {/* Título */}
-      <Text style={styles.texto1}>EcoMind</Text>
-
-      {/* Texto explicativo */}
-      <Text style={styles.text2}>
-        É um jeito fácil de compensar o carbono que geramos no dia a dia. 
-        {'\n'}Uma parte desse carbono é compensada naturalmente. A outra parte cabe a cada um decidir o que fazer.
-      </Text>
-
-      <Text style={styles.text3}>Se você decidir compensar, siga em frente!</Text>
-
-      {/* Container verde englobando o ranking */}
-      <View style={styles.rankingContainer}>
-        <Text style={styles.rankingTitle}>Ranking</Text>
-        <Text style={styles.rankingSubtitle}>
-          Os líderes da sustentabilidade desse mês são:
-        </Text>
-        <Text style={styles.rankingItem}>🏆 1º Lugar - <Text style={styles.bold}>User01</Text> | 450 pts</Text>
-        <Text style={styles.rankingItem}>🥈 2º Lugar - <Text style={styles.bold}>User02</Text> | 420 pts</Text>
-        <Text style={styles.rankingItem}>🥉 3º Lugar - <Text style={styles.bold}>User03</Text> | 400 pts</Text>
+      <View style={styles.container}>
+        <Text style={styles.text3}><Text style={styles.green}>Reduza sua pegada. </Text>{'\n'} Aumente sua conscientização</Text>
       </View>
 
-      
+
+      <View style={styles.containerBotaos}>
+        <TouchableOpacity
+            style={styles.logarBtn}
+            onPress={() => {
+              console.log('Botão Entrar clicado!');
+              router.push("/(tabs)/login");
+            }}
+          >
+            <Text style={styles.entrarText}>Cadastre-se</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.entrarBtn}
+            onPress={() => {
+              console.log('Botão Entrar clicado!');
+              router.push("/(tabs)/login");
+            }}
+          >
+            <Text style={styles.entrarText}>Logar</Text>
+          </TouchableOpacity>
+      </View>   
       
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    width: 400
+  },
+
+  containerBotaos: {
+    display: "flex",
+    gap: 10
+  },
+
   view1: {
     flex: 1,
     alignItems: 'center',
@@ -79,11 +82,9 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 290, 
+    width: 200, 
     height: 180, 
-    marginVertical: -22,
-
-    
+    marginVertical: -22,    
   },
 
 headerContainer: {
@@ -95,49 +96,53 @@ headerContainer: {
 
 
 entrarBtn: {
+    width: 370,
     backgroundColor: '#71BE70',
     padding: 10,
-    paddingVertical: 8,
-    paddingHorizontal: 22,
-    borderRadius: 20,
-    borderWidth: 2,
+    paddingVertical: 12,
+    paddingHorizontal:10,
+    borderRadius: 30,
+    borderWidth: 0,
     zIndex: 100, 
-      
+    alignItems: "center",
+},
+
+logarBtn: {
+  width: 370,
+  backgroundColor: 'transparent',
+  padding: 10,
+  paddingVertical: 12,
+  paddingHorizontal:10,
+  borderRadius: 30,
+  borderWidth: 2,
+  zIndex: 100, 
+  alignItems: "center",
 },
 
   entrarText: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: '500',
     color: '#',
     marginVertical: 3,
-    
-
   },
 
-  texto1: {
-    color: '#71BE70',
-    fontSize: 40,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 2,
-  
-
+  green: {
+    color: '#71BE70'
   },
 
   text2: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 40,
     textAlign: 'center',
     marginVertical: 10,
   },
 
   text3: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
-    marginVertical: 30,
-
-    
+    marginVertical: 30,  
+    fontWeight: 700,  
   },
 
   rankingContainer: {
@@ -187,15 +192,15 @@ entrarBtn: {
   navbar: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#F8F8F8', // Tom próximo ao branco, mas com leve destaque
+    backgroundColor: '#F8F8F8', 
     paddingVertical: 10,
     width: '100%',
     position: 'absolute',
     left: 0,
     right: 0,
     bottom: 0,
-    borderTopWidth: 1,          // Adiciona uma borda sutil para destacar a navbar
-    borderTopColor: '#DADADA',  // Cor levemente mais escura para contraste
+    borderTopWidth: 1,          
+    borderTopColor: '#DADADA', 
 },
 navItem: {
     alignItems: 'center',
