@@ -1,4 +1,3 @@
-import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -6,9 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default function PasswordRecovery() {
   return (
     <View style={styles.container}>
-      
       {/* Cabeçalho */}
-      
 
       {/* Conteúdo principal */}
       <View style={styles.content}>
@@ -16,8 +13,7 @@ export default function PasswordRecovery() {
         <Text style={styles.subtitle}>
           Por favor, insira o endereço de e-mail associado à sua conta.
         </Text>
-        <Text style={styles.text3}>Enviaremos um código por e-mail para redefinir sua senha.
-        </Text>
+        <Text style={styles.text3}>Enviaremos um código por e-mail para redefinir sua senha.</Text>
 
         {/* Campo de entrada de e-mail */}
         <View style={styles.inputContainer}>
@@ -30,13 +26,10 @@ export default function PasswordRecovery() {
         </View>
 
         {/* Botão continuar */}
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.entrarBtn}>
           <Text style={styles.buttonText}>Continuar</Text>
         </TouchableOpacity>
       </View>
-
-      <Navbar />
-
     </View>
   );
 }
@@ -48,13 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
-  header: {
-    backgroundColor: '#71BE70',
-    height: 66,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-  },
-
   content: {
     flex: 1,
     alignItems: 'center',
@@ -64,22 +50,19 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 35,
-    color: '#00000',
+    color: '#000',
     textAlign: 'center',
     marginBottom: 120,
     fontWeight: '600',
     fontFamily: 'Roboto',
     letterSpacing: 1, // Pequeno espaçamento entre letras para um design mais limpo
-        
   },
 
   subtitle: {
-    color: '#00000',
+    color: '#000',
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
-
-    
   },
 
   text3: {
@@ -87,21 +70,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 10,
-
-    
   },
+
   inputContainer: {
     flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 18, // Bordas mais arredondadas
-        marginVertical: 19, // Mais espaçamento entre os campos
-        paddingHorizontal: 15,
-        height: 60, // Altura maior dos campos
-        elevation: 3, // Pequena sombra para destacar
-        borderWidth: 2, // Adiciona a borda preta
-        borderColor: '#000', // Define a cor da borda como preta
+    alignItems: 'center',
+    width: 370, // Ajustado para o mesmo tamanho do botão
+    backgroundColor: '#f5f5f5',
+    borderRadius: 18, // Bordas mais arredondadas
+    marginVertical: 19, // Mais espaçamento entre os campos
+    paddingHorizontal: 15,
+    height: 60, // Altura maior dos campos
+    elevation: 3, // Pequena sombra para destacar
+    borderWidth: 2, // Adiciona a borda preta
+    borderColor: '#000', // Define a cor da borda como preta
   },
 
   inputIcon: {
@@ -111,47 +93,26 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 22,
-    color: '#00000',
+    color: '#000',
     padding: 15,
-    
   },
 
-  button: {
+  entrarBtn: {
+    width: 370,
     backgroundColor: '#71BE70',
-    padding: 18, // Aumentei o padding
-    borderRadius: 25, // Deixei arredondado
-    width: '100%',
-    alignItems: 'center',
-     marginVertical: 15, // Mais espaçamento
-    elevation: 3, // Pequena sombra
-    marginTop: 35, // Pequeno espaçamento da logo
+    padding: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderRadius: 30,
+    borderWidth: 0,
+    zIndex: 100,
+    alignItems: "center",
+    marginTop: 35, // Pequeno espaçamento para o botão
   },
 
   buttonText: {
-    color: '#00000',
-    fontSize: 28, // Texto maior no botão
-    fontWeight: 'bold',
+    color: '#FFF', // Cor do texto do botão
+    fontSize: 22, // Ajuste no tamanho do texto
+    fontWeight: 'bold', // Deixando o texto mais destacado
   },
-
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#F8F8F8', // Tom próximo ao branco, mas com leve destaque
-    paddingVertical: 10,
-    width: '100%',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderTopWidth: 1,          // Adiciona uma borda sutil para destacar a navbar
-    borderTopColor: '#DADADA',  // Cor levemente mais escura para contraste
-},
-navItem: {
-    alignItems: 'center',
-},
-navText: {
-    fontSize: 14,
-    color: 'black',
-    marginTop: 5,
-},
 });
