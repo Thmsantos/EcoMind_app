@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-const { width, height } = Dimensions.get('window');
 
 export default function Cadastro() {
     return (
@@ -32,7 +30,7 @@ export default function Cadastro() {
             </View>
 
             {/* Botão de Cadastro */}
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.entrarBtn}>
                 <Text style={styles.buttonText}>Criar Conta</Text>
             </TouchableOpacity>
 
@@ -40,34 +38,17 @@ export default function Cadastro() {
             <Text style={styles.loginText}>
                 Já possui uma conta? <Text style={styles.linkText}>Entre</Text>
             </Text>
-
-            {/* Navbar Fixa */}
-            <View style={styles.navbar}>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="calculator" size={24} color="black" />
-                    <Text style={styles.navText}>Calculadora</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="home" size={24} color="black" />
-                    <Text style={styles.navText}>Início</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.navItem}>
-                    <Icon name="user" size={24} color="black" />
-                    <Text style={styles.navText}>Perfil</Text>
-                </TouchableOpacity>
-            </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1, // Mantém a tela fixa sem rolagem
+        flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 50,
-        
     },
     title: {
         fontSize: 40,
@@ -76,76 +57,50 @@ const styles = StyleSheet.create({
         marginBottom: 35,
         color: '#333',
         alignSelf: 'flex-start',
-        
-        
     },
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 25,
-        paddingHorizontal: 15,
-        marginVertical: 5,
-        width: '100%', // Define a largura proporcional à tela
-        height: 60, // Altura fixa para manter o layout
-        marginTop: 14, // Pequeno espaçamento da logo
-        elevation: 3, // Pequena sombra para destacar
-        borderWidth: 2, // Adiciona a borda preta
-        borderColor: '#000', // Define a cor da borda como preta
-
-        
+        backgroundColor: '#f0f0f0', // fundo neutro
+        borderRadius: 8,
+        padding: 10,
+        width: 370,
+        marginVertical: 8,
     },
     input: {
         flex: 1,
-        padding: 15,
-        color: '#333',
-        fontSize:20,
-        
+        paddingLeft: 10,
+        color: '#000',
+        fontSize: 18,
     },
     icon: {
-        marginRight: 10,
+        marginLeft: 5,
     },
-    button: {
+    entrarBtn: {
+        width: 370,
         backgroundColor: '#71BE70',
-        padding: 18,
-        borderRadius: 25,
-        width: '100%', // Botão com largura proporcional à tela
-        alignItems: 'center',
-        marginVertical: 15,
-        marginTop: 45, // Pequeno espaçamento da logo
-
+        padding: 10,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderRadius: 30,
+        borderWidth: 0,
+        alignItems: "center",
+        marginTop: 30,
+        zIndex: 100,
     },
     buttonText: {
         color: '#000',
-        fontSize: 28,
+        fontSize: 24,
         fontWeight: 'bold',
-        
     },
     loginText: {
-        marginTop: 10,
-        color: '#00000',
-        fontSize:20,
+        marginTop: 20,
+        color: '#000',
+        fontSize: 18,
     },
     linkText: {
-        color: '#00000',
+        color: '#000',
         fontWeight: 'bold',
-        fontSize:20,
-    },
-    navbar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: '#71BE70',
-        paddingVertical: 10,
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-    },
-    navItem: {
-        alignItems: 'center',
-    },
-    navText: {
-        fontSize: 12,
-        color: 'black',
-        marginTop: 4,
+        fontSize: 18,
     },
 });
