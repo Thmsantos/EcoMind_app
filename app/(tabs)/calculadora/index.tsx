@@ -38,6 +38,7 @@ export default function Calculadora(){
 
             <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} showsVerticalScrollIndicator={true}>
                 <View style={styles.formulario}>
+                    <View style={styles.card}>
                     <Text style={styles.textTituloEletricidade}>Consumo de eletricidade</Text>
                     <View style={styles.eletricidade}>
                         <TextInput
@@ -48,11 +49,15 @@ export default function Calculadora(){
                             style={styles.textInput}
                         />
                         <RadioButton.Group  value={valorEletricidade} onValueChange={setValorEletricidade} >
-                            <View style={styles.radioItem}>
-                                <RadioButton value="Opcao 1" color={valorEletricidade === "Opcao 1" ?  "#71BE70" : "#000"}  />
-                                <Text style={styles.textRadio}>R$</Text>
-                            </View>
+                        <View style={styles.radioItem}>
+                            <RadioButton
+                            value="Opcao 1"
+                            color="#71BE70"  
+                            />
+                            <Text style={styles.textRadio}>R$</Text>
+                        </View>
                         </RadioButton.Group>
+
                         <RadioButton.Group   value={valorEletricidade} onValueChange={setValorEletricidade} >
                             <View style={styles.radioItem}>
                                     <RadioButton value="Opcao 2" color={valorEletricidade === "Opcao 2" ?  "#71BE70" : "#000"} />
@@ -61,7 +66,9 @@ export default function Calculadora(){
                         </RadioButton.Group>
                     </View>
 
+                    </View>
 
+                    <View style={styles.card}>
                     <Text style={styles.textTitulo}>Consumo de gás</Text>
                     <View style={styles.eletricidade}>
                         <TextInput
@@ -84,7 +91,9 @@ export default function Calculadora(){
                                 </View>
                         </RadioButton.Group>
                     </View>
+                    </View>
 
+                    <View style={styles.card2}>
 
                     <Text style={styles.textTitulo}>Locomoção</Text>
                     <View  style={styles.listaLocomocao}>
@@ -148,7 +157,6 @@ export default function Calculadora(){
                             </RadioButton.Group>
                         </View>
                     </View>
-
                     <Text style={styles.textTitulo}>KMs Percorridos</Text>
 
                         <View style={styles.groupKMPercorridos}>
@@ -164,6 +172,8 @@ export default function Calculadora(){
                                                 <Text style={styles.textBtnSalvar}>Salvar</Text>
                             </TouchableOpacity>
                         </View>
+                    </View>
+
                 </View>
 
 
@@ -196,8 +206,27 @@ export default function Calculadora(){
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center'
     },
-    
+
+    card: {
+        marginTop: 20,
+        borderWidth: 2,
+        borderColor: "#71BE70",
+        borderRadius: 15,
+        justifyContent: 'center',
+        height: 120,
+        width: 370,
+    },
+    card2: {
+        marginTop: 20,
+        borderWidth: 2,
+        borderColor: "#71BE70",
+        borderRadius: 15,
+        justifyContent: 'center',
+        height: 320,
+        width: 370,
+    },
     viewLogo: {
         paddingTop: 5,
         display: "flex",
@@ -243,12 +272,14 @@ const styles = StyleSheet.create({
     },
 
     textInput: {
-        width: 169,
+        width: 160,
         height: 24,
-        borderRadius: 10,
-        backgroundColor: "#71BE70",
-        paddingLeft: 15,
+        backgroundColor: "transparent",
+        borderBottomWidth: 2,
+        borderBottomColor: "#71BE70",
+        paddingLeft: 10,
         paddingTop: 2,
+        fontSize: 15
     },
 
     eletricidade: {
@@ -327,8 +358,9 @@ const styles = StyleSheet.create({
     tabela: {
         position: "relative",
         margin: "auto",
+        marginTop: 20,
         padding: 12,
-        width: 319,
+        width: 370,
         height: 95,
         backgroundColor: "#71BE70",
         borderRadius: 15,
@@ -337,11 +369,13 @@ const styles = StyleSheet.create({
 
     btnCalcular: {
         position: "absolute",
-        width: 319,
-        height: 35,
-        top: 540,
-        left: 50,
-        borderRadius: 14,
+        width: 370,
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 40,
+        top: 750,
+        left: 32,
+        borderRadius: 15,
         backgroundColor: "#71BE70",
     },
 
