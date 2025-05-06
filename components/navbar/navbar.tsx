@@ -1,37 +1,43 @@
 import { router } from "expo-router";
 import React from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 export default function Navbar() {
     return (
-    
         <View style={styles.navbar}>
             <TouchableOpacity 
                 style={styles.navItem}
                 onPress={() => router.push('/(tabs)/apresentaCalculadora')}
-                >
-                        <Icon name="calculator" size={24} color="black" />
-                        <Text style={styles.navText}>Calculadora</Text>
-                      </TouchableOpacity>
+            >
+                <Icon name="calculator" size={24} color="#808080" />
+                <Text style={styles.navText}>Calculadora</Text>
+            </TouchableOpacity>
             
-                      <TouchableOpacity 
-                        style={styles.navItem}
-                        onPress={() => router.push('/(tabs)/home')}
-                      >
-                        <Icon name="home" size={24} color="black" />
-                        <Text style={styles.navText}>Home</Text>
-                      </TouchableOpacity>
+            <TouchableOpacity 
+                style={styles.navItem}
+                onPress={() => router.push('/(tabs)/ranking')}
+            >
+                <Icon name="trophy" size={24} color="#808080" />
+                <Text style={styles.navText}>Ranking</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+                style={styles.navItem}
+                onPress={() => router.push('/(tabs)/estatisticas')}
+            >
+                <Icon name="bar-chart" size={24} color="#808080" />
+                <Text style={styles.navText}>Estatisticas</Text>
+            </TouchableOpacity>
             
-                      <TouchableOpacity 
-                        style={styles.navItem}
-                        onPress={() => router.push('/(tabs)/perfil')}
-                      >
-                        <Icon name="user" size={24} color="black" />
-                        <Text style={styles.navText}>Perfil</Text>
-                      </TouchableOpacity>
-                  </View>   
+            <TouchableOpacity 
+                style={styles.navItem}
+                onPress={() => router.push('/(tabs)/perfil')}
+            >
+                <Icon name="user" size={24} color="#808080" />
+                <Text style={styles.navText}>Perfil</Text>
+            </TouchableOpacity>
+        </View>   
     )
 }
 
@@ -48,13 +54,16 @@ const styles = StyleSheet.create({
         bottom: 0,
         borderTopWidth: 1,          
         borderTopColor: '#DADADA', 
+        alignItems: 'center', 
     },
     navItem: {
-        alignItems: 'center',
+        justifyContent: 'center', 
+        alignItems: 'center',     
     },
     navText: {
+        fontFamily: 'Montserrat-Bold', 
         fontSize: 14,
-        color: 'black',
+        color: '#808080',
         marginTop: 5,
     },
-}) 
+});
