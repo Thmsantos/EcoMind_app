@@ -53,19 +53,23 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 80,
     fontWeight: "700",
-    color: "#485935"
+    color: "#485935",
+    letterSpacing: 1,
   },
 
   subtitle: {
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 10,
+    letterSpacing: 1,
   },
 
   text3: {
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 10,
+    letterSpacing: 1,
+
         
   },
 
@@ -95,6 +99,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 22,
     color: '#000',
+    
   },
 
   entrarBtn: {
@@ -107,6 +112,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     zIndex: 100,
     alignItems: "center",
+    
 
     
   },
@@ -114,6 +120,8 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 20, // Ajuste no tamanho do texto
     fontWeight: '500', // Deixando o texto mais destacado
+    letterSpacing: 1,
+    
 
 
 
