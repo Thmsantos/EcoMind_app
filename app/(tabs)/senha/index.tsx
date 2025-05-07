@@ -50,69 +50,72 @@ const styles = StyleSheet.create({
 
   title: {
     fontSize: 35,
-    color: '#000',
     textAlign: 'center',
-    marginBottom: 120,
-    fontWeight: '600',
-    fontFamily: 'Roboto',
-    letterSpacing: 1, // Pequeno espaçamento entre letras para um design mais limpo
+    marginBottom: 80,
+    fontWeight: "700",
+    color: "#485935"
   },
 
   subtitle: {
-    color: '#000',
-    fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-
-  text3: {
-    color: '#000',
     fontSize: 20,
     textAlign: 'center',
     marginVertical: 10,
+  },
+
+  text3: {
+    fontSize: 20,
+    textAlign: 'center',
+    marginVertical: 10,
+        
   },
 
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     width: 370, // Ajustado para o mesmo tamanho do botão
-    backgroundColor: '#f5f5f5',
-    borderRadius: 18, // Bordas mais arredondadas
-    marginVertical: 19, // Mais espaçamento entre os campos
+    marginVertical: 60, // Mais espaçamento entre os campos
     paddingHorizontal: 15,
-    height: 60, // Altura maior dos campos
     elevation: 3, // Pequena sombra para destacar
-    borderWidth: 2, // Adiciona a borda preta
-    borderColor: '#000', // Define a cor da borda como preta
+    backgroundColor: '#fff',
+    justifyContent: 'center',
+    marginBottom: 35,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    borderRadius: 12,
+    padding: 14,
+    fontSize: 22,
+    
   },
 
   inputIcon: {
-    marginRight: 15,
+    marginRight: 11,
   },
 
   input: {
     flex: 1,
     fontSize: 22,
     color: '#000',
-    padding: 15,
   },
 
   entrarBtn: {
     width: 370,
     backgroundColor: '#71BE70',
     padding: 10,
-    paddingVertical: 12,
+    paddingVertical: 14,
     paddingHorizontal: 10,
     borderRadius: 30,
     borderWidth: 0,
     zIndex: 100,
     alignItems: "center",
-    marginTop: 35, // Pequeno espaçamento para o botão
+
+    
   },
 
   buttonText: {
-    color: '#FFF', // Cor do texto do botão
-    fontSize: 22, // Ajuste no tamanho do texto
-    fontWeight: 'bold', // Deixando o texto mais destacado
+    fontSize: 20, // Ajuste no tamanho do texto
+    fontWeight: '500', // Deixando o texto mais destacado
+
+
+
   },
 });
