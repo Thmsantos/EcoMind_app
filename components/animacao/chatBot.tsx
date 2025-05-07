@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Text } from 'react-native';
 
 interface Props {
@@ -8,23 +8,13 @@ interface Props {
   onFinish?: () => void; 
 }
 
-export default function TypeWriterText({ text, speed = 55, style, onFinish }: Props) {
-  const [displayedText, setDisplayedText] = useState('');
-
+export default function TypeWriterText({ text, speed = 1000, style, onFinish }: Props) {
   useEffect(() => {
-    let currentIndex = 0;
-    const interval = setInterval(() => {
-      if (currentIndex < text.length) {
-        setDisplayedText(prev => prev + text[currentIndex]);
-        currentIndex++;
-      } else {
-        clearInterval(interval);
-        if (onFinish) onFinish();
-      }
-    }, speed);
-  
-    return () => clearInterval(interval);
+    const timeout = setTimeout(() => {
+      if (onFinish) onFinish();
+    }, speed); 
+    return () => clearTimeout(timeout);
   }, [text, speed]);
 
-  return <Text style={style}>{displayedText}</Text>;
+  return <Text style={style}>{text}</Text>;
 }

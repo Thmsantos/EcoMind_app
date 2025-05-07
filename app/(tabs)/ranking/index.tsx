@@ -2,6 +2,7 @@ import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Header from '../../../components/header'
 
 export default function Profile() {
     // Dados de exemplo para o ranking
@@ -15,13 +16,7 @@ export default function Profile() {
 
     return (
         <View style={styles.container}>
-            {/* Cabeçalho */}
-            <View style={styles.header}>
-                <View style={styles.headerContent}>
-                    <Image source={require("../../../assets/images/logo.png")} style={styles.logo} />
-                    <Text style={styles.headerTitle}>Ranking de Economia</Text> 
-                </View>
-            </View> 
+            <Header/>
 
             <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
                 {/* Texto explicativo */}

@@ -3,7 +3,7 @@ import Navbar from '@/components/navbar/navbar';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
-
+import Header from '../../../components/header'
 
 
 export default function TabOneScreen() {
@@ -24,12 +24,7 @@ export default function TabOneScreen() {
   
     return (
       <View style={styles.container}>
-        <Text style={styles.viewLogo}>
-          <View style={styles.viewImagemLogo}>
-            <Image source={require("../../../assets/images/logo.png")} style={styles.imageLogo} />
-          </View>
-          <Text style={styles.nomeAppLogo}>EcoMind</Text>
-        </Text>
+        <Header/>
   
         <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} showsVerticalScrollIndicator={true}>
           <View style={styles.viewMain}>
@@ -37,7 +32,7 @@ export default function TabOneScreen() {
               <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
                 <TypeWriterText 
                   text="Você sabia que suas atividades diárias geram emissões de carbono?"
-                  speed={40}
+                  speed={80}
                   style={styles.textoMsg}
                   onFinish={onBalloonFinish}  
                 />
@@ -48,6 +43,7 @@ export default function TabOneScreen() {
               <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
                 <TypeWriterText 
                   text="Coisas como transporte e consumo de energia impactam o meio ambiente."
+                  speed={80}
                   style={styles.textoMsg}
                   onFinish={onBalloonFinish}  
                 />
@@ -58,6 +54,7 @@ export default function TabOneScreen() {
               <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
                 <TypeWriterText 
                   text="Mas não se preocupe! O primeiro passo para reduzir esse impacto é conhecer o seu consumo."
+                  speed={80}
                   style={styles.textoMsg}
                   onFinish={onBalloonFinish}  
                 />
@@ -98,7 +95,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center"
-
     },
 
     imageLogo: {
@@ -109,12 +105,12 @@ const styles = StyleSheet.create({
 
     viewImagemLogo: {
         width: 55,
-        height:70
+        height:80
     },
 
     nomeAppLogo:{
         fontSize: 22,
-        fontWeight: "700"
+        fontWeight: "800"
     },
 
     viewMain: {
@@ -122,7 +118,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column", 
         alignItems: "center", 
-        paddingTop: 50      
+        paddingTop: 30      
     },
 
     mensagemChat: {
@@ -134,14 +130,18 @@ const styles = StyleSheet.create({
     textoMsg:{
         padding: 15,
         fontSize: 13,
-        fontWeight: 500
+        fontWeight: 500,
+        letterSpacing: 1,
     },
 
     viewBtnAcessarCalculadora:{
+      justifyContent: 'center',
+       alignItems: 'center',
         width: 300,
         height: 135,
-        backgroundColor: "#71BE70",
-        borderRadius: 28
+        backgroundColor: "#71BE80",
+        borderRadius: 28,
+        paddingBottom: 19,
     },
 
     viewBtnIcone:{
@@ -166,17 +166,17 @@ const styles = StyleSheet.create({
 
     btnAcessarCalculadora:{
         width: 180,
-        height: 35,
+        height: 40,
         backgroundColor: "#000000",
         borderRadius: 24,
-        marginLeft: 75,
         marginTop: 20
     },
 
     btnTextAcessarCalculadora: {
         color: "#FFFFFF",
-        paddingTop: 6,
+        paddingTop: 9,
         textAlign: "center",
-        fontWeight: 800
+        fontWeight: 800,
+        letterSpacing: 2,
     }
 })
