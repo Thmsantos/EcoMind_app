@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    fontSize: 20, // Ajuste no tamanho do texto
-    fontWeight: '500', // Deixando o texto mais destacado
+    fontSize: 22, // Ajuste no tamanho do texto
+    fontWeight: 'bold', // Deixando o texto mais destacado
     letterSpacing: 1,
     
 
