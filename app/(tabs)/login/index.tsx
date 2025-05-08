@@ -16,12 +16,14 @@ export default function Login() {
 
             {/* Campos de entrada */}
             <View style={styles.inputContainer}>
-                <Icon name="envelope" size={24} color="#888" style={styles.icon} />
+                <Icon name="envelope" size={18} color="#aaa" style={styles.icon} />
                 <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
             </View>
 
+
+
             <View style={styles.inputContainer}>
-                <Icon name="lock" size={24} color="#888" style={styles.icon} />
+                <Icon name="lock" size={22} color="#aaa" style={styles.icon} />
                 <TextInput style={styles.input} placeholder="Senha" placeholderTextColor="#aaa" secureTextEntry />
             </View>
 
@@ -53,62 +55,76 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     welcomeText: {
-        fontSize: 40,
-        marginTop: 22,
-        textAlign: 'center',
-        alignSelf: 'flex-start',
-        marginVertical: 50,
-        fontWeight: '600',
-        fontFamily: 'Roboto',
-        letterSpacing: 1,
+       fontSize: 38,
+       textAlign: 'center',
+       marginBottom: 80,
+       fontWeight: "700",
+       color: "#485935",
+       letterSpacing: 1,
+
+   
     },
     inputContainer: {
+        height: 60,
         flexDirection: 'row',
         alignItems: 'center',
-        width: '100%',
-        backgroundColor: '#f5f5f5',
-        borderRadius: 18,
-        marginVertical: 19,
+        width: 370, // Ajustado para o mesmo tamanho do botão
         paddingHorizontal: 15,
-        height: 60,
-        elevation: 3,
+        elevation: 3, // Pequena sombra para destacar
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        marginBottom: 30,
         borderWidth: 2,
-        borderColor: '#000',
+        borderColor: '#ccc',
+        borderRadius: 12,
+        padding: 14,
     },
     input: {
         flex: 1,
         fontSize: 22,
-        padding: 15,
-        color: '#333',
+        color: '#000',
+
+       
     },
     icon: {
-        marginRight: 15,
+        marginRight: 11,
     },
     button: {
         width: 370,
         backgroundColor: '#71BE70',
         padding: 10,
-        paddingVertical: 12,
+        paddingVertical: 14,
         paddingHorizontal: 10,
         borderRadius: 30,
         borderWidth: 0,
         zIndex: 100,
         alignItems: "center",
-        marginTop: 35,
+        marginTop: 5,
+
+    
     },
     buttonText: {
-        color: '#000',
-        fontSize: 28,
+        fontSize: 25,
         fontWeight: 'bold',
+        letterSpacing: 1,
+
+
+        
+    
     },
     forgotPassword: {
         color: '#71BE70',
-        fontSize: 25,
+        fontSize: 20,
         marginTop: 20,
+        textAlign: 'center',
+        marginVertical: 10,
+       
     },
     register: {
-        color: '#333',
-        marginTop: 20,
-        fontSize: 25,
+        marginTop: 18,
+        fontSize: 20,
+        marginVertical: 10,
+        textAlign: 'center',
+
     },
 });
