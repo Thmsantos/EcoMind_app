@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -26,7 +27,9 @@ export default function PasswordRecovery() {
         </View>
 
         {/* Botão continuar */}
-        <TouchableOpacity style={styles.entrarBtn}>
+        <TouchableOpacity style={styles.entrarBtn}
+        onPress={() => router.push('/(tabs)/resetarSenha')}>
+
           <Text style={styles.buttonText}>Continuar</Text>
         </TouchableOpacity>
       </View>
