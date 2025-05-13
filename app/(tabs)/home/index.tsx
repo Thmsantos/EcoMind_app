@@ -33,7 +33,7 @@ export default function Home() {
             style={styles.logarBtn}
             onPress={() => {
               console.log('Botão Entrar clicado!');
-              router.push("/(tabs)/login");
+              router.push("/(tabs)/cadastro");
             }}
           >
             <Text style={styles.entrarText}>Cadastre-se</Text>
