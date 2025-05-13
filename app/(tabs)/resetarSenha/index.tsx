@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#666',
         marginBottom: 20,
-        textAlign: 'center', // CENTRALIZAR
+        textAlign: 'center',
     },
     inputContainer: {
         flexDirection: 'row',

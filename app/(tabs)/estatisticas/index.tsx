@@ -2,17 +2,13 @@ import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Header from '../../../components/header'
  
 
 export default function Resultados(){
     return(
     <View style={styles.container}>
-        <Text style={styles.viewLogo}>
-            <View style={styles.viewImagemLogo}>
-                <Image source={require("../../../assets/images/logo.png")} style={styles.imageLogo} />
-            </View>
-            <Text style={styles.nomeAppLogo}>EcoMind</Text >
-        </Text>
+        <Header/>
 
 
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
@@ -128,7 +124,6 @@ const styles = StyleSheet.create({
     textBold: {
         fontWeight: 700,
         fontSize: 20
-
     },
 
     contentEstatisticas:{

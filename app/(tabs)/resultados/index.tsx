@@ -2,17 +2,13 @@ import Navbar from '@/components/navbar/navbar';
 import React from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Header from '../../../components/header'
  
 
 export default function Resultados(){
     return(
     <View style={styles.container}>
-        <Text style={styles.viewLogo}>
-            <View style={styles.viewImagemLogo}>
-                <Image source={require("../../../assets/images/logo.png")} style={styles.imageLogo} />
-            </View>
-            <Text style={styles.nomeAppLogo}>EcoMind</Text >
-        </Text>
+        <Header/>
 
         <View style={styles.viewMain}>
 
@@ -44,8 +40,6 @@ export default function Resultados(){
 
         </View>
 
-
-
        <Navbar />
     </View>
     )
@@ -53,76 +47,59 @@ export default function Resultados(){
 
 
 const styles = StyleSheet.create({
+    Text: {
+        letterSpacing: 1
+    },
 
     container: {
         flex: 1,
     },
 
-    viewLogo: {
-        margin: "auto",
-        paddingTop: 5,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center"
-
-    },
-
-    imageLogo: {
-        width: 65,
-        height: 65,
-    },
-
-    viewImagemLogo: {
-        width: 55,
-        height:70
-    },
-
-    nomeAppLogo:{
-        fontSize: 22,
-        fontWeight: "700"
-    },
-
     viewMain: {
         flex: 1,
+        alignItems: 'center'
              
     },
     
     textTitulo: {
-        fontSize: 20,
-        paddingLeft: 40,
+        fontSize: 22,
         paddingTop: 20,
-        fontWeight: "700",
-        color: "#485935"
+        fontWeight: "800",
+        color: "#485935",
+        letterSpacing: 1
     },
 
     groupText: {
-        paddingLeft: 40,
+        justifyContent: 'center',
         flexDirection: "row",
         paddingTop: 25,
-        gap: 45
+        gap: 20,
+        letterSpacing: 1
     },
 
     textResultado:{
         fontSize: 16,
         fontWeight: 600,
-        color: "#485935"
+        color: "#485935",
+        letterSpacing: 1
     },
 
     textTotalEmissoesBold: {
         paddingLeft: 40,
-        fontSize: 20,
+        fontSize: 22,
         fontWeight: 800,
-        color: "#485935"
+        color: "#485935",
+        letterSpacing: 1
 
     },
 
     textResultadoEmissoes: {
-        paddingBottom: 35
+        paddingBottom: 30,
+        letterSpacing: 1
     },
 
     groupTextResultadosUm: {
-        paddingBottom: 37
+        paddingBottom: 10
 
     },
 
@@ -132,60 +109,33 @@ const styles = StyleSheet.create({
 
     textTituloesultado: {
         fontSize: 20,
-        fontWeight: 700
+        fontWeight: 700,
+        letterSpacing: 1
     },
 
     textTotalEmissoes: {
         fontSize: 20,
-        fontWeight: 500
+        fontWeight: 500,
+        letterSpacing: 1
 
     },
 
     textMensagem: {
         marginTop: 20,
-        marginLeft: 22,
+        alignItems:'center',
         width: 373,
         height: 91,
         backgroundColor: "#71BE70",
         borderRadius: 28,
         padding: 20,
-        fontWeight: 600
+        fontWeight: 600,
+        letterSpacing: 1
     },
 
     logoPlanta:{
         marginTop: 80,
-        marginLeft: 170,
+       
         width: 59,
         height: 59 
     },
-
-
-
-    navbar:{
-        position: 'absolute',  
-        top: 676,                
-        left: 0,
-        right: 0,
-        height: 60,   
-        padding: 10,         
-        backgroundColor: "#71BE70", 
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        zIndex: 0,
-    },
-
-    navItem:{
-        alignItems: 'center'
-    },
-
-    navText:{
-        fontSize: 14,
-        color: 'black',
-        marginTop: 5,
-    },
-
-
-
 })
