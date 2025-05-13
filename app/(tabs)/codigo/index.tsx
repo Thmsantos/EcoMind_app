@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ResetPassword() {
     const [code, setCode] = useState(["", "", "", ""]);
-    const [mensagemVisivel, setMensagemVisivel] = useState(false);
 
     const handleChange = (text: string, index: number) => {
         const newCode = [...code];
@@ -14,16 +13,9 @@ export default function ResetPassword() {
         setCode(newCode);
     };
 
-    const handleReenviarCodigo = () => {
-        setMensagemVisivel(true);
-        setTimeout(() => {
-            setMensagemVisivel(false);
-        }, 3000); // 3 segundos
-    };
-
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail</Text>
+            <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail </Text>
 
             {/* Ícone do envelope */}
             <Icon name="envelope" size={50} color="black" style={styles.icon} />
@@ -47,13 +39,8 @@ export default function ResetPassword() {
                 <Text style={styles.buttonText}>Verificar Código</Text>
             </TouchableOpacity>
 
-            {/* Mensagem de código reenviado */}
-            {mensagemVisivel && (
-                <Text style={styles.successMessage}>Código reenviado com sucesso!</Text>
-            )}
-
             {/* Link para reenviar */}
-            <TouchableOpacity onPress={handleReenviarCodigo}>
+            <TouchableOpacity>
                 <Text style={styles.linkReenviar}>Reenviar código</Text>
             </TouchableOpacity>
 
@@ -123,10 +110,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
     },
-    successMessage: {
-        color: 'green',
-        fontSize: 16,
-        marginTop: 15,
-        fontWeight: '500',
-    }
 });
