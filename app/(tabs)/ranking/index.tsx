@@ -15,7 +15,7 @@ export default function Profile() {
             {/* Cabeçalho */}
             <View style={styles.header}>
                 <Image source={require('../../../assets/images/logo.png')} style={styles.logo} />
-                <Text style={styles.headerTitle}>Ranking de Economia</Text>
+                <Text style={styles.headerTitle}>Ranking</Text>
             </View>
 
             {/* Imagem do Troféu */}
@@ -48,36 +48,32 @@ export default function Profile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
     },
     header: {
+        paddingTop: 25,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#71BE70',
-        paddingVertical: 20,
-        paddingHorizontal: 16,
+        justifyContent: 'center',
     },
     logo: {
-        width: 40,
-        height: 40,
-        marginRight: 12,
+        width: 65,
+        height: 65,
+        marginRight: -10, // Aproxima o logo do texto
     },
     headerTitle: {
-        fontSize: 22,
+        fontSize: 24,
         fontWeight: 'bold',
         color: '#000',
     },
     trophy: {
-        width: 120,
-        height: 120,
+        width: 110,
+        height: 110,
         alignSelf: 'center',
         marginVertical: 30,
     },
     scrollContent: {
         paddingHorizontal: 20,
         paddingBottom: 100,
-        marginVertical: 1,
-
     },
     card: {
         backgroundColor: '#E0F2E9',
