@@ -1,6 +1,7 @@
 import Navbar from '@/components/navbar/navbar';
+import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ResetPassword() {
@@ -16,39 +17,37 @@ export default function ResetPassword() {
         <View style={styles.container}>
             <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail </Text>
 
-                
             {/* Ícone do envelope */}
             <Icon name="envelope" size={50} color="black" style={styles.icon} />
-
 
             {/* Campo de código de verificação */}
             <View style={styles.codeContainer}>
                 {code.map((digit, index) => (
                     <TextInput
-                    key={index}
-                    style={styles.input}
-                    keyboardType="numeric"
-                    maxLength={1}
-                    value={digit}
-                    onChangeText={(text) => handleChange(text, index)}
+                        key={index}
+                        style={styles.input}
+                        keyboardType="numeric"
+                        maxLength={1}
+                        value={digit}
+                        onChangeText={(text) => handleChange(text, index)}
                     />
                 ))}
             </View>
 
-            {/* Botões */}
-
-            <TouchableOpacity style={styles.button}>
+            {/* Botão de verificar */}
+            <TouchableOpacity style={styles.button} onPress={() => router.push('/(tabs)/login')}>
                 <Text style={styles.buttonText}>Verificar Código</Text>
             </TouchableOpacity>
 
+            {/* Link para reenviar */}
             <TouchableOpacity>
                 <Text style={styles.linkReenviar}>Reenviar código</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            {/* Botão para voltar à página de cadastro */}
+            <TouchableOpacity onPress={() => router.push('/cadastro')}>
                 <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
             </TouchableOpacity>
-       
         </View>
     );
 }
@@ -63,26 +62,19 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 25,
-        fontWeight: '600',
+        fontWeight: '700',
         textAlign: 'center',
-    },
-    subtitle: {
-        fontSize: 20,
-        textAlign: 'center',
-        marginVertical: 10,
+        marginBottom: 20,
+        color: "#485935"
     },
     icon: {
         marginVertical: 15,
-    },
-    info: {
-        fontSize: 20,
-        textAlign: 'center',
     },
     codeContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '60%',
-        marginVertical: 20,
+        marginVertical: 30,
     },
     input: {
         width: 50,
@@ -103,38 +95,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#71BE70',
         padding: 10,
         paddingVertical: 12,
-        paddingHorizontal:10,
+        paddingHorizontal: 10,
         borderRadius: 30,
         borderWidth: 0,
         zIndex: 100,
         alignItems: "center",
-
-    
     },
     buttonText: {
         fontSize: 25,
-        fontWeight: '700',
+        fontWeight: 'bold',
+        letterSpacing: 1,
     },
     linkVoltar: {
         fontSize: 20,
-        textAlign: 'center',
-    },
-    navbar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: '#71BE70',
-        paddingVertical: 10,
-        width: '100%',
-        position: 'absolute',
-        bottom: 0,
-    },
-    navItem: {
-        alignItems: 'center',
-    },
-    navText: {
-        fontSize: 14,
-        color: 'black',
-        marginTop: 5,
         textAlign: 'center',
     },
 });
