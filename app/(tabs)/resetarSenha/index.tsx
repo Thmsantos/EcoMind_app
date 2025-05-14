@@ -1,18 +1,62 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function CriarSenha() {
+    const [codigo, setCodigo] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
 
+    const validarSenha = (senha: string) => {
+        const temLetraMaiuscula = /[A-Z]/.test(senha);
+        const temCaractereEspecial = /[^A-Za-z0-9]/.test(senha);
+        const temNumero = /\d/.test(senha);
+        return senha.length >= 8 && temLetraMaiuscula && temCaractereEspecial && !temNumero;
+    };
+
+    const handleSalvar = () => {
+        if (!codigo || !senha || !confirmarSenha) {
+            Alert.alert('Erro', 'Preencha todos os campos.');
+            return;
+        }
+
+        if (!validarSenha(senha)) {
+            Alert.alert(
+                'Erro na Senha',
+                'A senha deve ter no mínimo 8 caracteres, conter letra maiúscula, caractere especial e não pode conter números.'
+            );
+            return;
+        }
+
+        if (senha !== confirmarSenha) {
+            Alert.alert('Erro', 'As senhas não coincidem.');
+            return;
+        }
+
+        // Sucesso: Redireciona
+        Alert.alert('Sucesso', 'Senha redefinida com sucesso!');
+        router.push('/(tabs)/login');
+    };
+
     return (
         <View style={styles.container}>
-            {/* Título */}
-            <Text style={styles.title}>Criar Nova Senha?</Text>
+            <Text style={styles.title}>Criar Nova Senha</Text>
+
+            {/* Campo de Código */}
+            <View style={styles.inputContainer}>
+                <Icon name="key" size={20} color="#888" style={styles.leftIcon} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Código de verificação"
+                    placeholderTextColor="#aaa"
+                    value={codigo}
+                    onChangeText={setCodigo}
+                    keyboardType="number-pad"
+                />
+            </View>
 
             {/* Campo de Nova Senha */}
             <View style={styles.inputContainer}>
@@ -56,8 +100,9 @@ export default function CriarSenha() {
 
             {/* Texto de Regras */}
             <Text style={styles.rulesText}>
-                Mínimo de 8 caracteres, com letras maiúscula e caractere especial. Não é permitido o uso de números.
-            </Text>
+  Mínimo de 8 caracteres, com letras maiúsculas, minúsculas, números e caractere especial.
+</Text>
+
 
             {/* Botão Salvar */}
             <TouchableOpacity
@@ -111,12 +156,11 @@ const styles = StyleSheet.create({
         borderWidth: 0,
     },
     rulesText: {
-        marginTop: 0,
         color: '#666',
         fontSize: 15,
-        width: 370,
-        textAlign: 'left',
         marginBottom: 10,
+        textAlign: 'center',
+
     },
     entrarBtn: {
         width: 370,
