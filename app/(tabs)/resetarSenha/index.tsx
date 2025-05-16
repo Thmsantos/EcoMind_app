@@ -9,12 +9,14 @@ export default function CriarSenha() {
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
+    const [codigoEnviado, setCodigoEnviado] = useState(false);
 
     const validarSenha = (senha: string) => {
         const temLetraMaiuscula = /[A-Z]/.test(senha);
-        const temCaractereEspecial = /[^A-Za-z0-9]/.test(senha);
+        const temLetraMinuscula = /[a-z]/.test(senha);
         const temNumero = /\d/.test(senha);
-        return senha.length >= 8 && temLetraMaiuscula && temCaractereEspecial && !temNumero;
+        const temCaractereEspecial = /[^A-Za-z0-9]/.test(senha);
+        return senha.length >= 8 && temLetraMaiuscula && temLetraMinuscula && temNumero && temCaractereEspecial;
     };
 
     const handleSalvar = () => {
@@ -26,7 +28,7 @@ export default function CriarSenha() {
         if (!validarSenha(senha)) {
             Alert.alert(
                 'Erro na Senha',
-                'A senha deve ter no mínimo 8 caracteres, conter letra maiúscula, caractere especial e não pode conter números.'
+                'A senha deve ter no mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e caractere especial.'
             );
             return;
         }
@@ -36,34 +38,49 @@ export default function CriarSenha() {
             return;
         }
 
-        // Sucesso: Redireciona
         Alert.alert('Sucesso', 'Senha redefinida com sucesso!');
         router.push('/(tabs)/login');
+    };
+
+    const handleReenviarCodigo = () => {
+        setCodigoEnviado(true);
+        setTimeout(() => setCodigoEnviado(false), 3000);
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Criar Nova Senha</Text>
 
-            {/* Campo de Código */}
-            <View style={styles.inputContainer}>
+            {/* Código de Verificação */}
+            <View style={styles.codeInputContainer}>
                 <Icon name="key" size={20} color="#888" style={styles.leftIcon} />
                 <TextInput
-                    style={styles.input}
+                    style={styles.codeInput}
                     placeholder="Código de verificação"
                     placeholderTextColor="#aaa"
                     value={codigo}
                     onChangeText={setCodigo}
                     keyboardType="number-pad"
+                    maxLength={6}
                 />
             </View>
+
+            <Text style={styles.infoText}>Insira o código enviado para o seu e-mail.</Text>
+
+            <TouchableOpacity onPress={handleReenviarCodigo}>
+                <Text style={styles.resendText}>Reenviar código</Text>
+            </TouchableOpacity>
+
+            {codigoEnviado && (
+                <Text style={styles.messageText}>Código reenviado com sucesso!</Text>
+            )}
 
             {/* Campo de Nova Senha */}
             <View style={styles.inputContainer}>
                 <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Senha (8+ caracteres)"
+                    placeholder="Senha"
                     placeholderTextColor="#aaa"
                     secureTextEntry={!mostrarSenha}
                     value={senha}
@@ -98,17 +115,14 @@ export default function CriarSenha() {
                 </TouchableOpacity>
             </View>
 
-            {/* Texto de Regras */}
             <Text style={styles.rulesText}>
-  Mínimo de 8 caracteres, com letras maiúsculas, minúsculas, números e caractere especial.
-</Text>
+                Mínimo de 8 caracteres, com letras maiúsculas, minúsculas, números e caractere especial.
+            </Text>
 
-
-            {/* Botão Salvar */}
             <TouchableOpacity
                 style={styles.entrarBtn}
-                onPress={() => router.push('/(tabs)/login')}
-            >
+                     onPress={() => router.push('/(tabs)/login')}>
+             
                 <Text style={styles.buttonText}>Salvar</Text>
             </TouchableOpacity>
         </View>
@@ -121,15 +135,33 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 50,
+        padding: 40,
     },
     title: {
-        fontSize: 34,
+        fontSize: 35,
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 60,
         fontWeight: "700",
         color: "#485935",
         letterSpacing: 1,
+    },
+    codeInputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: 250,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        backgroundColor: '#fff',
+        borderColor: '#A3C9A8',
+        borderWidth: 2,
+        borderRadius: 10,
+        marginBottom: 10,
+    },
+    codeInput: {
+        flex: 1,
+        fontSize: 18,
+        color: '#333',
+        borderWidth: 0,
     },
     inputContainer: {
         flexDirection: 'row',
@@ -146,17 +178,27 @@ const styles = StyleSheet.create({
         padding: 14,
         fontSize: 22,
     },
-    leftIcon: {
-        marginRight: 11,
-    },
     input: {
         flex: 1,
         fontSize: 22,
         color: '#000',
         borderWidth: 0,
     },
+    leftIcon: {
+        marginRight: 11,
+    },
+    infoText: {
+        fontSize: 14,
+        marginBottom: 8,
+        textAlign: 'center',
+    },
+    resendText: {
+        textDecorationLine: 'underline',
+        fontSize: 16,
+        marginBottom: 20,
+        textAlign: 'center',
+    },
     rulesText: {
-        color: '#666',
         fontSize: 15,
         marginBottom: 10,
         textAlign: 'center',
@@ -176,5 +218,13 @@ const styles = StyleSheet.create({
         fontSize: 25,
         fontWeight: 'bold',
         letterSpacing: 1,
+    },
+    messageText: {
+        color: 'green',
+        fontSize: 16,
+        marginTop: 2,
+        fontWeight: '500',
+        textAlign: 'center',
+        marginBottom: 20,
     },
 });
