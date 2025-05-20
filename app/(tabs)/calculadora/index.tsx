@@ -177,7 +177,7 @@ export default function Calculadora(){
                 </View>
 
 
-                <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }} showsVerticalScrollIndicator={true}  indicatorStyle= "black">
+                <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 140 }} showsVerticalScrollIndicator={true}  indicatorStyle= "black">
                     <View style={styles.tabela} >
                         <FlatList
                             data={dados}
@@ -251,28 +251,22 @@ const styles = StyleSheet.create({
         fontWeight: "700"
     },
 
-    formulario: {
-        paddingLeft: 30,
-        paddingRight: 30,
-    },
-
     textTitulo: {
         fontSize: 18,
-        paddingLeft: 25,
-        paddingTop: 15,
         paddingBottom: 3,
-        fontWeight: 700
+        fontWeight: 700,
+        marginLeft: 30
     },
 
     textTituloEletricidade:{
         fontSize: 18,
-        paddingLeft: 25,
         paddingBottom: 3,
-        fontWeight: 700
+        fontWeight: 700,
+        marginLeft: 30
     },
 
     textInput: {
-        width: 160,
+        width: 50,
         height: 24,
         backgroundColor: "transparent",
         borderBottomWidth: 2,
@@ -285,10 +279,9 @@ const styles = StyleSheet.create({
     eletricidade: {
         display: "flex",
         flexDirection: "row",
-        justifyContent: "center",
         alignItems: "center",
-        gap: 15,
-        
+        gap: 15,   
+        marginLeft: 30   
     },
 
     listaUm: {
@@ -303,6 +296,10 @@ const styles = StyleSheet.create({
 
     },
 
+    formulario:{
+        
+    },
+    
     radioItem: {
         display: "flex",
         flexDirection: "row"
@@ -318,12 +315,14 @@ const styles = StyleSheet.create({
     listaLocomocao: {
         display: "flex",
         flexDirection: "row",
-        paddingLeft: 20
+        paddingLeft: 20,
+        paddingBottom: 10,
+        paddingTop: 10
     },
 
     groupKMPercorridos: {
-        paddingLeft: 25,
         paddingTop: 6,
+        paddingLeft: 30,
         display: "flex",
         flexDirection: "row",
         gap: 15
@@ -338,7 +337,9 @@ const styles = StyleSheet.create({
 
     textBtnSalvar: {
         textAlign: "center",
-         fontWeight: 700
+        fontWeight: 700,
+        paddingTop: 8,
+        fontSize: 16
     },
 
     row : {
@@ -372,10 +373,10 @@ const styles = StyleSheet.create({
         width: 370,
         alignItems: 'center',
         justifyContent: 'center',
-        height: 40,
+        height: 45,
         top: 750,
-        left: 32,
-        borderRadius: 15,
+        left: 0,
+        borderRadius: 24,
         backgroundColor: "#71BE70",
     },
 
@@ -383,33 +384,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontWeight: "bold",
         fontSize: 16,
-        paddingTop: 5
-
     },
 
-    navbar:{
-        position: 'absolute',  
-        top: 676,                
-        left: 0,
-        right: 0,
-        height: 60,   
-        padding: 10,         
-        backgroundColor: "#71BE70", 
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        paddingHorizontal: 10,
-        zIndex: 0,
-    },
-
-    navItem:{
-        alignItems: 'center'
-    },
-
-    navText:{
-        fontSize: 14,
-        color: 'black',
-        marginTop: 5,
-    }
 })
 
