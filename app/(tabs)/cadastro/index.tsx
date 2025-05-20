@@ -1,62 +1,117 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function Cadastro() {
+    const [nome, setNome] = useState('');
+    const [usuario, setUsuario] = useState('');
+    const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmarSenha, setConfirmarSenha] = useState('');
     const [senhaVisivel, setSenhaVisivel] = useState(false);
     const [confirmarSenhaVisivel, setConfirmarSenhaVisivel] = useState(false);
+    const [mensagem, setMensagem] = useState('');
+    const [tipoMensagem, setTipoMensagem] = useState<'erro' | 'sucesso' | ''>('');
 
     const handleCadastro = () => {
-        if (senha.length < 8 || confirmarSenha.length < 8) {
-            Alert.alert('Erro', 'A senha deve ter pelo menos 8 caracteres.');
+        const senhaValida = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+
+        if (!senhaValida.test(senha) || !senhaValida.test(confirmarSenha)) {
+            setTipoMensagem('erro');
+            setMensagem('A senha deve ter pelo menos 8 caracteres com letra maiúscula, minúscula e um caractere especial.');
+            limparMensagem();
             return;
         }
 
         if (senha !== confirmarSenha) {
-            Alert.alert('Erro', 'As senhas não coincidem.');
+            setTipoMensagem('erro');
+            setMensagem('As senhas não coincidem.');
+            limparMensagem();
             return;
         }
 
-        router.push('/(tabs)/login');
+        setTipoMensagem('sucesso');
+        setMensagem('Cadastro realizado com sucesso!');
+        limparMensagem();
+
+        setTimeout(() => {
+            router.push('/(tabs)/login');
+        }, 1000);
+    };
+
+    const limparMensagem = () => {
+        setTimeout(() => {
+            setMensagem('');
+            setTipoMensagem('');
+        }, 3000);
     };
 
     return (
         <View style={styles.container}>
+            {mensagem !== '' && (
+                <View
+                    style={[
+                        styles.mensagemBox,
+                        tipoMensagem === 'erro' ? styles.erro : styles.sucesso,
+                    ]}
+                >
+                    <Text style={styles.mensagemTexto}>{mensagem}</Text>
+                </View>
+            )}
+
             <Text style={styles.title}>Cadastre-se</Text>
 
             {/* Nome */}
             <View style={styles.inputContainer}>
                 <Icon name="user" size={20} color="#888" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Nome" placeholderTextColor="#aaa" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nome"
+                    placeholderTextColor="#aaa"
+                    value={nome}
+                    onChangeText={setNome}
+                />
             </View>
 
             {/* Usuário */}
             <View style={styles.inputContainer}>
                 <Icon name="user" size={20} color="#888" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Usuário" placeholderTextColor="#aaa" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Usuário"
+                    placeholderTextColor="#aaa"
+                    value={usuario}
+                    onChangeText={setUsuario}
+                />
             </View>
 
             {/* Email */}
             <View style={styles.inputContainer}>
                 <Icon name="envelope" size={18} color="#888" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    placeholderTextColor="#aaa"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    value={email}
+                    onChangeText={setEmail}
+                />
             </View>
 
             {/* Senha */}
-            <View style={styles.inputContainer}>
+            <View style={[styles.inputContainer, styles.senhaContainer]}>
                 <Icon name="lock" size={20} color="#888" style={styles.icon} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Senha (8+ caracteres)"
+                    placeholder="Senha"
                     placeholderTextColor="#aaa"
                     secureTextEntry={!senhaVisivel}
                     value={senha}
                     onChangeText={setSenha}
                 />
-                 <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
+                <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
                     <Icon
                         name={senhaVisivel ? 'eye' : 'eye-slash'}
                         size={20}
@@ -66,6 +121,10 @@ export default function Cadastro() {
                 </TouchableOpacity>
             </View>
 
+            <Text style={styles.requisitos}>
+                Mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e caractere especial.
+            </Text>
+
             {/* Confirmar Senha */}
             <View style={styles.inputContainer}>
                 <Icon name="lock" size={20} color="#888" style={styles.icon} />
@@ -73,7 +132,7 @@ export default function Cadastro() {
                     style={styles.input}
                     placeholder="Confirmar Senha"
                     placeholderTextColor="#aaa"
-                    secureTextEntry
+                    secureTextEntry={!confirmarSenhaVisivel}
                     value={confirmarSenha}
                     onChangeText={setConfirmarSenha}
                 />
@@ -88,16 +147,14 @@ export default function Cadastro() {
             </View>
 
             {/* Botão */}
-            <TouchableOpacity style={styles.entrarBtn} 
-            onPress={() => router.push('/(tabs)/codigo')}>
+            <TouchableOpacity style={styles.entrarBtn} onPress={handleCadastro}>
                 <Text style={styles.buttonText}>Criar Conta</Text>
             </TouchableOpacity>
 
             {/* Link login */}
             <View style={styles.loginTextContainer}>
-                <Text style={styles.loginText}>Já possui uma conta? </Text>
                 <TouchableOpacity onPress={() => router.push('/(tabs)/login')}>
-                    <Text style={styles.linkText}>Entre</Text>
+                    <Text style={styles.linkText}>Já possui uma conta? Entre</Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -111,45 +168,57 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 50,
+        flexGrow: 1,
     },
     title: {
-        fontSize: 40,
+        fontSize: 35,
         textAlign: 'center',
-        marginBottom: 45,
         fontWeight: '700',
-        color: '#485935',
         letterSpacing: 1,
+        color: 'darkgreen',
+        marginBottom: 24,
     },
     inputContainer: {
         height: 60,
         flexDirection: 'row',
         alignItems: 'center',
         width: 370,
-        paddingHorizontal: 15,
+        paddingHorizontal: 12,
         elevation: 3,
         backgroundColor: '#fff',
         justifyContent: 'center',
-        marginBottom: 30,
         borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 12,
         padding: 14,
+        marginBottom: 16,
+    },
+    senhaContainer: {
+        marginBottom: 10,
     },
     input: {
         flex: 1,
         fontSize: 22,
         color: '#000',
         borderWidth: 0,
+        marginLeft: 8,
+        paddingVertical: 0,
+        includeFontPadding: true,
     },
     icon: {
         marginRight: 11,
     },
+    requisitos: {
+        fontSize: 15,
+        marginBottom: 20,
+        textAlign: 'center',
+            width: 370, // mesma largura do input
+
+    },
     entrarBtn: {
         width: 370,
         backgroundColor: '#71BE70',
-        padding: 10,
         paddingVertical: 14,
-        paddingHorizontal: 10,
         borderRadius: 30,
         borderWidth: 0,
         zIndex: 100,
@@ -177,5 +246,29 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 18,
         marginTop: 1,
+        textDecorationLine: 'underline',
+    },
+    mensagemBox: {
+        position: 'absolute',
+        top: 50,
+        left: 20,
+        right: 20,
+        padding: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+        elevation: 6,
+    },
+    erro: {
+        backgroundColor: '#F8D7DA',
+    },
+    sucesso: {
+        backgroundColor: '#D4EDDA',
+    },
+    mensagemTexto: {
+        color: '#333',
+        fontSize: 15,
+        fontWeight: '500',
     },
 });
