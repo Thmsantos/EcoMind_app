@@ -2,6 +2,8 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
+import { cadastroSchema } from './cadastroSchema';
 
 export default function Cadastro() {
     const [nome, setNome] = useState('');
@@ -14,12 +16,21 @@ export default function Cadastro() {
     const [mensagem, setMensagem] = useState('');
     const [tipoMensagem, setTipoMensagem] = useState<'erro' | 'sucesso' | ''>('');
 
-    const handleCadastro = () => {
-        const senhaValida = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    const handleCadastro = async () => {
+        const body = {
+            usuario: usuario.trim(),
+            nome: nome.trim(),
+            email: email.trim(),
+            senha: senha.trim(),
+            status: false,
+            calculos: []
+        };
 
-        if (!senhaValida.test(senha) || !senhaValida.test(confirmarSenha)) {
+        const { error: validationError } = cadastroSchema.validate(body);
+
+        if (validationError) {
             setTipoMensagem('erro');
-            setMensagem('A senha deve ter pelo menos 8 caracteres com letra maiúscula, minúscula e um caractere especial.');
+            setMensagem(validationError.details[0].message);
             limparMensagem();
             return;
         }
@@ -31,13 +42,27 @@ export default function Cadastro() {
             return;
         }
 
-        setTipoMensagem('sucesso');
-        setMensagem('Cadastro realizado com sucesso!');
-        limparMensagem();
+        try {
+            await axios.post("http://192.168.56.1:2010/api/user/create", body);
 
-        setTimeout(() => {
-            router.push('/(tabs)/login');
-        }, 1000);
+            setTipoMensagem('sucesso');
+            setMensagem('Cadastro realizado com sucesso!');
+            limparMensagem();
+
+            setTimeout(() => {
+                router.push('/(tabs)/login');
+            }, 300);
+        } catch (error: any) {
+            let mensagemErro = 'Erro ao cadastrar. Tente novamente.';
+
+            if (error.response && error.response.data && error.response.data.message) {
+                mensagemErro = error.response.data.message;
+            }
+
+            setTipoMensagem('erro');
+            setMensagem(mensagemErro);
+            limparMensagem();
+        }
     };
 
     const limparMensagem = () => {
@@ -62,7 +87,6 @@ export default function Cadastro() {
 
             <Text style={styles.title}>Cadastre-se</Text>
 
-            {/* Nome */}
             <View style={styles.inputContainer}>
                 <Icon name="user" size={20} color="#888" style={styles.icon} />
                 <TextInput
@@ -74,7 +98,6 @@ export default function Cadastro() {
                 />
             </View>
 
-            {/* Usuário */}
             <View style={styles.inputContainer}>
                 <Icon name="user" size={20} color="#888" style={styles.icon} />
                 <TextInput
@@ -86,7 +109,6 @@ export default function Cadastro() {
                 />
             </View>
 
-            {/* Email */}
             <View style={styles.inputContainer}>
                 <Icon name="envelope" size={18} color="#888" style={styles.icon} />
                 <TextInput
@@ -100,8 +122,8 @@ export default function Cadastro() {
                 />
             </View>
 
-            {/* Senha */}
             <View style={[styles.inputContainer, styles.senhaContainer]}>
+
                 <Icon name="lock" size={20} color="#888" style={styles.icon} />
                 <TextInput
                     style={styles.input}
@@ -125,7 +147,6 @@ export default function Cadastro() {
                 Mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e caractere especial.
             </Text>
 
-            {/* Confirmar Senha */}
             <View style={styles.inputContainer}>
                 <Icon name="lock" size={20} color="#888" style={styles.icon} />
                 <TextInput
@@ -146,12 +167,11 @@ export default function Cadastro() {
                 </TouchableOpacity>
             </View>
 
-            {/* Botão */}
             <TouchableOpacity style={styles.entrarBtn} onPress={handleCadastro}>
+
                 <Text style={styles.buttonText}>Criar Conta</Text>
             </TouchableOpacity>
 
-            {/* Link login */}
             <View style={styles.loginTextContainer}>
                 <TouchableOpacity onPress={() => router.push('/(tabs)/login')}>
                     <Text style={styles.linkText}>Já possui uma conta? Entre</Text>
@@ -212,7 +232,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 20,
         textAlign: 'center',
-            width: 370, // mesma largura do input
+        width: 370, // mesma largura do input
 
     },
     entrarBtn: {
