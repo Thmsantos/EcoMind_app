@@ -6,7 +6,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const logo = require("../../../assets/images/logo.png");
 
 export default function Login() {
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [erro, setErro] = useState('');
+
+    const handleLogin = () => {
+        // Simulando autenticação
+        const emailCorreto = 'claudiasantanasilva@yahoo.com.br';
+        const senhaCorreta = 'senha123';
+
+        if (email === emailCorreto && senha === senhaCorreta) {
+            setErro('');
+            router.push('/(tabs)/apresentaCalculadora');
+        } else {
+            setErro('Não foi possível autenticar; seu endereço de e-mail e/ou senha podem estar incorretos.');
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -16,10 +32,25 @@ export default function Login() {
             {/* Texto "Bem vindo!" */}
             <Text style={styles.welcomeText}>Bem vindo!</Text>
 
+            {/* Alerta de erro */}
+            {erro !== '' && (
+                <View style={styles.errorBox}>
+                    <Text style={styles.errorText}>{erro}</Text>
+                </View>
+            )}
+
             {/* Campo de email */}
             <View style={styles.inputContainer}>
                 <Icon name="envelope" size={18} color="#aaa" style={styles.icon} />
-                <TextInput style={styles.input} placeholder="Email" placeholderTextColor="#aaa" />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    placeholderTextColor="#aaa"
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    value={email}
+                    onChangeText={setEmail}
+                />
             </View>
 
             {/* Campo de senha com botão olho */}
@@ -30,6 +61,8 @@ export default function Login() {
                     placeholder="Senha"
                     placeholderTextColor="#aaa"
                     secureTextEntry={!isPasswordVisible}
+                    value={senha}
+                    onChangeText={setSenha}
                 />
                 <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
                     <Icon
@@ -41,10 +74,7 @@ export default function Login() {
             </View>
 
             {/* Botão de Login */}
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => router.push('/(tabs)/apresentaCalculadora')}
-            >
+            <TouchableOpacity style={styles.button} onPress={handleLogin}>
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
 
@@ -75,12 +105,12 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     welcomeText: {
-        fontSize: 38,
+        fontSize: 35,
         textAlign: 'center',
-        marginBottom: 80,
-        fontWeight: "700",
-        color: "#485935",
+        fontWeight: '700',
         letterSpacing: 1,
+        color: 'darkgreen',
+        marginBottom: 40,
     },
     inputContainer: {
         height: 60,
@@ -91,7 +121,7 @@ const styles = StyleSheet.create({
         elevation: 3,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
-        marginBottom: 30,
+        marginBottom: 20,
         borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 12,
@@ -101,6 +131,9 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 22,
         color: '#000',
+        marginLeft: 8,
+        paddingVertical: 0,
+        includeFontPadding: true,
     },
     icon: {
         marginRight: 11,
@@ -108,12 +141,8 @@ const styles = StyleSheet.create({
     button: {
         width: 370,
         backgroundColor: '#71BE70',
-        padding: 10,
-        paddingVertical: 14,
-        paddingHorizontal: 10,
+        padding: 14,
         borderRadius: 30,
-        borderWidth: 0,
-        zIndex: 100,
         alignItems: "center",
         marginTop: 5,
     },
@@ -124,15 +153,28 @@ const styles = StyleSheet.create({
     },
     forgotPassword: {
         color: '#71BE70',
-        fontSize: 20,
+        fontSize: 18,
         marginTop: 20,
         textAlign: 'center',
-        marginVertical: 10,
+        fontWeight: 'bold',
     },
     register: {
-        marginTop: 18,
-        fontSize: 20,
-        marginVertical: 10,
+        color: '#000',
+        fontWeight: 'bold',
+        fontSize: 18,
+        marginTop: 15,
+        textDecorationLine: 'underline',
+    },
+    errorBox: {
+        width: 370,
+        backgroundColor: '#991b1b',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 20,
+    },
+    errorText: {
+        color: '#fff',
         textAlign: 'center',
+        fontSize: 16,
     },
 });
