@@ -6,7 +6,7 @@ export default function Header(){
     return(
         <Text style={styles.viewLogo}>
             <View style={styles.viewImagemLogo}>
-                <Image source={require("../../assets/images/logo.png")} style={styles.imageLogo} />
+                <Image source={require("../../assets/images/logo-home.png")} style={styles.imageLogo} />
             </View>
             <Text style={styles.nomeAppLogo}>EcoMind</Text>
         </Text>
