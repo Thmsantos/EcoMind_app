@@ -9,46 +9,51 @@ import {
   StyleSheet,
 } from 'react-native';
 
-const avatars = [
-  'https://i.pravatar.cc/150?img=1',
-  'https://i.pravatar.cc/150?img=2',
-  'https://i.pravatar.cc/150?img=3',
-  'https://i.pravatar.cc/150?img=4',
-  'https://i.pravatar.cc/150?img=5',
-];
+
+
 
 export default function CadastroUsuario() {
+
+  const avatars = [
+    require('../../../assets/images/avatar.png'),
+    require('../../../assets/images/avatar.png'),
+    require('../../../assets/images/avatar.png'),
+    require('../../../assets/images/avatar.png'),
+    require('../../../assets/images/avatar.png'),
+        
+  ];
+  
+
   const [selectedAvatar, setSelectedAvatar] = useState(avatars[0]);
   const [username, setUsername] = useState('');
 
-  const handleAvatarSelect = (uri: React.SetStateAction<string>) => {
-    setSelectedAvatar(uri);
+  const handleAvatarSelect = (img: any) => {
+    setSelectedAvatar(img);
   };
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: selectedAvatar }} style={styles.mainAvatar} />
+      <Image source={selectedAvatar} style={styles.mainAvatar} />
 
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         style={styles.avatarScroll}
         contentContainerStyle={{ alignItems: 'center' }}
-        >
-        {avatars.map((uri, index) => (
-            <TouchableOpacity
+      >
+        {avatars.map((img, index) => (
+          <TouchableOpacity
             key={index}
-            onPress={() => handleAvatarSelect(uri)}
+            onPress={() => handleAvatarSelect(img)}
             style={[
-                styles.avatarWrapper,
-                selectedAvatar === uri && styles.avatarSelected,
+              styles.avatarWrapper,
+              selectedAvatar === img && styles.avatarSelected,
             ]}
-            >
-            <Image source={{ uri }} style={styles.avatarThumb} />
-            </TouchableOpacity>
+          >
+            <Image source={img} style={styles.avatarThumb} />
+          </TouchableOpacity>
         ))}
-    </ScrollView>
-
+      </ScrollView>
 
       <Text style={styles.label}>Cadastro de usuário</Text>
 
@@ -73,6 +78,7 @@ export default function CadastroUsuario() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {
