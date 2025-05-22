@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const logo = require("../../../assets/images/logo.png");
+const logo = require("../../../assets/images/logo-home.png");
 
 export default function Login() {
     const [email, setEmail] = useState('');
