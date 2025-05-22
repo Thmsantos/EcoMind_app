@@ -267,12 +267,12 @@ const styles = StyleSheet.create({
 
     textInput: {
         width: 50,
-        height: 24,
+        height: 30,
         backgroundColor: "transparent",
         borderBottomWidth: 2,
         borderBottomColor: "#71BE70",
         paddingLeft: 10,
-        paddingTop: 2,
+        paddingTop: 7,
         fontSize: 15
     },
 
