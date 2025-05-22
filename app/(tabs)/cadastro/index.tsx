@@ -43,7 +43,7 @@ export default function Cadastro() {
         }
 
         try {
-            await axios.post("http://192.168.56.1:2010/api/user/create", body);
+            await axios.post("http://127.0.0.1:2010/api/user/create", body);
 
             setTipoMensagem('sucesso');
             setMensagem('Cadastro realizado com sucesso!');
