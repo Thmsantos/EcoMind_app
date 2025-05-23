@@ -1,6 +1,17 @@
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import {
+    Text,
+    View,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    KeyboardAvoidingView,
+    ScrollView,
+    TouchableWithoutFeedback,
+    Keyboard,
+    Platform
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function CriarSenha() {
@@ -10,6 +21,7 @@ export default function CriarSenha() {
     const [mostrarSenha, setMostrarSenha] = useState(false);
     const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
     const [codigoEnviado, setCodigoEnviado] = useState(false);
+    const [erroSenha, setErroSenha] = useState('');
 
     const validarSenha = (senha: string) => {
         const temLetraMaiuscula = /[A-Z]/.test(senha);
@@ -21,24 +33,25 @@ export default function CriarSenha() {
 
     const handleSalvar = () => {
         if (!codigo || !senha || !confirmarSenha) {
-            Alert.alert('Erro', 'Preencha todos os campos.');
+            setErroSenha('Preencha todos os campos.');
+            setTimeout(() => setErroSenha(''), 3000);
             return;
         }
 
         if (!validarSenha(senha)) {
-            Alert.alert(
-                'Erro na Senha',
-                'A senha deve ter no mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e caractere especial.'
-            );
+            setErroSenha('A senha deve ter no mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e caractere especial.');
+            setTimeout(() => setErroSenha(''), 3000);
             return;
         }
 
         if (senha !== confirmarSenha) {
-            Alert.alert('Erro', 'As senhas não coincidem.');
+            setErroSenha('As senhas não coincidem.');
+            setTimeout(() => setErroSenha(''), 3000);
             return;
         }
 
-        Alert.alert('Sucesso', 'Senha redefinida com sucesso!');
+        setErroSenha('');
+        alert('Senha redefinida com sucesso!');
         router.push('/(tabs)/login');
     };
 
@@ -48,90 +61,104 @@ export default function CriarSenha() {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Criar Nova Senha</Text>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
+            >
+                <ScrollView
+                    contentContainerStyle={styles.container}
+                    keyboardShouldPersistTaps="handled"
+                >
+                    {erroSenha !== '' && (
+                        <View style={styles.errorBox}>
+                            <Text style={styles.errorText}>{erroSenha}</Text>
+                        </View>
+                    )}
 
-            {/* Código de Verificação */}
-            <View style={styles.codeInputContainer}>
-                <Icon name="key" size={20} color="#888" style={styles.leftIcon} />
-                <TextInput
-                    style={styles.codeInput}
-                    placeholder="Código de verificação"
-                    placeholderTextColor="#aaa"
-                    value={codigo}
-                    onChangeText={setCodigo}
-                    keyboardType="number-pad"
-                    maxLength={6}
-                />
-            </View>
+                    <Text style={styles.title}>Criar Nova Senha</Text>
 
-            <Text style={styles.infoText}>Insira o código enviado para o seu e-mail.</Text>
+                    <View style={styles.codeInputContainer}>
+                        <Icon name="key" size={20} color="#888" style={styles.leftIcon} />
+                        <TextInput
+                            style={styles.codeInput}
+                            placeholder="Código de verificação"
+                            placeholderTextColor="#aaa"
+                            value={codigo}
+                            onChangeText={setCodigo}
+                            keyboardType="number-pad"
+                            maxLength={6}
+                        />
+                    </View>
 
-            <TouchableOpacity onPress={handleReenviarCodigo}>
-                <Text style={styles.resendText}>Reenviar código</Text>
-            </TouchableOpacity>
+                    <Text style={styles.infoText}>Insira o código enviado para o seu e-mail.</Text>
 
-            {codigoEnviado && (
-                <Text style={styles.messageText}>Código reenviado com sucesso!</Text>
-            )}
+                    <TouchableOpacity onPress={handleReenviarCodigo}>
+                        <Text style={styles.resendText}>Reenviar código</Text>
+                    </TouchableOpacity>
 
-            {/* Campo de Nova Senha */}
-            <View style={styles.inputContainer}>
-                <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Senha"
-                    placeholderTextColor="#aaa"
-                    secureTextEntry={!mostrarSenha}
-                    value={senha}
-                    onChangeText={setSenha}
-                />
-                <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-                    <Icon
-                        name={mostrarSenha ? 'eye-slash' : 'eye'}
-                        size={20}
-                        color="#888"
-                    />
-                </TouchableOpacity>
-            </View>
+                    {codigoEnviado && (
+                        <Text style={styles.messageText}>Código reenviado com sucesso!</Text>
+                    )}
 
-            {/* Campo de Confirmar Senha */}
-            <View style={styles.inputContainer}>
-                <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Confirmar senha"
-                    placeholderTextColor="#aaa"
-                    secureTextEntry={!mostrarConfirmarSenha}
-                    value={confirmarSenha}
-                    onChangeText={setConfirmarSenha}
-                />
-                <TouchableOpacity onPress={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}>
-                    <Icon
-                        name={mostrarConfirmarSenha ? 'eye-slash' : 'eye'}
-                        size={20}
-                        color="#888"
-                    />
-                </TouchableOpacity>
-            </View>
+                    <View style={styles.inputContainer}>
+                        <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Nova Senha"
+                            placeholderTextColor="#aaa"
+                            secureTextEntry={!mostrarSenha}
+                            value={senha}
+                            onChangeText={setSenha}
+                        />
+                        <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
+                            <Icon
+                                name={mostrarSenha ? 'eye' : 'eye-slash'}
+                                size={20}
+                                color="#888"
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-            <Text style={styles.rulesText}>
-                Mínimo de 8 caracteres, com letras maiúsculas, minúsculas, números e caractere especial.
-            </Text>
+                    <View style={styles.inputContainer}>
+                        <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Confirmar senha"
+                            placeholderTextColor="#aaa"
+                            secureTextEntry={!mostrarConfirmarSenha}
+                            value={confirmarSenha}
+                            onChangeText={setConfirmarSenha}
+                        />
+                        <TouchableOpacity onPress={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}>
+                            <Icon
+                                name={mostrarConfirmarSenha ? 'eye' : 'eye-slash'}
+                                size={20}
+                                color="#888"
+                            />
+                        </TouchableOpacity>
+                    </View>
 
-            <TouchableOpacity
-                style={styles.entrarBtn}
-                     onPress={() => router.push('/(tabs)/login')}>
-             
-                <Text style={styles.buttonText}>Salvar</Text>
-            </TouchableOpacity>
-        </View>
+                    <Text style={styles.rulesText}>
+                        Mínimo de 8 caracteres, com letras maiúsculas, minúsculas, números e caractere especial.
+                    </Text>
+
+                    <TouchableOpacity
+                        style={styles.entrarBtn}
+                        onPress={handleSalvar}
+                    >
+                        <Text style={styles.buttonText}>Salvar</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </KeyboardAvoidingView>
+        </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
@@ -156,33 +183,38 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 10,
         marginBottom: 10,
+        elevation: 3,
+        justifyContent: 'space-between',
+        height: 70,
     },
     codeInput: {
         flex: 1,
-        fontSize: 18,
+        fontSize: 22,
         color: '#333',
         borderWidth: 0,
     },
     inputContainer: {
+        height: 60,
         flexDirection: 'row',
         alignItems: 'center',
         width: 370,
         paddingHorizontal: 15,
         elevation: 3,
         backgroundColor: '#fff',
-        justifyContent: 'center',
-        marginBottom: 10,
+        justifyContent: 'space-between',
+        marginBottom: 20,
         borderWidth: 2,
         borderColor: '#ccc',
         borderRadius: 12,
         padding: 14,
-        fontSize: 22,
     },
     input: {
         flex: 1,
         fontSize: 22,
         color: '#000',
-        borderWidth: 0,
+        marginLeft: 8,
+        paddingVertical: 0,
+        includeFontPadding: true,
     },
     leftIcon: {
         marginRight: 11,
@@ -202,7 +234,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 10,
         textAlign: 'center',
-
+        width: 370,
     },
     entrarBtn: {
         width: 370,
@@ -226,5 +258,19 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textAlign: 'center',
         marginBottom: 20,
+    },
+    errorBox: {
+        backgroundColor: '#C62828',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        marginBottom: 20,
+        width: 370,
+    },
+    errorText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });
