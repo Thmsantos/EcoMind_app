@@ -43,48 +43,56 @@ export default function PasswordRecovery() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
       >
-        <ScrollView
-          contentContainerStyle={styles.scrollContainer}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={styles.content}>
-            <Text style={styles.title}>Esqueceu sua senha?</Text>
-
-            {emailErrorVisible && (
-              <View style={styles.alerta}>
-                <Text style={styles.textoAlerta}>Email deve ser valido</Text>
-              </View>
-            )}
-
-            <Image source={EmailImage} style={styles.emailImage} />
-
-            <Text style={styles.subtitle}>
-              Por favor, insira o endereço de e-mail associado à sua conta.
-            </Text>
-
-            <Text style={styles.text3}>
-              Enviaremos um código por e-mail para redefinir sua senha.
-            </Text>
-
-            <View style={styles.inputContainer}>
-              <Icon name="envelope" size={18} color="#aaa" style={styles.inputIcon} />
-              <TextInput
-                placeholder="Email"
-                placeholderTextColor="#aaa"
-                style={styles.input}
-                keyboardType="email-address"
-                autoCapitalize="none"
-                value={email}
-                onChangeText={setEmail}
-              />
+        <View style={{ flex: 1 }}>
+          {/* Alerta fixo no topo da tela */}
+          {emailErrorVisible && (
+            <View style={styles.alertaFixed}>
+              <Text style={styles.textoAlerta}>Email deve ser válido</Text>
             </View>
+          )}
 
-            <TouchableOpacity style={styles.entrarBtn} onPress={handlePress}>
-              <Text style={styles.buttonText}>Continuar</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.content}>
+              <Text style={styles.title}>Esqueceu sua senha?</Text>
+
+              <Image source={EmailImage} style={styles.emailImage} />
+
+              <Text style={styles.subtitle}>
+                Por favor, insira o endereço de e-mail associado à sua conta.
+              </Text>
+
+              <Text style={styles.text3}>
+                Enviaremos um código por e-mail para redefinir sua senha.
+              </Text>
+
+              <View style={styles.inputContainer}>
+                <Icon
+                  name="envelope"
+                  size={18}
+                  color="#aaa"
+                  style={styles.inputIcon}
+                />
+                <TextInput
+                  placeholder="Email"
+                  placeholderTextColor="#aaa"
+                  style={styles.input}
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  value={email}
+                  onChangeText={setEmail}
+                />
+              </View>
+
+              <TouchableOpacity style={styles.entrarBtn} onPress={handlePress}>
+                <Text style={styles.buttonText}>Continuar</Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -109,12 +117,17 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     marginBottom: 20,
   },
-  alerta: {
+  alertaFixed: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 60 : 30,
+    left: 20,
+    right: 20,
     backgroundColor: '#8B0000',
     padding: 10,
     borderRadius: 10,
-    marginBottom: 10,
-    width: '100%',
+    zIndex: 9999,
+    elevation: 10,
+    alignItems: 'center',
   },
   textoAlerta: {
     color: 'white',
