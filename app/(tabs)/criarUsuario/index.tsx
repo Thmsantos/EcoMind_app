@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextInput,
-  TouchableOpacity,
-  ScrollView,
-  StyleSheet,
-} from 'react-native';
+import { View,  Text,  Image,  TextInput,  TouchableOpacity,  ScrollView,  StyleSheet,  Dimensions,  KeyboardAvoidingView,  Platform,} from 'react-native';
+import Header from '@/components/header';
 
-
-
+const { width, height } = Dimensions.get('window');
+const baseWidth = width * 0.9;
 
 export default function CadastroUsuario() {
-
   const avatars = [
-    require('../../../assets/images/avatar.png'),
-    require('../../../assets/images/avatar.png'),
-    require('../../../assets/images/avatar.png'),
-    require('../../../assets/images/avatar.png'),
-    require('../../../assets/images/avatar.png'),
-        
+    require('../../../assets/ecoAvatar/1.png'),
+    require('../../../assets/ecoAvatar/2.png'),
+    require('../../../assets/ecoAvatar/3.png'),
+    require('../../../assets/ecoAvatar/4.png'),
+    require('../../../assets/ecoAvatar/6.png'),
   ];
-  
 
   const [selectedAvatar, setSelectedAvatar] = useState(avatars[0]);
   const [username, setUsername] = useState('');
@@ -32,133 +22,153 @@ export default function CadastroUsuario() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image source={selectedAvatar} style={styles.mainAvatar} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={styles.container}
+    >
+      <Header />
+      <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+        <Text style={styles.title}>Bem-vindo! Vamos criar seu</Text>
+        <Text style={styles.title2}>perfil</Text>
+        <Text style={styles.subtitle}>Escolha seu avatar preferido:</Text>
 
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.avatarScroll}
-        contentContainerStyle={{ alignItems: 'center' }}
-      >
-        {avatars.map((img, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => handleAvatarSelect(img)}
-            style={[
-              styles.avatarWrapper,
-              selectedAvatar === img && styles.avatarSelected,
-            ]}
+        <View style={styles.main}>
+          <Image source={selectedAvatar} style={styles.mainAvatar} />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.avatarScroll}
+            contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 10 }}
           >
-            <Image source={img} style={styles.avatarThumb} />
-          </TouchableOpacity>
-        ))}
+            {avatars.map((img, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => handleAvatarSelect(img)}
+                style={[
+                  styles.avatarWrapper,
+                  selectedAvatar === img && styles.avatarSelected,
+                ]}
+              >
+                <Image source={img} style={styles.avatarThumb} />
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+
+          <Text style={styles.label}>Nome de usuário</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Digite seu nome de usuário"
+            placeholderTextColor="#888"
+            value={username}
+            onChangeText={setUsername}
+          />
+        </View>
       </ScrollView>
 
-      <Text style={styles.label}>Cadastro de usuário</Text>
-
-      <View style={styles.inputWrapper}>
-        <TextInput
-          placeholder="username"
-          value={username}
-          onChangeText={setUsername}
-          style={styles.input}
-        />
+      <View style={styles.footer}>
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Continuar</Text>
+        </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>Username</Text>
-      </TouchableOpacity>
-
-      <Text style={styles.footerText}>Escolha seu usuário</Text>
-
-      <TouchableOpacity style={styles.footerButton}>
-        <Text style={styles.footerButtonText}>Cail Potio</Text>
-      </TouchableOpacity>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30,
-    alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
   },
-  logo: {
+  scrollContent: {
+    paddingHorizontal: width * 0.05,
+    paddingBottom: 100,
+  },
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    alignSelf: 'flex-start',
+    marginTop: 24,
+    textAlign: 'left',
+    color: '#1a1a1a',
+  },
+    title2: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginTop: 0,
+    textAlign: 'left',
+    color: '#1a1a1a',
+  },
+  subtitle: {
+    fontSize: 20,
+    marginTop: 20,
     marginBottom: 20,
+    textAlign: 'left',
+    color: 'black',
+    fontWeight: 700,
+  },
+  main: {
+    alignItems: 'flex-start',
   },
   mainAvatar: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    marginBottom: 10,
-    backgroundColor: '#cfcfcf',
+    width: width * 0.3,
+    height: width * 0.3,
+    borderRadius: width * 0.15,
+    marginBottom: 30,
+    backgroundColor: "rgba(113, 190, 112, 1.00)",
   },
   avatarScroll: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   avatarWrapper: {
-    height: 58,
+    height: 64,
+    width: 64,
     marginHorizontal: 6,
     padding: 2,
-    borderRadius: 40,
+    borderRadius: 32,
     borderWidth: 2,
     borderColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   avatarSelected: {
-    borderColor: 'green',
+    borderColor: '#1a8917',
   },
   avatarThumb: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
   },
   label: {
     fontSize: 18,
+    fontWeight: '700',
+    marginBottom: 10,
+    alignSelf: 'flex-start',
+    marginLeft: 10,
     
-    fontWeight: 'bold',
-  },
-  inputWrapper: {
-    borderWidth: 1,
-    borderColor: '#aaa',
-    borderRadius: 10,
-    width: '100%',
-    paddingHorizontal: 10,
-    marginBottom: 20,
   },
   input: {
-    height: 40,
+    borderWidth: 2,
+    borderColor: '#ccc',
+    borderRadius: 12,
+    padding: 14,
+    fontSize: 16,
+    width: baseWidth,
+    alignSelf: 'center',
+  },
+  footer: {
+    bottom: 20,
+    right: width * 0.05,
+    alignItems: 'flex-end',
   },
   button: {
-    backgroundColor: '#1a8917',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-    marginBottom: 10,
+     backgroundColor: "rgba(113, 190, 112, 1.00)",
+    borderRadius: 24,
+    paddingVertical: 12,
+    paddingHorizontal: 26,
+    elevation: 2,
   },
   buttonText: {
-    color: '#fff',
+    color: '#black',
     fontWeight: 'bold',
-  },
-  footerText: {
-    color: '#888',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  footerButton: {
-    backgroundColor: '#2e7d32',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 30,
-  },
-  footerButtonText: {
-    color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 16,  
   },
 });

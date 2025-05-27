@@ -1,137 +1,181 @@
 import Navbar from '@/components/navbar/navbar';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, TextInput, Dimensions } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {View, Text, Image, TouchableOpacity,  StyleSheet,  ScrollView,  TextInput,  Dimensions,  Keyboard,  Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const { width } = Dimensions.get('window');
-const baseWidth = width * 0.9; // width 90%
+const baseWidth = width * 0.9;
 
 export default function Profile() {
-    const [isFocused, setIsFocused] = useState(false);
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
 
-    const userData = {
-        username: 'Mariana',
-        email: 'mari@email.com',
-        nome: 'Mariana',
-        senha: 'mari123'
+  const navbarTranslateY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardVisible(true);
+    });
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
     };
+  }, []);
 
-    const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
+  useEffect(() => {
+    Animated.timing(navbarTranslateY, {
+      toValue: isKeyboardVisible ? 100 : 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  }, [isKeyboardVisible]);
 
-    const handleSalvar = () => {
-        const dadosAtualizados = {
-            username: username || userData.username,
-            email: email || userData.email,
-        };
-        console.log('Dados salvos:', dadosAtualizados);
+  const userData = {
+    username: 'Mariana',
+    email: 'mari@email.com',
+    nome: 'Mariana',
+    senha: 'mari123'
+  };
+
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+
+  const navegarPara = (rota: string) => {
+    router.push(rota);
+  };
+
+  const handleSalvar = () => {
+    const dadosAtualizados = {
+      username: username || userData.username,
+      email: email || userData.email,
     };
+    console.log('Dados salvos:', dadosAtualizados);
+  };
 
-    return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-                <View style={styles.header}>
-                    <View style={styles.headerContent}>
-                        <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
-                        <Text style={styles.username}>Mariana</Text>
-                        <Text style={styles.email}>mari@gmail.com</Text>
-                    </View>
-                </View>
-
-                <View style={styles.statsContainer}>
-                    <View style={styles.statBox}>
-                        <Icon name="trophy" size={20} color="black" style={styles.statIcon} />
-                        <View style={styles.statTextContainer}>
-                            <Text style={styles.statValue}>2 </Text>
-                            <Text style={styles.statLabel}>Pódio</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.statBox}>
-                        <Icon name="leaf" size={20} color="black" style={styles.statIcon} />
-                        <View style={styles.statTextContainer}>
-                            <Text style={styles.statValue}>3.200</Text>
-                            <Text style={styles.statLabel}>Consumo Total</Text>
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.statsContainerdois}>
-                    <View style={styles.statBox}>
-                        <Icon name="star" size={20} color="black" style={styles.statIcon} />
-                        <View style={styles.statTextContainer}>
-                            <Text style={styles.statValue}>0</Text>
-                            <Text style={styles.statLabel}>Pontos</Text>
-                        </View>
-                    </View>
-
-                    <View style={styles.statBox}>
-                        <Icon name="arrow-down" size={20} color="black" style={styles.statIcon} />
-                        <View style={styles.statTextContainer}>
-                            <Text style={styles.statValue}>0,00 kg</Text>
-                            <Text style={styles.statLabel}>CO₂ economizado</Text>
-                        </View>
-                    </View>
-                </View>
-
-                <View style={styles.estatisticas}>
-                    <TouchableOpacity style={styles.btnRedireciona}
-                        onPress={() => router.push('/(tabs)/estatisticas')} >
-                        <Text style={styles.textoBotao}>📊 Estatísticas <Icon style={styles.arrowright} name="chevron-right" size={12} color="#ccc" /></Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={styles.btnRedirecionadois}
-                        onPress={() => router.push('/(tabs)/ranking')}>
-                        <Text style={styles.textoBotao}>🏆 Ranking <Icon style={styles.arrowrightduo} name="chevron-right" size={12} color="#ccc" /></Text>
-                    </TouchableOpacity>
-                </View>
-
-                <View style={styles.containeredit}>
-                    <Text style={styles.titulo}>Editar Perfil</Text>
-
-                    <Text style={styles.titleInput}>Nome*</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={userData.username}
-                        value={username}
-                        onChangeText={setUsername}
-                    />
-
-                    <Text style={styles.titleInput}>Usuário*</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={userData.email}
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType="email-address"
-                    />
-
-                    <Text style={styles.titleInput}>Email*</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder={userData.email}
-                        value={email}
-                        onChangeText={setEmail}
-                        keyboardType="email-address"
-                    />
-
-                    <Text style={styles.titleInput}>Senha*</Text>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="••••••••"
-                        secureTextEntry
-                        keyboardType="default"
-                    />
-
-                    <TouchableOpacity style={styles.botao} onPress={handleSalvar}>
-                        <Text style={styles.textoBotao} >Salvar</Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-            <Navbar />
+  return (
+    <View style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
+            <Text style={styles.username}>Mariana</Text>
+            <Text style={styles.email}>mari@gmail.com</Text>
+          </View>
         </View>
-    );
+
+        <View style={styles.statsContainer}>
+          <View style={styles.statBox}>
+            <Icon name="trophy" size={20} color="black" style={styles.statIcon} />
+            <View style={styles.statTextContainer}>
+              <Text style={styles.statValue}>2 </Text>
+              <Text style={styles.statLabel}>Pódio</Text>
+            </View>
+          </View>
+
+          <View style={styles.statBox}>
+            <Icon name="leaf" size={20} color="black" style={styles.statIcon} />
+            <View style={styles.statTextContainer}>
+              <Text style={styles.statValue}>3.200</Text>
+              <Text style={styles.statLabel}>Consumo Total</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.statsContainerdois}>
+          <View style={styles.statBox}>
+            <Icon name="star" size={20} color="black" style={styles.statIcon} />
+            <View style={styles.statTextContainer}>
+              <Text style={styles.statValue}>0</Text>
+              <Text style={styles.statLabel}>Pontos</Text>
+            </View>
+          </View>
+
+          <View style={styles.statBox}>
+            <Icon name="arrow-down" size={20} color="black" style={styles.statIcon} />
+            <View style={styles.statTextContainer}>
+              <Text style={styles.statValue}>0,00 kg</Text>
+              <Text style={styles.statLabel}>CO₂ economizado</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.estatisticas}>
+          <TouchableOpacity
+            style={styles.btnRedireciona}
+            onPress={() => navegarPara('/(tabs)/estatisticas')}
+          >
+            <Text style={styles.textoBotao}>
+              📊 Estatísticas <Icon style={styles.arrowright} name="chevron-right" size={12} color="#ccc" />
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.btnRedirecionadois}
+            onPress={() => navegarPara('/(tabs)/ranking')}
+          >
+            <Text style={styles.textoBotao}>
+              🏆 Ranking <Icon style={styles.arrowrightduo} name="chevron-right" size={12} color="#ccc" />
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.containeredit}>
+          <Text style={styles.titulo}>Editar Perfil</Text>
+
+          <Text style={styles.titleInput}>Nome*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={userData.username}
+            value={username}
+            onChangeText={setUsername}
+          />
+
+          <Text style={styles.titleInput}>Usuário*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={userData.email}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
+
+          <Text style={styles.titleInput}>Email*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder={userData.email}
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+          />
+
+          <Text style={styles.titleInput}>Senha*</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="••••••••"
+            secureTextEntry
+            keyboardType="default"
+          />
+
+          <TouchableOpacity style={styles.botao} onPress={handleSalvar}>
+            <Text style={styles.textoBotao}>Salvar</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+
+
+      <Animated.View style={{ transform: [{ translateY: navbarTranslateY }] }}>
+        <Navbar />
+      </Animated.View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -173,14 +217,14 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     statsContainer: {
-        width: baseWidth, // width 90%
+        width: baseWidth, 
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20,
         alignSelf: 'center',
     },
     statsContainerdois: {
-        width: baseWidth, // width 90%
+        width: baseWidth,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -217,7 +261,7 @@ const styles = StyleSheet.create({
         color: '#000',
     },
     estatisticas: {
-        width: baseWidth, // width 90%
+        width: baseWidth, 
         marginTop: 20,
         alignSelf: 'center',
         padding: 16,
@@ -226,7 +270,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     btnRedireciona: {
-        width: baseWidth, // width 90%
+        width: baseWidth, 
         backgroundColor: '#fff',
         paddingVertical: 12,
         paddingHorizontal: 20,
@@ -238,7 +282,7 @@ const styles = StyleSheet.create({
         borderColor: '#71BE70',
     },
     btnRedirecionadois: {
-        width: baseWidth, // width 90%
+        width: baseWidth,
         backgroundColor: '#fff',
         paddingVertical: 12,
         paddingHorizontal: 20,
@@ -262,10 +306,10 @@ const styles = StyleSheet.create({
     botao: {
         backgroundColor: '#71BE70',
         padding: 14,
-        borderRadius: 12,
+        borderRadius: 30,
         borderWidth: 0,
         alignItems: "center",
-        width: baseWidth, // width 90%
+        width: baseWidth, 
         alignSelf: 'center'
     },
     containeredit: {
@@ -274,7 +318,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         justifyContent: 'center',
         marginBottom: 80,
-        width: baseWidth, // width 90%
+        width: baseWidth, 
         alignSelf: 'center'
     },
     titulo: {
@@ -292,7 +336,7 @@ const styles = StyleSheet.create({
         padding: 14,
         marginBottom: 16,
         fontSize: 16,
-        width: baseWidth, // width 90%
+        width: baseWidth,
         alignSelf: 'center'
     },
     medal: {

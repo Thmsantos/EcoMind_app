@@ -1,44 +1,44 @@
 import React from "react";
-import { Text, View, StyleSheet, Image} from 'react-native';
+import { Text, View, StyleSheet, Image, Dimensions } from 'react-native';
 
+const { width } = Dimensions.get("window");
 
-export default function Header(){
-    return(
-        <Text style={styles.viewLogo}>
+export default function Header() {
+    return (
+        <View style={styles.viewLogo}>
             <View style={styles.viewImagemLogo}>
-                <Image source={require("../../assets/images/logo-home.png")} style={styles.imageLogo} />
+                <Image
+                    source={require("../../assets/images/logo-home.png")}
+                    style={styles.imageLogo}
+                    resizeMode="contain"
+                />
             </View>
             <Text style={styles.nomeAppLogo}>EcoMind</Text>
-        </Text>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-
     viewLogo: {
-        margin: "auto",
         marginTop: 8,
-        display: "flex",
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        paddingHorizontal: 16,
+        width: "100%",
     },
 
     imageLogo: {
-        width: 65,
-        height: 65,
-        backgroundSize: "cover"
+        width: width * 0.16,
+        height: width * 0.16,
     },
 
     viewImagemLogo: {
-        width: 55,
-        height:80
+        marginRight: -10,
     },
 
-    nomeAppLogo:{
-        fontSize: 22,
+    nomeAppLogo: {
+        fontSize: 20,
         fontWeight: "700",
-        marginBottom: 15,
-        letterSpacing: 1
     },
-})
+});
