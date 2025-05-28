@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '700',
         letterSpacing: 1,
-        color: 'darkgreen',
+        color: '#485935',
         marginBottom: 24,
     },
     inputContainer: {

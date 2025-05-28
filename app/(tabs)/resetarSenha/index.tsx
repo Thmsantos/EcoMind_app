@@ -22,6 +22,7 @@ export default function CriarSenha() {
     const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
     const [codigoEnviado, setCodigoEnviado] = useState(false);
     const [erroSenha, setErroSenha] = useState('');
+    const [sucessoSenha, setSucessoSenha] = useState('');
 
     const validarSenha = (senha: string) => {
         const temLetraMaiuscula = /[A-Z]/.test(senha);
@@ -51,8 +52,9 @@ export default function CriarSenha() {
         }
 
         setErroSenha('');
-        alert('Senha redefinida com sucesso!');
-        router.push('/(tabs)/login');
+        setSucessoSenha('Senha redefinida com sucesso!');
+        setTimeout(() => setSucessoSenha(''), 3000);
+        setTimeout(() => router.push('/(tabs)/login'), 3000);
     };
 
     const handleReenviarCodigo = () => {
@@ -74,6 +76,12 @@ export default function CriarSenha() {
                     {erroSenha !== '' && (
                         <View style={styles.errorBox}>
                             <Text style={styles.errorText}>{erroSenha}</Text>
+                        </View>
+                    )}
+
+                    {sucessoSenha !== '' && (
+                        <View style={styles.successBox}>
+                            <Text style={styles.successText}>{sucessoSenha}</Text>
                         </View>
                     )}
 
@@ -272,5 +280,19 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
         fontWeight: '600',
+    },
+    successBox: {
+        backgroundColor: '#2E7D32',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        marginBottom: 20,
+        width: 370,
+    },
+    successText: {
+        color: '#fff',
+        textAlign: 'center',
+        fontSize: 15,
+        fontWeight: '500',
     },
 });
