@@ -40,22 +40,21 @@ export default function PasswordRecovery() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 0}
       >
-        <View style={{ flex: 1 }}>
-          {/* Alerta fixo no topo da tela */}
-          {emailErrorVisible && (
-            <View style={styles.alertaFixed}>
-              <Text style={styles.textoAlerta}>Email deve ser válido</Text>
-            </View>
-          )}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1 }}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={{ flex: 1 }}>
+            {emailErrorVisible && (
+              <View style={styles.alertaFixed}>
+                <Text style={styles.textoAlerta}>Email deve ser válido</Text>
+              </View>
+            )}
 
-          <ScrollView
-            contentContainerStyle={styles.scrollContainer}
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
             <View style={styles.content}>
               <Text style={styles.title}>Esqueceu sua senha?</Text>
 
@@ -91,8 +90,8 @@ export default function PasswordRecovery() {
                 <Text style={styles.buttonText}>Continuar</Text>
               </TouchableOpacity>
             </View>
-          </ScrollView>
-        </View>
+          </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#485935',
     letterSpacing: 1,
-    marginBottom: 20,
+    marginTop: 70,        // 👈 Adicionado espaçamento no topo
   },
   alertaFixed: {
     position: 'absolute',
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
   emailImage: {
     width: 100,
     height: 100,
-    marginVertical: 20,
+    marginVertical: 2,
     resizeMode: 'contain',
   },
   subtitle: {
