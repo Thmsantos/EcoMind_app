@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#485935',
     letterSpacing: 1,
-    marginTop: 70,        // 👈 Adicionado espaçamento no topo
+    marginTop: 60, // ⬅️ aumentamos para descer o título
   },
   alertaFixed: {
     position: 'absolute',
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   emailImage: {
     width: 100,
     height: 100,
-    marginVertical: 2,
+    marginVertical: 10,
     resizeMode: 'contain',
   },
   subtitle: {
