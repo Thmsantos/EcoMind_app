@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import {Text,  View,  StyleSheet,  TextInput,  ScrollView,  TouchableOpacity,  Alert,  Dimensions,  KeyboardAvoidingView,  Platform,  Animated,  Keyboard,} from 'react-native';
-import { RadioButton } from 'react-native-paper';
+import { RadioButton, Checkbox } from 'react-native-paper';
 import { router } from 'expo-router';
 import Header from '@/components/header/index';
 import Navbar from '@/components/navbar/navbar'; 
@@ -36,10 +36,44 @@ export default function Calculadora() {
   const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
   const [tipoGas, setTipoGas] = useState('R$');
-  const [transporteSelecionado, setTransporteSelecionado] = useState('');
   const [kmPercorridos, setKmPercorridos] = useState('');
-
   const [tecladoAberto, setTecladoAberto] = useState(false);
+
+  const veiculos = {
+    "moto": 30,
+    "carro": 12,
+    "barco": 2,
+    "caminhão": 3,
+    "onibus": 2.5,
+    "avião": 0.2,
+    "helicóptero": 0.8,
+    "trem": 5
+  }
+
+  const [consumoGas, setConsumoGas] = useState<number>()
+  const [consumoEletrecidade, setConsumoEletrecidade] = useState<number>()
+  const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
+
+  function pushTransporte(nome: string) {
+    if (transportesSelecionados.includes(nome)) {
+      setTransportesSelecionados(prev => prev.filter(t => t !== nome));
+      return;
+    }
+    setTransportesSelecionados(prev => [...prev, nome]);
+  }
+
+  function litrosConsumidos(consumoVeiculo: number, kmMensaisx: number){
+      return (kmMensaisx/consumoVeiculo).toFixed(2) 
+  };
+
+  function saveCalc(veiculo: string, kmMensais: number){
+    const emissaoGas = consumoGas * 2.9;
+    const emissaoEnergia = consumoEletrecidade * 0.1;
+    const emissaoCombustivel = Number(litrosConsumidos(consumo['veiculo'], kmMensais)) * 2.17;
+
+    const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+  }
+
 
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
@@ -122,10 +156,9 @@ export default function Calculadora() {
                 <View style={styles.listaUm}>
                   {['Moto', 'Carro', 'Barco', 'Caminhão'].map((nome, idx) => (
                     <View key={idx} style={styles.radioItem}>
-                      <RadioButton
-                        value={nome}
-                        status={transporteSelecionado === nome ? 'checked' : 'unchecked'}
-                        onPress={() => setTransporteSelecionado(nome)}
+                      <Checkbox
+                        status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
+                        onPress={() => pushTransporte(nome)}
                         color="#71BE70"
                       />
                       <Text style={styles.textRadio}>{nome}</Text>
@@ -135,10 +168,9 @@ export default function Calculadora() {
                 <View style={styles.listaDois}>
                   {['Ônibus', 'Avião', 'Helicóptero', 'Trem'].map((nome, idx) => (
                     <View key={idx} style={styles.radioItem}>
-                      <RadioButton
-                        value={nome}
-                        status={transporteSelecionado === nome ? 'checked' : 'unchecked'}
-                        onPress={() => setTransporteSelecionado(nome)}
+                      <Checkbox
+                        status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
+                        onPress={() => pushTransporte(nome)}
                         color="#71BE70"
                       />
                       <Text style={styles.textRadio}>{nome}</Text>
