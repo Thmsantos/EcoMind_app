@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export function getConsumoEnergia(valorEletricidade: string, tipoEletricidade: string, valorGas: string, tipoGas: string) {
     return {
       eletricidade: {
@@ -19,6 +21,7 @@ export function getConsumoEnergia(valorEletricidade: string, tipoEletricidade: s
   }
   
   export function getTodosOsValores(
+    nomeMes: string,
     valorEletricidade: string,
     tipoEletricidade: string,
     valorGas: string,
@@ -28,6 +31,31 @@ export function getConsumoEnergia(valorEletricidade: string, tipoEletricidade: s
   ) {
     const energia = getConsumoEnergia(valorEletricidade, tipoEletricidade, valorGas, tipoGas);
     const locomocao = getDadosLocomocao(transporteSelecionado, kmPercorridos);
-    return { energia, locomocao };
+    
+    return { energia, locomocao, nomeMes};
   }
   
+
+  /* Função sendo chamada no botão salvar - converte lista de veículos para valores do tipo boolean */
+  const todosVeiculos = [
+  "carro",
+  "moto",
+  "barco",
+  "caminhão",
+  "ônibus",
+  "avião",
+  "helicóptero",
+  "trem",
+];
+
+export function criaObjetoTransportes(selecionados: string[]) {
+  const obj: { [key: string]: boolean } = {};
+
+  todosVeiculos.forEach((veiculo) => {
+    obj[veiculo] = selecionados.includes(veiculo);
+  });
+
+  return obj;
+}
+
+

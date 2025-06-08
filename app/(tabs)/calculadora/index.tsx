@@ -4,7 +4,13 @@ import { RadioButton, Checkbox } from 'react-native-paper';
 import { router } from 'expo-router';
 import Header from '@/components/header/index';
 import Navbar from '@/components/navbar/navbar'; 
+import { getTodosOsValores } from './functionsCalculadora';
+import {criaObjetoTransportes} from './functionsCalculadora';
+import { Picker } from '@react-native-picker/picker';
 
+
+const { width, height } = Dimensions.get('window');
+const baseWidth = width * 0.9;
 
 function NavbarAnimated({ visible }) {
   const slideAnim = useRef(new Animated.Value(100)).current;
@@ -32,6 +38,7 @@ function NavbarAnimated({ visible }) {
 }
 
 export default function Calculadora() {
+
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
@@ -75,6 +82,31 @@ export default function Calculadora() {
   }
 
 
+  const [mesSelecionado, setMesSelecionado] = useState('');
+  
+    const meses = [
+      { label: 'Janeiro', value: '1' },
+      { label: 'Fevereiro', value: '2' },
+      { label: 'Março', value: '3' },
+      { label: 'Abril', value: '4' },
+      { label: 'Maio', value: '5' },
+      { label: 'Junho', value: '6' },
+      { label: 'Julho', value: '7' },
+      { label: 'Agosto', value: '8' },
+      { label: 'Setembro', value: '9' },
+      { label: 'Outubro', value: '10' },
+      { label: 'Novembro', value: '11' },
+      { label: 'Dezembro', value: '12' },
+    ];
+  
+    function getNomeMes(valor: string) {
+      const mes = meses.find(m => m.value === valor);
+      return mes ? mes.label : '';
+      }
+      
+      const nomeMes = getNomeMes(mesSelecionado);
+
+
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
     const hideListener = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
@@ -96,7 +128,11 @@ export default function Calculadora() {
   const { width } = Dimensions.get('window');
   const baseWidth = width * 0.9;
 
+
+
   return (
+
+
     <View style={styles.container}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -106,7 +142,34 @@ export default function Calculadora() {
         <ScrollView contentContainerStyle={{ paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
           <Header />
 
+
           <View style={styles.formulario}>
+            
+                <View style={styles.container2}>
+                  <Text style={styles.label}>Selecione o mês do cálculo</Text>
+                  <View style={styles.pickerContainer}>
+                    <Picker
+                      selectedValue={mesSelecionado}
+                      onValueChange={(itemValue) => setMesSelecionado(itemValue)
+                        
+                      }
+                      
+                      style={{
+                        height: 50,
+                        paddingHorizontal: 0,
+                        borderRadius: 8,
+                        fontSize: 16,
+                        color:"gray"
+                    }}
+                    >
+                      <Picker.Item label="-- Escolha um mês --" value="" />
+                      {meses.map((mes) => (
+                        <Picker.Item key={mes.value} label={mes.label} value={mes.value} />
+                      ))}
+                    </Picker>
+                  </View>
+                  <Text style={styles.mesSelecionado}>Mês selecionado: {mesSelecionado || 'Nenhum'}</Text>
+                </View>
         
             <View style={styles.card}>
               <Text style={styles.textTitulo}>Consumo de eletricidade</Text>
@@ -154,7 +217,7 @@ export default function Calculadora() {
               <Text style={styles.textTitulo}>Locomoção</Text>
               <View style={styles.listaLocomocao}>
                 <View style={styles.listaUm}>
-                  {['Moto', 'Carro', 'Barco', 'Caminhão'].map((nome, idx) => (
+                  {['moto', 'carro', 'barco', 'caminhão'].map((nome, idx) => (
                     <View key={idx} style={styles.radioItem}>
                       <Checkbox
                         status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
@@ -166,7 +229,7 @@ export default function Calculadora() {
                   ))}
                 </View>
                 <View style={styles.listaDois}>
-                  {['Ônibus', 'Avião', 'Helicóptero', 'Trem'].map((nome, idx) => (
+                  {['ônibus', 'avião', 'helicóptero', 'trem'].map((nome, idx) => (
                     <View key={idx} style={styles.radioItem}>
                       <Checkbox
                         status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
@@ -188,9 +251,19 @@ export default function Calculadora() {
                   onChangeText={setKmPercorridos}
                   keyboardType="numeric"
                 />
-                <TouchableOpacity style={styles.btnSalvar} onPress={() => Alert.alert('Salvo!')}>
-                  <Text style={styles.textBtnSalvar}>Salvar</Text>
-                </TouchableOpacity>
+
+              {/* Retorna todos os valores */}
+              <TouchableOpacity
+                style={styles.btnSalvar}
+                onPress={() => {
+                  const transporteObjeto = criaObjetoTransportes(transportesSelecionados);
+                  console.log(transporteObjeto); 
+                  Alert.alert('Salvo!', JSON.stringify(transporteObjeto, null, 2));
+                }}
+              >
+                <Text style={styles.textBtnSalvar}>Salvar</Text>
+              </TouchableOpacity>
+
               </View>
             </View>
 
@@ -206,8 +279,25 @@ export default function Calculadora() {
             </View>
 
            
-            <TouchableOpacity style={styles.btnCalcular} onPress={() => router.push('/(tabs)/resultados')}>
-              <Text style={styles.textbtnCalcular}>Calcular CO₂</Text>
+            <TouchableOpacity
+                  style={styles.btnSalvar}
+                  onPress={() => {
+                    const valores = getTodosOsValores(
+                      nomeMes,
+                      valorEletricidade,
+                      tipoEletricidade,
+                      valorGas,
+                      tipoGas,
+                      transportesSelecionados[0] || '',
+                      kmPercorridos
+                    );
+                    console.log('Valores capturados:', valores);
+                    Alert.alert('Valores capturados!', JSON.stringify(valores, null, 2));
+
+                    
+                  }}
+                >
+                <Text style={styles.textBtnSalvar}>Calcular CO²</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -247,7 +337,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   textInput: {
-    height: 45,
+    height: 50,
     borderColor: '#ccc',
     borderWidth: 2,
     paddingHorizontal: 10,
@@ -292,6 +382,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   tabela: {
+    width: width * 0.9,
     borderRadius: 15,
     backgroundColor: '#71BE70',
     marginTop: 20,
@@ -318,5 +409,33 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 18,
     fontWeight: 'bold'
-  }
+  },
+    container2: {
+    borderWidth: 2,
+    margin: 0,
+    borderRadius: 15,
+    borderColor: "rgba(113, 190, 112, 1.00)",
+    marginBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    paddingLeft: 17,
+    paddingRight: 17
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    
+  },
+  pickerContainer: {
+    borderWidth: 2,
+    borderColor: '#ccc',
+    borderRadius: 12,
+    overflow: 'hidden', 
+  },
+  mesSelecionado: {
+    marginTop: 16,
+    fontSize: 16,
+    color: '#555',
+  },
 });
