@@ -45,66 +45,44 @@ export default function Calculadora() {
   const [tipoGas, setTipoGas] = useState('R$');
   const [kmPercorridos, setKmPercorridos] = useState('');
   const [tecladoAberto, setTecladoAberto] = useState(false);
+  // const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
 
-  const veiculos = {
-    "moto": 30,
-    "carro": 12,
-    "barco": 2,
-    "caminhão": 3,
-    "onibus": 2.5,
-    "avião": 0.2,
-    "helicóptero": 0.8,
-    "trem": 5
-  }
-
-  const [consumoGas, setConsumoGas] = useState<number>()
-  const [consumoEletrecidade, setConsumoEletrecidade] = useState<number>()
-  const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
-
-  function pushTransporte(nome: string) {
-    if (transportesSelecionados.includes(nome)) {
-      setTransportesSelecionados(prev => prev.filter(t => t !== nome));
-      return;
-    }
-    setTransportesSelecionados(prev => [...prev, nome]);
-  }
+  // function pushTransporte(nome: string) {
+  //   if (transportesSelecionados.includes(nome)) {
+  //     setTransportesSelecionados(prev => prev.filter(t => t !== nome));
+  //     return;
+  //   }
+  //   setTransportesSelecionados(prev => [...prev, nome]);
+  // }
 
   function litrosConsumidos(consumoVeiculo: number, kmMensaisx: number){
       return (kmMensaisx/consumoVeiculo).toFixed(2) 
   };
 
-  function saveCalc(veiculo: string, kmMensais: number){
-    const emissaoGas = consumoGas * 2.9;
-    const emissaoEnergia = consumoEletrecidade * 0.1;
-    const emissaoCombustivel = Number(litrosConsumidos(consumo['veiculo'], kmMensais)) * 2.17;
-
-    const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
-  }
-
 
   const [mesSelecionado, setMesSelecionado] = useState('');
   
     const meses = [
-      { label: 'Janeiro', value: '1' },
-      { label: 'Fevereiro', value: '2' },
-      { label: 'Março', value: '3' },
-      { label: 'Abril', value: '4' },
-      { label: 'Maio', value: '5' },
-      { label: 'Junho', value: '6' },
-      { label: 'Julho', value: '7' },
-      { label: 'Agosto', value: '8' },
-      { label: 'Setembro', value: '9' },
-      { label: 'Outubro', value: '10' },
-      { label: 'Novembro', value: '11' },
-      { label: 'Dezembro', value: '12' },
+      { label: 'Janeiro', value: 'Janeiro' },
+      { label: 'Fevereiro', value: 'Fevereiro' },
+      { label: 'Março', value: 'Março' },
+      { label: 'Abril', value: 'Abril' },
+      { label: 'Maio', value: 'Maio' },
+      { label: 'Junho', value: 'Junho' },
+      { label: 'Julho', value: 'Julho' },
+      { label: 'Agosto', value: 'Agosto' },
+      { label: 'Setembro', value: 'Setembro' },
+      { label: 'Outubro', value: 'Outubro' },
+      { label: 'Novembro', value: 'Novembro' },
+      { label: 'Dezembro', value: 'Dezembro' },
     ];
   
-    function getNomeMes(valor: string) {
-      const mes = meses.find(m => m.value === valor);
-      return mes ? mes.label : '';
-      }
+    // function getNomeMes(valor: string) {
+    //   const mes = meses.find(m => m.value === valor);
+    //   return mes ? mes.label : '';
+    //   }
       
-      const nomeMes = getNomeMes(mesSelecionado);
+    //   const nomeMes = getNomeMes(mesSelecionado);
 
 
   useEffect(() => {
@@ -116,19 +94,36 @@ export default function Calculadora() {
     };
   }, []);
 
-  const dados = [
-    { id: '1', nome: 'Moto', KM: '230 KM' },
-    { id: '2', nome: 'Carro', KM: '230 KM' },
-    { id: '3', nome: 'Avião', KM: '230 KM' },
-    { id: '4', nome: 'Ônibus', KM: '230 KM' },
-    { id: '5', nome: 'Barco', KM: '230 KM' },
-    { id: '6', nome: 'Trem', KM: '230 KM' },
-  ];
+  // const dados = [
+  //   { id: '1', nome: 'Moto', KM: '230 KM' },
+  //   { id: '2', nome: 'Carro', KM: '230 KM' },
+  //   { id: '3', nome: 'Avião', KM: '230 KM' },
+  //   { id: '4', nome: 'Ônibus', KM: '230 KM' },
+  //   { id: '5', nome: 'Barco', KM: '230 KM' },
+  //   { id: '6', nome: 'Trem', KM: '230 KM' },
+  // ];
 
-  const { width } = Dimensions.get('window');
-  const baseWidth = width * 0.9;
+  // const { width } = Dimensions.get('window');
+  // const baseWidth = width * 0.9;
 
+  function saveAll(){
+    const emissaoGas = Number(valorGas) * 2.9; 
+    const emissaoEnergia = Number(valorEletricidade) * 0.1;
+    const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
+    const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+    const data = {
+      idUser: "id",
+      mes: mesSelecionado,
+      consumoCarbono: emissaoTotal,
+      consumoEnergia: emissaoEnergia,
+      consumoGas: emissaoGas,
+      consumoTransporte: emissaoCombustivel,
+      balanco: 'positivo'
+    }
 
+    //fazer o axios
+    console.log(data)
+  }
 
   return (
 
@@ -213,7 +208,15 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
-            <View style={styles.card2}>
+            <Text style={styles.textTitulo}>KMs Percorridos</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Digite os KMs"
+              value={kmPercorridos}
+              onChangeText={setKmPercorridos}
+              keyboardType="numeric"
+            />
+            {/* <View style={styles.card2}>
               <Text style={styles.textTitulo}>Locomoção</Text>
               <View style={styles.listaLocomocao}>
                 <View style={styles.listaUm}>
@@ -242,17 +245,9 @@ export default function Calculadora() {
                 </View>
               </View>
 
-              <Text style={styles.textTitulo}>KMs Percorridos</Text>
               <View style={styles.groupKMPercorridos}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Digite os KMs"
-                  value={kmPercorridos}
-                  onChangeText={setKmPercorridos}
-                  keyboardType="numeric"
-                />
 
-              {/* Retorna todos os valores */}
+           
               <TouchableOpacity
                 style={styles.btnSalvar}
                 onPress={() => {
@@ -265,7 +260,7 @@ export default function Calculadora() {
               </TouchableOpacity>
 
               </View>
-            </View>
+            </View>*
 
             <View style={styles.scrolltabela}>
               <View style={[styles.tabela, { width: baseWidth }]}>
@@ -276,25 +271,24 @@ export default function Calculadora() {
                   </View>
                 ))}
               </View>
-            </View>
+            </View> */}
 
            
             <TouchableOpacity
                   style={styles.btnSalvar}
                   onPress={() => {
-                    const valores = getTodosOsValores(
-                      nomeMes,
-                      valorEletricidade,
-                      tipoEletricidade,
-                      valorGas,
-                      tipoGas,
-                      transportesSelecionados[0] || '',
-                      kmPercorridos
-                    );
-                    console.log('Valores capturados:', valores);
-                    Alert.alert('Valores capturados!', JSON.stringify(valores, null, 2));
-
-                    
+                    // const valores = getTodosOsValores(
+                    //   nomeMes,
+                    //   valorEletricidade,
+                    //   tipoEletricidade,
+                    //   valorGas,
+                    //   tipoGas,
+                    //   transportesSelecionados[0] || '',
+                    //   kmPercorridos
+                    // );
+                    // console.log('Valores capturados:', valores);
+                    // Alert.alert('Valores capturados!', JSON.stringify(valores, null, 2));
+                    saveAll()
                   }}
                 >
                 <Text style={styles.textBtnSalvar}>Calcular CO²</Text>
