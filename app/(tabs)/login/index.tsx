@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 120,
     height: 120,
-    marginTop: 40, // 👈 Logo mais para baixo
+    marginTop: 40,
     alignSelf: "center",
   },
   welcomeText: {
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   },
   mensagemBox: {
     position: "absolute",
-    top: 50,
+    top: Platform.OS === "ios" ? 60 : 30,
     left: 20,
     right: 20,
     padding: 12,
@@ -183,15 +183,16 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   erro: {
-    backgroundColor: "#F8D7DA",
+    backgroundColor: "#8B0000", // vermelho escuro
   },
   sucesso: {
-    backgroundColor: "#D4EDDA",
+    backgroundColor: "#71BE70", // verde sucesso
   },
   mensagemTexto: {
-    color: "#333",
+    color: "#fff", // texto branco
     fontSize: 15,
     fontWeight: "500",
+    textAlign: "center",
   },
   inputContainer: {
     height: 60,
