@@ -7,8 +7,6 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  TouchableWithoutFeedback,
-  Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -19,6 +17,7 @@ import axios from "axios";
 
 const logo = require("../../../assets/images/logo-home.png");
 
+export let idUser = "";
 export default function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
@@ -39,14 +38,17 @@ export default function Login() {
     }
 
     try {
-      await axios.post("http://127.0.0.1:2010/api/user/login", body);
+      const response = await axios.post("http://127.0.0.1:2010/api/user/login", body);
 
+      if(response.data.message === "logado"){
+        idUser = response.data.id
+      }
       setTipoMensagem("sucesso");
       setMensagem("Login realizado com sucesso!");
 
       setTimeout(() => {
-        router.push("/(tabs)/apresentaCalculadora");
-      }, 1000);
+        router.push(`/(tabs)/calculadora?userId=${response.data.id}`);
+      }, 400);
     } catch (error: any) {
       const mensagemErro =
         error.response?.data?.message ||
@@ -66,87 +68,85 @@ export default function Login() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+    >
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
       >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={[styles.container, { flex: 1 }]}>
-            {mensagem !== "" && (
-              <View
-                style={[
-                  styles.mensagemBox,
-                  tipoMensagem === "erro" ? styles.erro : styles.sucesso,
-                ]}
-              >
-                <Text style={styles.mensagemTexto}>{mensagem}</Text>
-              </View>
-            )}
+        <View style={[styles.container, { flex: 1 }]}>
+          {mensagem !== "" && (
+            <View
+              style={[
+                styles.mensagemBox,
+                tipoMensagem === "erro" ? styles.erro : styles.sucesso,
+              ]}
+            >
+              <Text style={styles.mensagemTexto}>{mensagem}</Text>
+            </View>
+          )}
 
-            <Image source={logo} style={styles.logo} />
-            <Text style={styles.welcomeText}>Bem vindo!</Text>
+          <Image source={logo} style={styles.logo} />
+          <Text style={styles.welcomeText}>Bem vindo!</Text>
 
-            <View style={styles.inputContainer}>
+          <View style={styles.inputContainer}>
+            <Icon
+              name="envelope"
+              size={18}
+              color="#aaa"
+              style={styles.icon}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Usuário"
+              placeholderTextColor="#aaa"
+              keyboardType="default"
+              autoCapitalize="none"
+              value={usuario}
+              onChangeText={setUsuario}
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Icon name="lock" size={22} color="#aaa" style={styles.icon} />
+            <TextInput
+              style={styles.input}
+              placeholder="Senha"
+              placeholderTextColor="#aaa"
+              secureTextEntry={!isPasswordVisible}
+              value={senha}
+              onChangeText={setSenha}
+            />
+            <TouchableOpacity
+              onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+            >
               <Icon
-                name="envelope"
-                size={18}
+                name={isPasswordVisible ? "eye" : "eye-slash"}
+                size={20}
                 color="#aaa"
-                style={styles.icon}
               />
-              <TextInput
-                style={styles.input}
-                placeholder="Usuário"
-                placeholderTextColor="#aaa"
-                keyboardType="default"
-                autoCapitalize="none"
-                value={usuario}
-                onChangeText={setUsuario}
-              />
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Icon name="lock" size={22} color="#aaa" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                placeholderTextColor="#aaa"
-                secureTextEntry={!isPasswordVisible}
-                value={senha}
-                onChangeText={setSenha}
-              />
-              <TouchableOpacity
-                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-              >
-                <Icon
-                  name={isPasswordVisible ? "eye" : "eye-slash"}
-                  size={20}
-                  color="#aaa"
-                />
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => router.push("/(tabs)/senha")}>
-              <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => router.push("/cadastro")}>
-              <Text style={styles.register}>Não tem conta? Cadastre-se</Text>
             </TouchableOpacity>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push("/(tabs)/senha")}>
+            <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => router.push("/cadastro")}>
+            <Text style={styles.register}>Não tem conta? Cadastre-se</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -183,13 +183,13 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   erro: {
-    backgroundColor: "#8B0000", // vermelho escuro
+    backgroundColor: "#8B0000",
   },
   sucesso: {
-    backgroundColor: "#71BE70", // verde sucesso
+    backgroundColor: "#71BE70",
   },
   mensagemTexto: {
-    color: "#fff", // texto branco
+    color: "#fff",
     fontSize: 15,
     fontWeight: "500",
     textAlign: "center",
