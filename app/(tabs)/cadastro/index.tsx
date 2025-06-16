@@ -7,10 +7,8 @@ import {
   TextInput,
   TouchableOpacity,
   KeyboardAvoidingView,
-  ScrollView,
   Platform,
-  Keyboard,
-  TouchableWithoutFeedback,
+  ScrollView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
@@ -55,7 +53,6 @@ export default function Cadastro() {
 
     try {
       await axios.post('http://127.0.0.1:2010/api/user/create', body);
-
       setTipoMensagem('sucesso');
       setMensagem('Cadastro realizado com sucesso!');
       limparMensagem();
@@ -65,15 +62,9 @@ export default function Cadastro() {
       }, 1000);
     } catch (error: any) {
       let mensagemErro = 'Erro ao cadastrar. Tente novamente.';
-
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
+      if (error.response?.data?.message) {
         mensagemErro = error.response.data.message;
       }
-
       setTipoMensagem('erro');
       setMensagem(mensagemErro);
       limparMensagem();
@@ -88,128 +79,122 @@ export default function Cadastro() {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <KeyboardAvoidingView
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+    >
+      <ScrollView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : 0}
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
       >
-        <ScrollView
-          contentContainerStyle={{ flexGrow: 1 }}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          <View style={[styles.container]}>
-            {mensagem !== '' && (
-              <View
-                style={[
-                  styles.mensagemBox,
-                  tipoMensagem === 'erro' ? styles.erro : styles.sucesso,
-                ]}
-              >
-                <Text style={styles.mensagemTexto}>{mensagem}</Text>
-              </View>
-            )}
-
-            <Text style={styles.title}>Cadastre-se</Text>
-
-            <View style={styles.inputContainer}>
-              <Icon name="user" size={20} color="#888" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Nome"
-                placeholderTextColor="#aaa"
-                value={nome}
-                onChangeText={setNome}
-              />
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Icon name="user" size={20} color="#888" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Usuário"
-                placeholderTextColor="#aaa"
-                value={usuario}
-                onChangeText={setUsuario}
-              />
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Icon name="envelope" size={18} color="#888" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Email"
-                placeholderTextColor="#aaa"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                value={email}
-                onChangeText={setEmail}
-              />
-            </View>
-
-            <View style={styles.inputContainer}>
-              <Icon name="lock" size={20} color="#888" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Senha"
-                placeholderTextColor="#aaa"
-                secureTextEntry={!senhaVisivel}
-                value={senha}
-                onChangeText={setSenha}
-              />
-              <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
-                <Icon
-                  name={senhaVisivel ? 'eye' : 'eye-slash'}
-                  size={20}
-                  color="#888"
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <Text style={styles.requisitos}>
-              Mínimo 8 caracteres, conter letras maiúsculas e minúsculas,
-              número e caractere especial.
-            </Text>
-
-            <View style={styles.inputContainer}>
-              <Icon name="lock" size={20} color="#888" style={styles.icon} />
-              <TextInput
-                style={styles.input}
-                placeholder="Confirmar Senha"
-                placeholderTextColor="#aaa"
-                secureTextEntry={!confirmarSenhaVisivel}
-                value={confirmarSenha}
-                onChangeText={setConfirmarSenha}
-              />
-              <TouchableOpacity
-                onPress={() =>
-                  setConfirmarSenhaVisivel(!confirmarSenhaVisivel)
-                }
-              >
-                <Icon
-                  name={confirmarSenhaVisivel ? 'eye' : 'eye-slash'}
-                  size={20}
-                  color="#888"
-                  style={styles.icon}
-                />
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.entrarBtn} onPress={handleCadastro}>
-              <Text style={styles.buttonText}>Criar Conta</Text>
-            </TouchableOpacity>
-
-            <View style={styles.loginTextContainer}>
-              <TouchableOpacity onPress={() => router.push('/(tabs)/login')}>
-                <Text style={styles.linkText}>Já possui uma conta? Entre</Text>
-              </TouchableOpacity>
-            </View>
+        {mensagem !== '' && (
+          <View
+            style={[
+              styles.mensagemBox,
+              tipoMensagem === 'erro' ? styles.erro : styles.sucesso,
+            ]}
+          >
+            <Text style={styles.mensagemTexto}>{mensagem}</Text>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </TouchableWithoutFeedback>
+        )}
+
+        <Text style={styles.title}>Cadastre-se</Text>
+
+        <View style={styles.inputContainer}>
+          <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Nome"
+            placeholderTextColor="#aaa"
+            value={nome}
+            onChangeText={setNome}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Usuário"
+            placeholderTextColor="#aaa"
+            value={usuario}
+            onChangeText={setUsuario}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Icon name="envelope" size={18} color="#888" style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="#aaa"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
+          />
+        </View>
+
+        <View style={styles.inputContainer}>
+          <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            placeholderTextColor="#aaa"
+            secureTextEntry={!senhaVisivel}
+            value={senha}
+            onChangeText={setSenha}
+          />
+          <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
+            <Icon
+              name={senhaVisivel ? 'eye' : 'eye-slash'}
+              size={20}
+              color="#888"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <Text style={styles.requisitos}>
+          Mínimo 8 caracteres, conter letras maiúsculas e minúsculas, número e
+          caractere especial.
+        </Text>
+
+        <View style={styles.inputContainer}>
+          <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <TextInput
+            style={styles.input}
+            placeholder="Confirmar Senha"
+            placeholderTextColor="#aaa"
+            secureTextEntry={!confirmarSenhaVisivel}
+            value={confirmarSenha}
+            onChangeText={setConfirmarSenha}
+          />
+          <TouchableOpacity
+            onPress={() => setConfirmarSenhaVisivel(!confirmarSenhaVisivel)}
+          >
+            <Icon
+              name={confirmarSenhaVisivel ? 'eye' : 'eye-slash'}
+              size={20}
+              color="#888"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.entrarBtn} onPress={handleCadastro}>
+          <Text style={styles.buttonText}>Criar Conta</Text>
+        </TouchableOpacity>
+
+        <View style={styles.loginTextContainer}>
+          <TouchableOpacity onPress={() => router.push('/(tabs)/login')}>
+            <Text style={styles.linkText}>Já possui uma conta? Entre</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -249,7 +234,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginLeft: 8,
     paddingVertical: 0,
-    includeFontPadding: true,
   },
   icon: {
     marginRight: 11,
@@ -266,7 +250,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 30,
     borderWidth: 0,
-    zIndex: 100,
     alignItems: 'center',
     marginTop: 5,
   },
@@ -286,7 +269,6 @@ const styles = StyleSheet.create({
     color: '#000',
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 1,
     textDecorationLine: 'underline',
   },
   mensagemBox: {
