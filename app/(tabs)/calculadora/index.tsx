@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import {Text,  View,  StyleSheet,  TextInput,  ScrollView,  TouchableOpacity,  Alert,  Dimensions,  KeyboardAvoidingView,  Platform,  Animated,  Keyboard,} from 'react-native';
-import { RadioButton, Checkbox } from 'react-native-paper';
-import { router } from 'expo-router';
+import { RadioButton } from 'react-native-paper';
 import Header from '@/components/header/index';
 import Navbar from '@/components/navbar/navbar'; 
-import { getTodosOsValores } from './functionsCalculadora';
-import {criaObjetoTransportes} from './functionsCalculadora';
+
 import { Picker } from '@react-native-picker/picker';
+import { useLocalSearchParams } from "expo-router";
+import axios from 'axios';
 
-
-const { width, height } = Dimensions.get('window');
-const baseWidth = width * 0.9;
+const { width } = Dimensions.get('window');
 
 function NavbarAnimated({ visible }) {
   const slideAnim = useRef(new Animated.Value(100)).current;
@@ -38,27 +36,15 @@ function NavbarAnimated({ visible }) {
 }
 
 export default function Calculadora() {
-
+  const params =  useLocalSearchParams()
+  console.log(params)
+  const userId = params.userId;
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
   const [tipoGas, setTipoGas] = useState('R$');
   const [kmPercorridos, setKmPercorridos] = useState('');
   const [tecladoAberto, setTecladoAberto] = useState(false);
-  // const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
-
-  // function pushTransporte(nome: string) {
-  //   if (transportesSelecionados.includes(nome)) {
-  //     setTransportesSelecionados(prev => prev.filter(t => t !== nome));
-  //     return;
-  //   }
-  //   setTransportesSelecionados(prev => [...prev, nome]);
-  // }
-
-  function litrosConsumidos(consumoVeiculo: number, kmMensaisx: number){
-      return (kmMensaisx/consumoVeiculo).toFixed(2) 
-  };
-
 
   const [mesSelecionado, setMesSelecionado] = useState('');
   
@@ -77,13 +63,6 @@ export default function Calculadora() {
       { label: 'Dezembro', value: 'Dezembro' },
     ];
   
-    // function getNomeMes(valor: string) {
-    //   const mes = meses.find(m => m.value === valor);
-    //   return mes ? mes.label : '';
-    //   }
-      
-    //   const nomeMes = getNomeMes(mesSelecionado);
-
 
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
@@ -94,17 +73,7 @@ export default function Calculadora() {
     };
   }, []);
 
-  // const dados = [
-  //   { id: '1', nome: 'Moto', KM: '230 KM' },
-  //   { id: '2', nome: 'Carro', KM: '230 KM' },
-  //   { id: '3', nome: 'Avião', KM: '230 KM' },
-  //   { id: '4', nome: 'Ônibus', KM: '230 KM' },
-  //   { id: '5', nome: 'Barco', KM: '230 KM' },
-  //   { id: '6', nome: 'Trem', KM: '230 KM' },
-  // ];
 
-  // const { width } = Dimensions.get('window');
-  // const baseWidth = width * 0.9;
 
   function saveAll(){
     const emissaoGas = Number(valorGas) * 2.9; 
@@ -112,7 +81,7 @@ export default function Calculadora() {
     const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
     const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
     const data = {
-      idUser: "id",
+      idUser: userId,
       mes: mesSelecionado,
       consumoCarbono: emissaoTotal,
       consumoEnergia: emissaoEnergia,
@@ -121,8 +90,7 @@ export default function Calculadora() {
       balanco: 'positivo'
     }
 
-    //fazer o axios
-    console.log(data)
+    axios.post('http://127.0.0.1:2010/api/calculos/create', data)
   }
 
   return (
@@ -216,78 +184,11 @@ export default function Calculadora() {
               onChangeText={setKmPercorridos}
               keyboardType="numeric"
             />
-            {/* <View style={styles.card2}>
-              <Text style={styles.textTitulo}>Locomoção</Text>
-              <View style={styles.listaLocomocao}>
-                <View style={styles.listaUm}>
-                  {['moto', 'carro', 'barco', 'caminhão'].map((nome, idx) => (
-                    <View key={idx} style={styles.radioItem}>
-                      <Checkbox
-                        status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
-                        onPress={() => pushTransporte(nome)}
-                        color="#71BE70"
-                      />
-                      <Text style={styles.textRadio}>{nome}</Text>
-                    </View>
-                  ))}
-                </View>
-                <View style={styles.listaDois}>
-                  {['ônibus', 'avião', 'helicóptero', 'trem'].map((nome, idx) => (
-                    <View key={idx} style={styles.radioItem}>
-                      <Checkbox
-                        status={transportesSelecionados.includes(nome) ? 'checked' : 'unchecked'}
-                        onPress={() => pushTransporte(nome)}
-                        color="#71BE70"
-                      />
-                      <Text style={styles.textRadio}>{nome}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.groupKMPercorridos}>
-
-           
-              <TouchableOpacity
-                style={styles.btnSalvar}
-                onPress={() => {
-                  const transporteObjeto = criaObjetoTransportes(transportesSelecionados);
-                  console.log(transporteObjeto); 
-                  Alert.alert('Salvo!', JSON.stringify(transporteObjeto, null, 2));
-                }}
-              >
-                <Text style={styles.textBtnSalvar}>Salvar</Text>
-              </TouchableOpacity>
-
-              </View>
-            </View>*
-
-            <View style={styles.scrolltabela}>
-              <View style={[styles.tabela, { width: baseWidth }]}>
-                {dados.map((item) => (
-                  <View key={item.id} style={styles.row}>
-                    <Text style={styles.cell}>{item.nome}</Text>
-                    <Text style={styles.cell}>{item.KM}</Text>
-                  </View>
-                ))}
-              </View>
-            </View> */}
 
            
             <TouchableOpacity
                   style={styles.btnSalvar}
                   onPress={() => {
-                    // const valores = getTodosOsValores(
-                    //   nomeMes,
-                    //   valorEletricidade,
-                    //   tipoEletricidade,
-                    //   valorGas,
-                    //   tipoGas,
-                    //   transportesSelecionados[0] || '',
-                    //   kmPercorridos
-                    // );
-                    // console.log('Valores capturados:', valores);
-                    // Alert.alert('Valores capturados!', JSON.stringify(valores, null, 2));
                     saveAll()
                   }}
                 >
@@ -297,7 +198,7 @@ export default function Calculadora() {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <NavbarAnimated visible={!tecladoAberto} />
+     <NavbarAnimated visible={!tecladoAberto} />
     </View>
   );
 }
