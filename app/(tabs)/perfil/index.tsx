@@ -1,5 +1,6 @@
 import Navbar from '@/components/navbar/navbar';
-import { router } from 'expo-router';
+import axios from 'axios';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect, useRef } from 'react';
 import {View, Text, Image, TouchableOpacity,  StyleSheet,  ScrollView,  TextInput,  Dimensions,  Keyboard,  Animated} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,7 +9,9 @@ const { width } = Dimensions.get('window');
 const baseWidth = width * 0.9;
 
 export default function Profile() {
+  const params =  useLocalSearchParams()
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const [userForm, setUserForm] = useState<any>()
 
   const navbarTranslateY = useRef(new Animated.Value(0)).current;
 
@@ -34,27 +37,36 @@ export default function Profile() {
     }).start();
   }, [isKeyboardVisible]);
 
-  const userData = {
-    username: 'Mariana',
-    email: 'mari@email.com',
-    nome: 'Mariana',
-    senha: 'mari123'
-  };
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
 
-  const navegarPara = (rota: string) => {
+  const navegarPara = (rota: any) => {
     router.push(rota);
   };
 
   const handleSalvar = () => {
-    const dadosAtualizados = {
-      username: username || userData.username,
-      email: email || userData.email,
-    };
-    console.log('Dados salvos:', dadosAtualizados);
+    // const dadosAtualizados = {
+    //   username: username || userData.username,
+    //   email: email || userData.email,
+    // };
+    // console.log('Dados salvos:', dadosAtualizados);
   };
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.post('http://127.0.0.1:2010/api/user/search', {
+          id: params.userId,
+        });
+        setUserForm(res.data);
+      } catch (err) {
+        console.error("Erro ao buscar usuário:", err);
+      }
+    };
+  
+    if (params.userId) {
+      fetchUser();
+    }
+  }, [params.userId]);
 
   return (
     <View style={styles.container}>
@@ -66,7 +78,7 @@ export default function Profile() {
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
-            <Text style={styles.username}>Mariana</Text>
+            <Text style={styles.username}>{userForm.usuario ?? ""}</Text>
             <Text style={styles.email}>mari@gmail.com</Text>
           </View>
         </View>
@@ -133,26 +145,22 @@ export default function Profile() {
           <Text style={styles.titleInput}>Nome*</Text>
           <TextInput
             style={styles.input}
-            placeholder={userData.username}
-            value={username}
-            onChangeText={setUsername}
+            value={userForm.nome ?? ""}
+            // onChangeText={setUsername}
           />
 
           <Text style={styles.titleInput}>Usuário*</Text>
           <TextInput
             style={styles.input}
-            placeholder={userData.email}
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
+            value={userForm.usuario ?? ""}
+            // onChangeText={setEmail}
           />
 
           <Text style={styles.titleInput}>Email*</Text>
           <TextInput
             style={styles.input}
-            placeholder={userData.email}
-            value={email}
-            onChangeText={setEmail}
+            value={userForm.email ?? ""}
+            // onChangeText={setEmail}
             keyboardType="email-address"
           />
 
