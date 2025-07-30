@@ -192,7 +192,7 @@ export default function Calculadora() {
                     saveAll()
                   }}
                 >
-                <Text style={styles.textBtnSalvar}>Calcular CO²</Text>
+                <Text style={styles.textBtnSalvar}>Calcular CO₂</Text>
             </TouchableOpacity>
           </View>
         </ScrollView>
