@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     width: baseWidth,
     alignSelf: 'center',
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   footer: {
     bottom: 20,
