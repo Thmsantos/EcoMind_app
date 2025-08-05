@@ -1,4 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
+<<<<<<< HEAD
+import { Text, View, TextInput, ScrollView, StyleSheet, TouchableOpacity, Alert, Dimensions, KeyboardAvoidingView, Platform, Animated, Keyboard } from 'react-native';
+import { RadioButton, Checkbox } from 'react-native-paper';
+import { Picker } from '@react-native-picker/picker';
+import Header from '@/components/header/index';
+import Navbar from '@/components/navbar/navbar';
+import { criaObjetoTransportes, montaObjetoParaEnvio, enviarCalculoParaBanco } from './functionsCalculadora';
+
+const { width } = Dimensions.get('window');
+const baseWidth = width * 0.9;
+=======
 import {Text,  View,  StyleSheet,  TextInput,  ScrollView,  TouchableOpacity,  Alert,  Dimensions,  KeyboardAvoidingView,  Platform,  Animated,  Keyboard,} from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Header from '@/components/header/index';
@@ -9,42 +20,70 @@ import { useLocalSearchParams } from "expo-router";
 import axios from 'axios';
 
 const { width } = Dimensions.get('window');
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
 
 function NavbarAnimated({ visible }) {
   const slideAnim = useRef(new Animated.Value(100)).current;
 
   useEffect(() => {
     Animated.timing(slideAnim, {
-      toValue: visible ? 0 : 100, 
+      toValue: visible ? 0 : 100,
       duration: 300,
       useNativeDriver: true,
     }).start();
   }, [visible]);
 
   return (
-    <Animated.View
-      style={[
-        styles.navbarAnimated,
-        {
-          transform: [{ translateY: slideAnim }],
-        },
-      ]}
-    >
+    <Animated.View style={[{ transform: [{ translateY: slideAnim }] }]}>
       <Navbar />
     </Animated.View>
   );
 }
 
 export default function Calculadora() {
+<<<<<<< HEAD
+=======
   const params =  useLocalSearchParams()
   console.log(params)
   const userId = params.userId;
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
   const [tipoGas, setTipoGas] = useState('R$');
   const [kmPercorridos, setKmPercorridos] = useState('');
+  const [mesSelecionado, setMesSelecionado] = useState('');
+  const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
   const [tecladoAberto, setTecladoAberto] = useState(false);
+<<<<<<< HEAD
+
+  // const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
+
+  // function pushTransporte(nome: string) {
+  //   if (transportesSelecionados.includes(nome)) {
+  //     setTransportesSelecionados(prev => prev.filter(t => t !== nome));
+  //     return;
+  //   }
+  //   setTransportesSelecionados(prev => [...prev, nome]);
+  // }
+
+
+  const meses = [
+    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+  ];
+
+  function toggleTransporte(nome: string) {
+    if (transportesSelecionados.includes(nome)) {
+      setTransportesSelecionados(prev => prev.filter(t => t !== nome));
+    } else {
+      setTransportesSelecionados(prev => [...prev, nome]);
+    }
+  }
+    useEffect(() => {
+    const show = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
+    const hide = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
+=======
 
   const [mesSelecionado, setMesSelecionado] = useState('');
   
@@ -67,14 +106,56 @@ export default function Calculadora() {
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
     const hideListener = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
     return () => {
-      showListener.remove();
-      hideListener.remove();
+      show.remove();
+      hide.remove();
     };
   }, []);
+<<<<<<< HEAD
+  // const dados = [
+  //   { id: '1', nome: 'Moto', KM: '230 KM' },
+  //   { id: '2', nome: 'Carro', KM: '230 KM' },
+  //   { id: '3', nome: 'Avião', KM: '230 KM' },
+  //   { id: '4', nome: 'Ônibus', KM: '230 KM' },
+  //   { id: '5', nome: 'Barco', KM: '230 KM' },
+  //   { id: '6', nome: 'Trem', KM: '230 KM' },
+  // ];
+=======
+
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
 
 
+<<<<<<< HEAD
 
+
+  
+
+  async function saveAll() {
+    try {
+      const emissaoGas = Number(valorGas) * 2.9;
+      const emissaoEnergia = Number(valorEletricidade) * 0.1;
+      const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
+      const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+
+      const transporteObjeto = criaObjetoTransportes(transportesSelecionados);
+
+      const dados = montaObjetoParaEnvio(
+        '684cf916b07f448c7f3376b8', 
+        mesSelecionado,
+        emissaoEnergia.toFixed(2),
+        emissaoGas.toFixed(2),
+        transporteObjeto,
+        emissaoTotal
+      );
+
+      await enviarCalculoParaBanco(dados);
+
+      console.log('Sucesso', 'Cálculo salvo com sucesso!');
+    } catch (error) {
+      console.log('Erro', 'Não foi possível salvar os dados.');
+    }
+=======
   function saveAll(){
     const emissaoGas = Number(valorGas) * 2.9; 
     const emissaoEnergia = Number(valorEletricidade) * 0.1;
@@ -91,6 +172,7 @@ export default function Calculadora() {
     }
 
     axios.post('http://127.0.0.1:2010/api/calculos/create', data)
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
   }
 
   return (
@@ -105,46 +187,37 @@ export default function Calculadora() {
         <ScrollView contentContainerStyle={{ paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
           <Header />
 
+          <View style={{ padding: 16 }}>
+            {/* Picker Mês */}
+            <View style={styles.container2}>
+              <Text  style={styles.label}>Selecione o mês do cálculo</Text>
+              <View  style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={mesSelecionado}
+                  onValueChange={setMesSelecionado}
+                  style={{
+                          height: 50,
+                          paddingHorizontal: 0,
+                          borderRadius: 8,
+                          fontSize: 16,
+                          color:"gray"
+                      }}
+                >
+                  <Picker.Item label="-- Escolha um mês --" value="" />
+                  {meses.map(mes => (
+                    <Picker.Item key={mes} label={mes} value={mes} />
+                  ))}
+                </Picker>
+              </View>
+              <Text style={styles.mesSelecionado}>Mês selecionado: {mesSelecionado || 'Nenhum'}</Text>
+            </View>
 
-          <View style={styles.formulario}>
-            
-                <View style={styles.container2}>
-                  <Text style={styles.label}>Selecione o mês do cálculo</Text>
-                  <View style={styles.pickerContainer}>
-                    <Picker
-                      selectedValue={mesSelecionado}
-                      onValueChange={(itemValue) => setMesSelecionado(itemValue)
-                        
-                      }
-                      
-                      style={{
-                        height: 50,
-                        paddingHorizontal: 0,
-                        borderRadius: 8,
-                        fontSize: 16,
-                        color:"gray"
-                    }}
-                    >
-                      <Picker.Item label="-- Escolha um mês --" value="" />
-                      {meses.map((mes) => (
-                        <Picker.Item key={mes.value} label={mes.label} value={mes.value} />
-                      ))}
-                    </Picker>
-                  </View>
-                  <Text style={styles.mesSelecionado}>Mês selecionado: {mesSelecionado || 'Nenhum'}</Text>
-                </View>
-        
+            {/* Energia */}
             <View style={styles.card}>
-              <Text style={styles.textTitulo}>Consumo de eletricidade</Text>
-              <TextInput
-                style={styles.textInput}
-                placeholder="Digite o valor"
-                value={valorEletricidade}
-                onChangeText={setValorEletricidade}
-                keyboardType="numeric"
-              />
-              <RadioButton.Group value={tipoEletricidade} onValueChange={setTipoEletricidade}>
-                <View style={styles.radioItem}>
+              <Text  style={styles.textTitulo}>Consumo de Eletricidade</Text>
+              <TextInput style={styles.textInput} placeholder="Digite o valor" value={valorEletricidade} onChangeText={setValorEletricidade} keyboardType="numeric" />
+              <RadioButton.Group onValueChange={setTipoEletricidade} value={tipoEletricidade}>
+                 <View style={styles.radioItem}>
                   <RadioButton value="R$" color="#71BE70" />
                   <Text style={styles.textRadio}>R$</Text>
                 </View>
@@ -155,6 +228,7 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
+            {/* Gas */}
             <View style={styles.card}>
               <Text style={styles.textTitulo}>Consumo de gás</Text>
               <TextInput
@@ -176,6 +250,42 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
+<<<<<<< HEAD
+            {/* Transporte */}
+
+          <View style={styles.card2}>
+
+           {/*  <Text  style={styles.textTitulo}>Transportes utilizados</Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+              {['carro', 'moto', 'barco', 'caminhão', 'ônibus', 'avião', 'helicóptero', 'trem'].map(transporte => (
+                <View key={transporte} style={{ flexDirection: 'row', alignItems: 'center', width: '50%' }}>
+                  <Checkbox
+                    status={transportesSelecionados.includes(transporte) ? 'checked' : 'unchecked'}
+                    onPress={() => toggleTransporte(transporte)}
+                  />
+                  <Text>{transporte}</Text>
+                </View>
+              ))}
+            </View> */}
+              <Text  style={styles.textTitulo}>KMs percorridos</Text>
+              <TextInput style={styles.textInput} placeholder="Digite os KM" value={kmPercorridos} onChangeText={setKmPercorridos} keyboardType="numeric" />
+          </View>
+ {/*          <View style={styles.scrolltabela}>
+              <View style={[styles.tabela, { width: baseWidth }]}>
+                {dados.map((item) => (
+                  <View key={item.id} style={styles.row}>
+                    <Text style={styles.cell}>{item.nome}</Text>
+                    <Text style={styles.cell}>{item.KM}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>  */}
+
+            <TouchableOpacity onPress={saveAll} style={styles.btnSalvar}>
+
+              
+              <Text style={styles.textBtnSalvar}>Calcular CO²</Text>
+=======
             <Text style={styles.textTitulo}>KMs Percorridos</Text>
             <TextInput
               style={styles.textInput}
@@ -193,6 +303,7 @@ export default function Calculadora() {
                   }}
                 >
                 <Text style={styles.textBtnSalvar}>Calcular CO₂</Text>
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -202,6 +313,7 @@ export default function Calculadora() {
     </View>
   );
 }
+
 
 
 const styles = StyleSheet.create({
@@ -266,7 +378,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btnSalvar: {
-    marginTop: 25,
     backgroundColor: '#71BE70',
     padding: 10,
     borderRadius: 30,

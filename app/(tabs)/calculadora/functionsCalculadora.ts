@@ -1,61 +1,56 @@
 import axios from 'axios';
 
-export function getConsumoEnergia(valorEletricidade: string, tipoEletricidade: string, valorGas: string, tipoGas: string) {
-    return {
-      eletricidade: {
-        valor: parseFloat(valorEletricidade),
-        tipo: tipoEletricidade,
-      },
-      gas: {
-        valor: parseFloat(valorGas),
-        tipo: tipoGas,
-      },
-    };
-  }
-  
-  export function getDadosLocomocao(transporteSelecionado: string, kmPercorridos: string) {
-    return {
-      transporte: transporteSelecionado,
-      km: `${kmPercorridos} KM`,
-    };
-  }
-  
-  export function getTodosOsValores(
-    nomeMes: string,
-    valorEletricidade: string,
-    tipoEletricidade: string,
-    valorGas: string,
-    tipoGas: string,
-    transporteSelecionado: string,
-    kmPercorridos: string
-  ) {
-    const energia = getConsumoEnergia(valorEletricidade, tipoEletricidade, valorGas, tipoGas);
-    const locomocao = getDadosLocomocao(transporteSelecionado, kmPercorridos);
-    
-    return { energia, locomocao, nomeMes};
-  }
-  
-
-  /* Função sendo chamada no botão salvar - converte lista de veículos para valores do tipo boolean */
-  const todosVeiculos = [
-  "carro",
-  "moto",
-  "barco",
-  "caminhão",
-  "ônibus",
-  "avião",
-  "helicóptero",
-  "trem",
+const listaTransportes = [
+  'carro',
+  'moto',
+  'barco',
+  'caminhão',
+  'ônibus',
+  'avião',
+  'helicóptero',
+  'trem',
 ];
 
 export function criaObjetoTransportes(selecionados: string[]) {
-  const obj: { [key: string]: boolean } = {};
+  return listaTransportes.reduce((acc, transporte) => {
+    acc[transporte] = selecionados.includes(transporte);
+    return acc;
+  }, {} as { [key: string]: boolean });
+}
 
-  todosVeiculos.forEach((veiculo) => {
-    obj[veiculo] = selecionados.includes(veiculo);
-  });
+export function montaObjetoParaEnvio(
+  idUser: string,
+  mes: string,
+  consumoEnergia: string,
+  consumoGas: string,
+  consumoTransporte: { [key: string]: boolean },
+  consumoCarbono: string,
+  
+) {
+  return {
+    idUser: idUser,
+    mes: mes,
+    consumoEnergia: consumoEnergia,
+    consumoGas: consumoGas,
+    consumoTransporte: consumoTransporte,
+    consumoCarbono: consumoCarbono,
+    balanco: 'positivo',
+  };
+}
 
-  return obj;
+export async function enviarCalculoParaBanco(data: any) {
+  try {
+    const response = await axios.post('http://127.0.0.1:2010/api/calculos/create', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('Enviado com sucesso!', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao enviar dados:', error);
+    throw error;
+  }
 }
 
 
