@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   formulario: {
-    padding: 20
+    padding: 20,
   },
   card: {
     borderWidth: 2,
@@ -236,7 +236,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 2,
     paddingHorizontal: 10,
-    borderRadius: 12
+    borderRadius: 12,
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   radioItem: {
     flexDirection: 'row',

@@ -78,7 +78,11 @@ export default function Cadastro() {
     }, 3000);
   };
 
+  
+
   return (
+
+    
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -234,6 +238,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     marginLeft: 8,
     paddingVertical: 0,
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   icon: {
     marginRight: 11,

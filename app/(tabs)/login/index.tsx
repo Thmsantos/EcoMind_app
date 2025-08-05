@@ -216,6 +216,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     paddingVertical: 0,
     includeFontPadding: true,
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   icon: {
     marginRight: 11,

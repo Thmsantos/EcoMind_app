@@ -194,6 +194,7 @@ const styles = StyleSheet.create({
      flex: 1,
     paddingVertical: 10,
     fontSize: 16,
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
     
   },
   scrollContent: {
