@@ -20,7 +20,7 @@ export default function Resultados(){
                     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                             <View style={styles.groupText}>
                                 <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
                                 <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
                                 <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
                                 <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
@@ -34,7 +34,7 @@ export default function Resultados(){
                     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                                 <View style={styles.groupText}>
                                         <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                        <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                        <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
                                         <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
                                         <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
                                         <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
@@ -46,7 +46,7 @@ export default function Resultados(){
                     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                                 <View style={styles.groupText}>
                                     <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                    <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg cO2</Text>
+                                    <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
                                     <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
                                     <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
                                     <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />

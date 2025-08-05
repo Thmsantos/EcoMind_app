@@ -1,7 +1,7 @@
 import Navbar from '@/components/navbar/navbar';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default function ResetPassword() {
@@ -88,8 +88,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '60%',
         marginVertical: 30,
-    },
+     },
     input: {
+        ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {}),
         width: 50,
         height: 50,
         fontSize: 22,
@@ -97,6 +98,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: '#000',
         borderRadius: 10,
+      
     },
     linkReenviar: {
         padding: 20,

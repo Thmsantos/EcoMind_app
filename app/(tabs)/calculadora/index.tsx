@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+<<<<<<< HEAD
 import { Text, View, TextInput, ScrollView, StyleSheet, TouchableOpacity, Alert, Dimensions, KeyboardAvoidingView, Platform, Animated, Keyboard } from 'react-native';
 import { RadioButton, Checkbox } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
@@ -8,6 +9,18 @@ import { criaObjetoTransportes, montaObjetoParaEnvio, enviarCalculoParaBanco } f
 
 const { width } = Dimensions.get('window');
 const baseWidth = width * 0.9;
+=======
+import {Text,  View,  StyleSheet,  TextInput,  ScrollView,  TouchableOpacity,  Alert,  Dimensions,  KeyboardAvoidingView,  Platform,  Animated,  Keyboard,} from 'react-native';
+import { RadioButton } from 'react-native-paper';
+import Header from '@/components/header/index';
+import Navbar from '@/components/navbar/navbar'; 
+
+import { Picker } from '@react-native-picker/picker';
+import { useLocalSearchParams } from "expo-router";
+import axios from 'axios';
+
+const { width } = Dimensions.get('window');
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
 
 function NavbarAnimated({ visible }) {
   const slideAnim = useRef(new Animated.Value(100)).current;
@@ -28,6 +41,12 @@ function NavbarAnimated({ visible }) {
 }
 
 export default function Calculadora() {
+<<<<<<< HEAD
+=======
+  const params =  useLocalSearchParams()
+  console.log(params)
+  const userId = params.userId;
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
@@ -36,6 +55,7 @@ export default function Calculadora() {
   const [mesSelecionado, setMesSelecionado] = useState('');
   const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
   const [tecladoAberto, setTecladoAberto] = useState(false);
+<<<<<<< HEAD
 
   // const [transportesSelecionados, setTransportesSelecionados] = useState<string[]>([]);
 
@@ -63,11 +83,36 @@ export default function Calculadora() {
     useEffect(() => {
     const show = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
     const hide = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
+=======
+
+  const [mesSelecionado, setMesSelecionado] = useState('');
+  
+    const meses = [
+      { label: 'Janeiro', value: 'Janeiro' },
+      { label: 'Fevereiro', value: 'Fevereiro' },
+      { label: 'Março', value: 'Março' },
+      { label: 'Abril', value: 'Abril' },
+      { label: 'Maio', value: 'Maio' },
+      { label: 'Junho', value: 'Junho' },
+      { label: 'Julho', value: 'Julho' },
+      { label: 'Agosto', value: 'Agosto' },
+      { label: 'Setembro', value: 'Setembro' },
+      { label: 'Outubro', value: 'Outubro' },
+      { label: 'Novembro', value: 'Novembro' },
+      { label: 'Dezembro', value: 'Dezembro' },
+    ];
+  
+
+  useEffect(() => {
+    const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
+    const hideListener = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
     return () => {
       show.remove();
       hide.remove();
     };
   }, []);
+<<<<<<< HEAD
   // const dados = [
   //   { id: '1', nome: 'Moto', KM: '230 KM' },
   //   { id: '2', nome: 'Carro', KM: '230 KM' },
@@ -76,10 +121,12 @@ export default function Calculadora() {
   //   { id: '5', nome: 'Barco', KM: '230 KM' },
   //   { id: '6', nome: 'Trem', KM: '230 KM' },
   // ];
+=======
 
-  // const { width } = Dimensions.get('window');
-  // const baseWidth = width * 0.9;
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
 
+
+<<<<<<< HEAD
 
 
   
@@ -108,6 +155,24 @@ export default function Calculadora() {
     } catch (error) {
       console.log('Erro', 'Não foi possível salvar os dados.');
     }
+=======
+  function saveAll(){
+    const emissaoGas = Number(valorGas) * 2.9; 
+    const emissaoEnergia = Number(valorEletricidade) * 0.1;
+    const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
+    const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+    const data = {
+      idUser: userId,
+      mes: mesSelecionado,
+      consumoCarbono: emissaoTotal,
+      consumoEnergia: emissaoEnergia,
+      consumoGas: emissaoGas,
+      consumoTransporte: emissaoCombustivel,
+      balanco: 'positivo'
+    }
+
+    axios.post('http://127.0.0.1:2010/api/calculos/create', data)
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
   }
 
   return (
@@ -185,6 +250,7 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
+<<<<<<< HEAD
             {/* Transporte */}
 
           <View style={styles.card2}>
@@ -219,12 +285,31 @@ export default function Calculadora() {
 
               
               <Text style={styles.textBtnSalvar}>Calcular CO²</Text>
+=======
+            <Text style={styles.textTitulo}>KMs Percorridos</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Digite os KMs"
+              value={kmPercorridos}
+              onChangeText={setKmPercorridos}
+              keyboardType="numeric"
+            />
+
+           
+            <TouchableOpacity
+                  style={styles.btnSalvar}
+                  onPress={() => {
+                    saveAll()
+                  }}
+                >
+                <Text style={styles.textBtnSalvar}>Calcular CO₂</Text>
+>>>>>>> ce4aac85e0127daa33f95886e16a4bc57b1f43b8
             </TouchableOpacity>
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <NavbarAnimated visible={!tecladoAberto} />
+     <NavbarAnimated visible={!tecladoAberto} />
     </View>
   );
 }
@@ -237,7 +322,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   formulario: {
-    padding: 20
+    padding: 20,
   },
   card: {
     borderWidth: 2,
@@ -263,7 +348,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderWidth: 2,
     paddingHorizontal: 10,
-    borderRadius: 12
+    borderRadius: 12,
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   radioItem: {
     flexDirection: 'row',
