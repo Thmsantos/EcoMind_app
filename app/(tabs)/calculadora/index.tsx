@@ -73,6 +73,9 @@ export default function Calculadora() {
     };
   }, []);
 
+  //calcularEmissaoCO2
+
+
 
 
   function saveAll(){
@@ -149,8 +152,8 @@ export default function Calculadora() {
                   <Text style={styles.textRadio}>R$</Text>
                 </View>
                 <View style={styles.radioItem}>
-                  <RadioButton value="KW" color="#71BE70" />
-                  <Text style={styles.textRadio}>KW</Text>
+                  <RadioButton value="kWh" color="#71BE70" />
+                  <Text style={styles.textRadio}>kWh</Text>
                 </View>
               </RadioButton.Group>
             </View>
@@ -166,20 +169,20 @@ export default function Calculadora() {
               />
               <RadioButton.Group value={tipoGas} onValueChange={setTipoGas}>
                 <View style={styles.radioItem}>
-                  <RadioButton value="R$" color="#71BE70" />
-                  <Text style={styles.textRadio}>R$</Text>
+                  <RadioButton value="m³" color="#71BE70" />
+                  <Text style={styles.textRadio}>m³</Text>
                 </View>
                 <View style={styles.radioItem}>
-                  <RadioButton value="KW" color="#71BE70" />
-                  <Text style={styles.textRadio}>KW</Text>
+                  <RadioButton value="botijao" color="#71BE70" />
+                  <Text style={styles.textRadio}>Botijão</Text>
                 </View>
               </RadioButton.Group>
             </View>
 
-            <Text style={styles.textTitulo}>KMs Percorridos</Text>
+            <Text style={styles.textTitulo}>km Percorridos</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="Digite os KMs"
+              placeholder="Digite os km"
               value={kmPercorridos}
               onChangeText={setKmPercorridos}
               keyboardType="numeric"
@@ -334,4 +337,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
   },
+
+ 
 });
