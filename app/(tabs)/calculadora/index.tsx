@@ -77,6 +77,10 @@ export default function Calculadora() {
 
 
 
+  
+
+
+
 
   function saveAll(){
     const emissaoGas = Number(valorGas) * 2.9; 
@@ -148,13 +152,14 @@ export default function Calculadora() {
               />
               <RadioButton.Group value={tipoEletricidade} onValueChange={setTipoEletricidade}>
                 <View style={styles.radioItem}>
-                  <RadioButton value="R$" color="#71BE70" />
-                  <Text style={styles.textRadio}>R$</Text>
-                </View>
-                <View style={styles.radioItem}>
                   <RadioButton value="kWh" color="#71BE70" />
                   <Text style={styles.textRadio}>kWh</Text>
                 </View>
+                <View style={styles.radioItem}>
+                  <RadioButton value="R$" color="#71BE70" />
+                  <Text style={styles.textRadio}>R$</Text>
+                </View>
+               
               </RadioButton.Group>
             </View>
 
