@@ -109,7 +109,7 @@ export default function Calculadora() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
       >
-        <ScrollView contentContainerStyle={{ paddingBottom: 100 }} keyboardShouldPersistTaps="handled">
+        <ScrollView contentContainerStyle={{ paddingBottom: 80 }} keyboardShouldPersistTaps="handled">
           <Header />
 
 
@@ -184,14 +184,17 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
-            <Text style={styles.textTitulo}>km Percorridos</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Digite os km"
-              value={kmPercorridos}
-              onChangeText={setKmPercorridos}
-              keyboardType="numeric"
-            />
+            <View style={styles.card}>
+              <Text style={styles.textTitulo}>km Percorridos</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Digite os km"
+                value={kmPercorridos}
+                onChangeText={setKmPercorridos}
+                keyboardType="numeric"
+              />
+            </View>
+
 
            
             <TouchableOpacity
@@ -274,9 +277,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   btnSalvar: {
-    marginTop: 25,
     backgroundColor: '#71BE70',
-    padding: 10,
+    padding: 12,
     borderRadius: 30,
     alignItems: 'center'
   },
@@ -336,6 +338,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 12,
     overflow: 'hidden', 
+     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   mesSelecionado: {
     marginTop: 16,

@@ -118,27 +118,30 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column", 
         alignItems: "center", 
-        paddingTop: 30      
+        paddingTop: 8      
     },
 
     mensagemChat: {
-        width: 300,
-        height: 89,
-        marginBottom: 30
+        width: 358,
+        height: 106,
+        marginBottom: 30,
+        position: "relative",
+        top: 2
     },
 
     textoMsg:{
-        padding: 15,
-        fontSize: 13,
+        paddingTop: 12,
+        paddingLeft: 30,
+        paddingRight: 30,
+        fontSize: 16,
         fontWeight: 500,
-        letterSpacing: 1,
     },
 
     viewBtnAcessarCalculadora:{
-      justifyContent: 'center',
-       alignItems: 'center',
-        width: 300,
-        height: 135,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 350,
+        height: 150,
         backgroundColor: "#71BE80",
         borderRadius: 28,
         paddingBottom: 19,
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
 
     textBtnAcessarCalculadora: {
         fontWeight: 500,
-        fontSize: 15
+        fontSize: 16
     },
 
     textoDestaque:{
@@ -165,7 +168,7 @@ const styles = StyleSheet.create({
     },
 
     btnAcessarCalculadora:{
-        width: 180,
+        width: 280,
         height: 40,
         backgroundColor: "#000000",
         borderRadius: 24,
@@ -174,9 +177,9 @@ const styles = StyleSheet.create({
 
     btnTextAcessarCalculadora: {
         color: "#FFFFFF",
-        paddingTop: 9,
+        paddingTop: 7,
         textAlign: "center",
-        fontWeight: 800,
-        letterSpacing: 2,
+        fontWeight: 700,
+        fontSize: 18
     }
 })

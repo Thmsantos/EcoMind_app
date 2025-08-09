@@ -26,7 +26,7 @@ export default function CadastroUsuario() {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       style={styles.container}
     >
-      <Header />
+      <Header title="Criar Usuário" />
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Bem-vindo! Vamos criar seu</Text>
         <Text style={styles.title2}>perfil</Text>

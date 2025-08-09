@@ -8,7 +8,7 @@ import Header from '../../../components/header'
 export default function Resultados(){
     return(
     <View style={styles.container}>
-        <Header/>
+        <Header title="Resultados" />
 
         <View style={styles.viewMain}>
 
