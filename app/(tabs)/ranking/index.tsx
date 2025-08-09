@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/navbar/navbar';
+import Header from '@/components/header';
 
 const { width } = Dimensions.get('window');
 
@@ -53,13 +54,7 @@ export default function Profile() {
   return (
     <View style={styles.container}>
       {/* Cabeçalho */}
-      <View style={styles.header}>
-        <Image
-          source={require('../../../assets/images/logo-home.png')}
-          style={styles.logo}
-        />
-        <Text style={styles.headerTitle}>Ranking</Text>
-      </View>
+      <Header title="Ranking"/>
 
       {/* Troféu decorativo */}
      
@@ -74,11 +69,7 @@ export default function Profile() {
           placeholder="Pesquisar usuário"
           placeholderTextColor="#999"
           value={search}
-          onChangeText={setSearch}
-
-
-
-        
+          onChangeText={setSearch}        
         />
       </View>
 

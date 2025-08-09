@@ -42,7 +42,7 @@ export default function Resultados(){
     <View style={styles.container}>
     
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-            <Header/>
+           <Header title="Estatísticas" />
 
             <View style={styles.viewMain}>
 
