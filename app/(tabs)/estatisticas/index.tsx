@@ -6,53 +6,66 @@ import Header from '../../../components/header'
  
 
 export default function Resultados(){
+
+    const happyEmoji = require("../../../assets/images/happy.png");
+    const medioEmoji = require("../../../assets/images/neutral.png");
+    const sadEmoji = require("../../../assets/images/sad-face.png");
+
+
+    const getEmoji = (valor: number) => {
+        if (valor <= limites.ideal.max) return happyEmoji;
+        if (valor <= limites.medio.max) return medioEmoji;
+        return sadEmoji;
+    };
+
+    const resultados = [
+    { mes: "Fevereiro", consumo: 230 },
+    { mes: "Março", consumo: 500 },
+    { mes: "Abril", consumo: 150 },
+    { mes: "Maio", consumo: 150 },
+    ];
+
+    const limites = {
+        ideal: { max: 175, cor: "#4CAF50" },     
+        medio: { max: 350, cor: "#FFC107" },      
+        alto: { max: Infinity, cor: "#F44336" }, 
+    };
+
+    const getCor = (valor: number) => {
+        if (valor <= limites.ideal.max) return limites.ideal.cor;
+        if (valor <= limites.medio.max) return limites.medio.cor;
+        return limites.alto.cor;
+    };
+
     return(
+    
     <View style={styles.container}>
-        <Header/>
-
-
+    
         <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+            <Header/>
+
             <View style={styles.viewMain}>
 
-
-            
-                <View style={styles.contentEstatisticas}>
+             {resultados.map((item, index) => (
+                <View key={index} style={[styles.contentEstatisticas, { backgroundColor: getCor(item.consumo) }]}>
                     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                             <View style={styles.groupText}>
-                                <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
-                                <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
-                                <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
-                                <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
+                                <Text style={styles.textResult}>
+                                    <Text style={styles.textBold}>Mês: <Text style={styles.textMedium}>{item.mes}</Text></Text>
+                                </Text>
+
+                                <Text style={styles.textResult}>
+                                    <Text style={styles.textBold}>Consumo: <Text style={styles.textMedium}>{item.consumo} kg</Text></Text>
+                                </Text>
+
+                                <Text style={styles.textResult}>
+                                    <Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
+                                <Text>dois Mêses </Text> diminuindo sua produção de co2</Text>
+                                <Image style={styles.emoji} source={getEmoji(item.consumo)} />
                             </View>
                     </ScrollView>
                 </View>
-            
-
-                <View style={styles.contentEstatisticas}>
-
-                    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-                                <View style={styles.groupText}>
-                                        <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                        <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
-                                        <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
-                                        <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
-                                        <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
-                                </View>
-                        </ScrollView>
-                </View>
-
-                <View style={styles.contentEstatisticas}>
-                    <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-                                <View style={styles.groupText}>
-                                    <Text style={styles.textResult}><Text style={styles.textBold}>Mês:</Text> Fev, 22</Text>
-                                    <Text style={styles.textResult}><Text style={styles.textBold}>Consumo:</Text> 300kg CO₂</Text>
-                                    <Text style={styles.textResult}><Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
-                                    <Text>dois Mêses</Text> diminuindo sua produção de co2</Text>
-                                    <Image style={styles.emoji} source={require("../../../assets/images/happy.png")} />
-                                </View>
-                    </ScrollView>
-                </View>
+             ))}            
 
             </View>
         </ScrollView>
@@ -61,7 +74,6 @@ export default function Resultados(){
     </View>
     )
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -95,7 +107,8 @@ const styles = StyleSheet.create({
 
     viewMain: {
         flex: 1,  
-        paddingTop: 30,    
+        paddingTop: 10,    
+        marginBottom: 100,
         gap: 30
     },
 
@@ -126,15 +139,18 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
 
+    textMedium:{
+        fontWeight: 400
+    },
+
     contentEstatisticas:{
         borderWidth: 2,    
         borderColor: '#00000', 
         borderStyle: 'solid',
         margin: "auto",
         width: 350,
-        height: 150,
+        height: 180,
         padding: 20,
-        backgroundColor:"#71BE70",
         borderRadius: 20,
         gap: 8,
         flexDirection: "row",
