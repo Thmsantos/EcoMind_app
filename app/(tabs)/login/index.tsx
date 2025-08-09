@@ -153,7 +153,7 @@ export default function Login() {
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    padding: 20,
+    padding: 70,
     backgroundColor: "#fff",
   },
   logo: {
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
     fontSize: 35,
     textAlign: "center",
     fontWeight: "700",
-    letterSpacing: 1,
     color: "#485935",
-    marginBottom: 40,
+    marginBottom: 25,
+    marginTop: -18
   },
   mensagemBox: {
     position: "absolute",
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 22,
+    fontSize: 19,
     color: "#000",
     marginLeft: 8,
     paddingVertical: 0,
@@ -220,19 +220,19 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 11,
+    marginLeft: 8
   },
   button: {
     width: 370,
     backgroundColor: "#71BE70",
-    padding: 14,
+    padding: 12,
     borderRadius: 30,
     alignItems: "center",
     marginTop: 5,
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "bold",
-    letterSpacing: 1,
   },
   forgotPassword: {
     color: "#71BE70",

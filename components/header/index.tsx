@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
 
   nomeAppLogo: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "700",
   },
 });

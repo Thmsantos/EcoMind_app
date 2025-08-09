@@ -206,14 +206,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 30,
+    padding: 60,
   },
   title: {
     fontSize: 35,
     textAlign: 'center',
     fontWeight: '700',
-    letterSpacing: 1,
-    color: '#485935',
+    color:  "#485935",
     marginBottom: 24,
   },
   inputContainer: {
@@ -233,7 +232,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 22,
+    fontSize: 19,
     color: '#000',
     borderWidth: 0,
     marginLeft: 8,
@@ -242,6 +241,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 11,
+    marginLeft: 8
   },
   requisitos: {
     fontSize: 15,
@@ -252,16 +252,15 @@ const styles = StyleSheet.create({
   entrarBtn: {
     width: 370,
     backgroundColor: '#71BE70',
-    paddingVertical: 14,
+    paddingVertical: 12,
     borderRadius: 30,
     borderWidth: 0,
     alignItems: 'center',
     marginTop: 5,
   },
   buttonText: {
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: 'bold',
-    letterSpacing: 1,
   },
   loginTextContainer: {
     flexDirection: 'row',

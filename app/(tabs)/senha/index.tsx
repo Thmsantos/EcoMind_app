@@ -106,7 +106,8 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    paddingHorizontal: 20,
+    paddingTop: 80,
+    paddingBottom: 80
   },
   title: {
     fontSize: 30,
@@ -189,6 +190,5 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 22,
     fontWeight: 'bold',
-    letterSpacing: 1,
   },
 });

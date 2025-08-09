@@ -130,17 +130,18 @@ const styles = StyleSheet.create({
     },
 
     textResult: {
-        fontSize: 20
+        fontSize: 17
 
     },
 
     textBold: {
         fontWeight: 700,
-        fontSize: 20
+        fontSize: 19
     },
 
     textMedium:{
-        fontWeight: 400
+        fontWeight: 400,
+        fontSize: 17
     },
 
     contentEstatisticas:{
@@ -149,7 +150,7 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         margin: "auto",
         width: 350,
-        height: 180,
+        height: 160,
         padding: 20,
         borderRadius: 20,
         gap: 8,

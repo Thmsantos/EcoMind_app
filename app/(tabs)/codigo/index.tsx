@@ -117,9 +117,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     buttonText: {
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: 'bold',
-        letterSpacing: 1,
     },
     linkVoltar: {
         fontSize: 20,

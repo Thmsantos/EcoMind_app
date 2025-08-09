@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',     
     },
     navText: {
-        fontFamily: 'Montserrat-Bold', 
+        fontFamily: 'system-ui',
         fontSize: 14,
         color: '#808080',
         marginTop: 5,

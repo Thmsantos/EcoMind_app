@@ -80,7 +80,7 @@ export default function Profile() {
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
-            <Text style={styles.username}>{/* {userForm.usuario ?? ""} */}</Text>
+            <Text style={styles.username}>Mari Siqueira</Text>
             <Text style={styles.email}>mari@gmail.com</Text>
           </View>
         </View>
@@ -302,20 +302,20 @@ const styles = StyleSheet.create({
         borderColor: '#71BE70',
     },
     arrowright: {
-        marginLeft: 200
+        marginLeft: 187
     },
     arrowrightduo: {
-        marginLeft: 220
+        marginLeft: 173
     },
     textoBotao: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: '700',
         color: '#000',
         textAlign: 'left',
     },
     botao: {
         backgroundColor: '#71BE70',
-        padding: 14,
+        padding: 12,
         borderRadius: 30,
         borderWidth: 0,
         alignItems: "center",
@@ -335,9 +335,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
         marginBottom: 24,
+        marginLeft: -18
     },
     titleInput: {
-        marginBottom: 10
+        marginBottom: 10,
+        marginLeft: -18
     },
     input: {
         borderWidth: 2,
