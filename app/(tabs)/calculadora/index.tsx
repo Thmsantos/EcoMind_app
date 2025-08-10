@@ -40,7 +40,6 @@ export default function Calculadora() {
   console.log(params)
   const userId = params.userId;
   const [valorEletricidade, setValorEletricidade] = useState('');
-  const [tipoEletricidade, setTipoEletricidade] = useState('R$');
   const [valorGas, setValorGas] = useState('');
   const [tipoGas, setTipoGas] = useState('R$');
   const [kmPercorridos, setKmPercorridos] = useState('');
@@ -73,15 +72,6 @@ export default function Calculadora() {
     };
   }, []);
 
-  //calcularEmissaoCO2
-
-
-
-  
-
-
-
-
   function saveAll(){
     const emissaoGas = Number(valorGas) * 2.9; 
     const emissaoEnergia = Number(valorEletricidade) * 0.1;
@@ -111,8 +101,6 @@ export default function Calculadora() {
       >
         <ScrollView contentContainerStyle={{ paddingBottom: 80 }} keyboardShouldPersistTaps="handled">
           <Header />
-
-
           <View style={styles.formulario}>
             
                 <View style={styles.container2}>
@@ -145,22 +133,11 @@ export default function Calculadora() {
               <Text style={styles.textTitulo}>Consumo de eletricidade</Text>
               <TextInput
                 style={styles.textInput}
-                placeholder="Digite o valor"
+                placeholder="Digite o valor em kW"
                 value={valorEletricidade}
                 onChangeText={setValorEletricidade}
                 keyboardType="numeric"
               />
-              <RadioButton.Group value={tipoEletricidade} onValueChange={setTipoEletricidade}>
-                <View style={styles.radioItem}>
-                  <RadioButton value="kWh" color="#71BE70" />
-                  <Text style={styles.textRadio}>kWh</Text>
-                </View>
-                <View style={styles.radioItem}>
-                  <RadioButton value="R$" color="#71BE70" />
-                  <Text style={styles.textRadio}>R$</Text>
-                </View>
-               
-              </RadioButton.Group>
             </View>
 
             <View style={styles.card}>
@@ -185,7 +162,7 @@ export default function Calculadora() {
             </View>
 
             <View style={styles.card}>
-              <Text style={styles.textTitulo}>km Percorridos</Text>
+              <Text style={styles.textTitulo}>Quilômetros percorridos</Text>
               <TextInput
                 style={styles.textInput}
                 placeholder="Digite os km"

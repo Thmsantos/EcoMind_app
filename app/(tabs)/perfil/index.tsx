@@ -121,29 +121,7 @@ export default function Profile() {
           </View>
         </View>
 
-        <View style={styles.estatisticas}>
-          <TouchableOpacity
-            style={styles.btnRedireciona}
-            onPress={() => navegarPara('/(tabs)/estatisticas')}
-          >
-            <Text style={styles.textoBotao}>
-              📊 Estatísticas <Icon style={styles.arrowright} name="chevron-right" size={12} color="#ccc" />
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.btnRedirecionadois}
-            onPress={() => navegarPara('/(tabs)/ranking')}
-          >
-            <Text style={styles.textoBotao}>
-              🏆 Ranking <Icon style={styles.arrowrightduo} name="chevron-right" size={12} color="#ccc" />
-            </Text>
-          </TouchableOpacity>
-        </View>
-
         <View style={styles.containeredit}>
-          <Text style={styles.titulo}>Editar Perfil</Text>
-
           <Text style={styles.titleInput}>Nome*</Text>
           <TextInput
             style={styles.input}
@@ -191,7 +169,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#dedede55',
     },
     header: {
         backgroundColor: '#71BE70',
@@ -270,37 +248,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#000',
     },
-    estatisticas: {
-        width: baseWidth, 
-        marginTop: 20,
-        alignSelf: 'center',
-        padding: 16,
-        backgroundColor: '#fff',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    btnRedireciona: {
-        width: baseWidth, 
-        backgroundColor: '#fff',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        borderTopLeftRadius: 12,
-        borderTopRightRadius: 12,
-        borderTopWidth: 2,
-        borderLeftWidth: 2,
-        borderRightWidth: 2,
-        borderColor: '#71BE70',
-    },
-    btnRedirecionadois: {
-        width: baseWidth,
-        backgroundColor: '#fff',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
-        borderBottomLeftRadius: 12,
-        borderBottomRightRadius: 12,
-        borderWidth: 2,
-        borderColor: '#71BE70',
-    },
     arrowright: {
         marginLeft: 187
     },
@@ -325,7 +272,7 @@ const styles = StyleSheet.create({
     containeredit: {
         flex: 1,
         padding: 24,
-        backgroundColor: '#fff',
+        backgroundColor: '#dedede55',
         justifyContent: 'center',
         marginBottom: 80,
         width: baseWidth, 
