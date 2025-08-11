@@ -28,6 +28,10 @@ export default function Profile() {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  const handleSalvar = () => {
+    alert('salvo')
+  }
   
 
   useEffect(() => {
@@ -38,36 +42,7 @@ export default function Profile() {
     }).start();
   }, [isKeyboardVisible]);
 
- 
 
-  const navegarPara = (rota: any) => {
-    router.push(rota);
-  };
-
-  const handleSalvar = () => {
-    // const dadosAtualizados = {
-    //   username: username || userData.username,
-    //   email: email || userData.email,
-    // };
-    // console.log('Dados salvos:', dadosAtualizados);
-  };
-
-/*   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await axios.post('http://127.0.0.1:2010/api/user/search', {
-          id: params.userId,
-        });
-        setUserForm(res.data);
-      } catch (err) {
-        console.error("Erro ao buscar usuário:", err);
-      }
-    };
-  
-    if (params.userId) {
-      fetchUser();
-    }
-  }, [params.userId]); */
 
   
   return (
@@ -80,7 +55,7 @@ export default function Profile() {
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
-            <Text style={styles.username}>Mari Siqueira</Text>
+            <Text style={styles.username}>Mari_Siqueira</Text>
             <Text style={styles.email}>mari@gmail.com</Text>
           </View>
         </View>
@@ -97,8 +72,8 @@ export default function Profile() {
           <View style={styles.statBox}>
             <Icon name="leaf" size={20} color="black" style={styles.statIcon} />
             <View style={styles.statTextContainer}>
-              <Text style={styles.statValue}>3.200</Text>
-              <Text style={styles.statLabel}>Consumo Total</Text>
+              <Text style={styles.statValue}>245 kg</Text>
+              <Text style={styles.statLabel}>Emissão Total</Text>
             </View>
           </View>
         </View>
@@ -107,7 +82,7 @@ export default function Profile() {
           <View style={styles.statBox}>
             <Icon name="star" size={20} color="black" style={styles.statIcon} />
             <View style={styles.statTextContainer}>
-              <Text style={styles.statValue}>0</Text>
+              <Text style={styles.statValue}>231</Text>
               <Text style={styles.statLabel}>Pontos</Text>
             </View>
           </View>
@@ -115,7 +90,7 @@ export default function Profile() {
           <View style={styles.statBox}>
             <Icon name="arrow-down" size={20} color="black" style={styles.statIcon} />
             <View style={styles.statTextContainer}>
-              <Text style={styles.statValue}>0,00 kg</Text>
+              <Text style={styles.statValue}>20,00 kg</Text>
               <Text style={styles.statLabel}>CO₂ economizado</Text>
             </View>
           </View>
@@ -125,23 +100,20 @@ export default function Profile() {
           <Text style={styles.titleInput}>Nome*</Text>
           <TextInput
             style={styles.input}
-          /*   value={userForm.nome ?? ""} */
-            // onChangeText={setUsername}
+            defaultValue='Mariana Siqueira'
           />
 
           <Text style={styles.titleInput}>Usuário*</Text>
           <TextInput
             style={styles.input}
-           /*  value={userForm.usuario ?? ""} */
-            // onChangeText={setEmail}
+            defaultValue='Mari_Siqueira'
           />
 
           <Text style={styles.titleInput}>Email*</Text>
           <TextInput
             style={styles.input}
-          /*   value={userForm.email ?? ""} */
-            // onChangeText={setEmail}
             keyboardType="email-address"
+            defaultValue='mari@gmail.com'
           />
 
           <Text style={styles.titleInput}>Senha*</Text>
