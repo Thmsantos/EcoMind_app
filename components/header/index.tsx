@@ -20,12 +20,12 @@ export default function Header({ title = "EcoMind" }) {
 
 const styles = StyleSheet.create({
   viewLogo: {
-    marginTop: 8,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 16,
     width: "100%",
+    paddingEnd: 26,
+    backgroundColor: '#fff'
   },
 
   imageLogo: {
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 
   viewImagemLogo: {
     marginRight: -10,
+    backgroundColor: '#fff',
   },
 
   nomeAppLogo: {
