@@ -18,7 +18,6 @@ const { width } = Dimensions.get('window');
 export default function Profile() {
   const [search, setSearch] = useState('');
 
-  // Lista personalizada de nomes
   const names = [
     'Claudia', 'João', 'Maria', 'Pedro', 'Ana',
     'Lucas', 'Fernanda', 'Gabriel', 'Larissa', 'Carlos',
@@ -28,7 +27,6 @@ export default function Profile() {
     'Diego', 'Mariana', 'Thiago', 'Renata', 'Gustavo'
   ];
 
-  // Gera os dados com base na lista de nomes
   const rankingData = useMemo(() =>
     names.map((name, i) => ({
       id: i + 1,
@@ -37,14 +35,12 @@ export default function Profile() {
     })), []
   );
 
-  // Ordena os dados por progresso e adiciona a posição
   const rankedData = useMemo(() => {
     return rankingData
       .sort((a, b) => b.progress - a.progress)
       .map((user, index) => ({ ...user, rank: index + 1 }));
   }, [rankingData]);
 
-  // Aplica o filtro de pesquisa
   const filteredRanking = useMemo(() => {
     return rankedData.filter((user) =>
       user.name.toLowerCase().includes(search.toLowerCase())
@@ -53,27 +49,19 @@ export default function Profile() {
 
   return (
     <View style={styles.container}>
-      {/* Cabeçalho */}
       <Header title="Ranking"/>
-
-      {/* Troféu decorativo */}
-     
-
-      {/* Campo de pesquisa */}
-
 
      <View style={styles.searchContainer}>
         <Ionicons name="search" size={20} color="#999" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Pesquisar usuário"
-          placeholderTextColor="#999"
+          placeholderTextColor="#000"
           value={search}
           onChangeText={setSearch}        
         />
       </View>
 
-      {/* Lista de Ranking */}
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={true}
@@ -82,7 +70,6 @@ export default function Profile() {
           filteredRanking.map((user) => (
             <View key={user.id} style={styles.card}>
               <View style={styles.cardContent}>
-                {/* Medalha ou Número com base na posição real */}
                 <View style={styles.positionContainer}>
                   {user.rank === 1 ? (
                     <Image
@@ -166,7 +153,6 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
     marginHorizontal: 20,
     marginVertical: 20,
     borderRadius: 12,
@@ -182,7 +168,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   searchInput: {
-     flex: 1,
+    flex: 1,
     paddingVertical: 10,
     fontSize: 16,
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
@@ -190,8 +176,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: 20,
-    paddingBottom: 100,
-    
+    paddingBottom: 100,    
   },
   card: {
     backgroundColor: '#E0F2E9',
