@@ -100,7 +100,7 @@ export default function Calculadora() {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
       >
         <ScrollView contentContainerStyle={{ paddingBottom: 80 }} keyboardShouldPersistTaps="handled">
-          <Header />
+          <Header title="Calculadora" />
           <View style={styles.formulario}>
             
                 <View style={styles.container2}>
