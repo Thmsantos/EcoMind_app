@@ -1,7 +1,6 @@
 import Navbar from '@/components/navbar/navbar';
 import React from 'react';
-import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import Header from '../../../components/header'
  
 
@@ -13,29 +12,66 @@ export default function Resultados(){
 
 
     const getEmoji = (valor: number) => {
-        if (valor <= limites.ideal.max) return happyEmoji;
-        if (valor <= limites.medio.max) return medioEmoji;
+       if(resultados[valor].balanco === 'positivo'){
+        return happyEmoji;
+       };
+
+       if(resultados[valor].balanco === 'negativo'){
         return sadEmoji;
+       }
+
+       if(resultados[valor].balanco === 'idem'){
+        return medioEmoji;
+       }
     };
 
-    const resultados = [
-    { mes: "Fevereiro", consumo: 230 },
-    { mes: "Março", consumo: 500 },
-    { mes: "Abril", consumo: 150 },
-    { mes: "Maio", consumo: 150 },
-    ];
+const resultados = [
+  { mes: "Fevereiro", consumo: 230, balanco: 'positivo' },
+  { mes: "Março", consumo: 500, balanco: 'negativo' },
+  { mes: "Abril", consumo: 150, balanco: 'positivo' },
+  { mes: "Maio", consumo: 150, balanco: 'idem' },
+  { mes: "Junho", consumo: 300, balanco: 'negativo' },   
+  { mes: "Julho", consumo: 280, balanco: 'positivo' },   
+  { mes: "Agosto", consumo: 280, balanco: 'idem' },      
+  { mes: "Setembro", consumo: 260, balanco: 'positivo' },
+  { mes: "Outubro", consumo: 400, balanco: 'negativo' }, 
+  { mes: "Novembro", consumo: 390, balanco: 'positivo' } 
+];
+
 
     const limites = {
-        ideal: { max: 175, cor: "#4CAF50" },     
+        ideal: { max: 175, cor: "#66d16aff" },     
         medio: { max: 350, cor: "#FFC107" },      
         alto: { max: Infinity, cor: "#F44336" }, 
     };
 
     const getCor = (valor: number) => {
-        if (valor <= limites.ideal.max) return limites.ideal.cor;
-        if (valor <= limites.medio.max) return limites.medio.cor;
+       if(resultados[valor].balanco === 'positivo'){
+        return limites.ideal.cor;
+       };
+
+       if(resultados[valor].balanco === 'negativo'){
         return limites.alto.cor;
+       }
+
+       if(resultados[valor].balanco === 'idem'){
+        return limites.medio.cor;
+       }
     };
+
+    const getBalanco = (valor: number) => {
+        if(resultados[valor].balanco === 'positivo'){
+        return 'redução';
+       };
+
+       if(resultados[valor].balanco === 'negativo'){
+        return 'aumento';
+       }
+
+       if(resultados[valor].balanco === 'idem'){
+        return 'mantimento';
+       }
+    } 
 
     return(
     
@@ -47,7 +83,7 @@ export default function Resultados(){
             <View style={styles.viewMain}>
 
              {resultados.map((item, index) => (
-                <View key={index} style={[styles.contentEstatisticas, { backgroundColor: getCor(item.consumo) }]}>
+                <View key={index} style={[styles.contentEstatisticas, { backgroundColor: getCor(index) }]}>
                     <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
                             <View style={styles.groupText}>
                                 <Text style={styles.textResult}>
@@ -55,21 +91,22 @@ export default function Resultados(){
                                 </Text>
 
                                 <Text style={styles.textResult}>
-                                    <Text style={styles.textBold}>Consumo: <Text style={styles.textMedium}>{item.consumo} kg</Text></Text>
+                                    <Text style={styles.textBold}>Sua emissão: <Text style={styles.textMedium}>{item.consumo} kg</Text></Text>
                                 </Text>
 
                                 <Text style={styles.textResult}>
-                                    <Text style={styles.textBold}>Balanço:</Text> Você está há {'\n'} 
-                                <Text>dois Mêses </Text> diminuindo sua produção de co2</Text>
-                                <Image style={styles.emoji} source={getEmoji(item.consumo)} />
+                                    <Text style={styles.textBold}>Balanço: </Text>
+                                    <Text>
+                                        {getBalanco(index)} da emissão.
+                                    </Text>
+                                </Text>
+                                <Image style={styles.emoji} source={getEmoji(index)} />
                             </View>
                     </ScrollView>
                 </View>
              ))}            
-
             </View>
         </ScrollView>
-       
         <Navbar />
     </View>
     )
@@ -79,7 +116,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-
     viewLogo: {
         margin: "auto",
         paddingTop: 5,
@@ -89,17 +125,14 @@ const styles = StyleSheet.create({
         justifyContent: "center"
 
     },
-
     imageLogo: {
         width: 65,
         height: 65,
     },
-
     viewImagemLogo: {
         width: 55,
         height:70
     },
-
     nomeAppLogo:{
         fontSize: 22,
         fontWeight: "700"
@@ -109,7 +142,7 @@ const styles = StyleSheet.create({
         flex: 1,  
         paddingTop: 10,    
         marginBottom: 100,
-        gap: 30
+        gap: 30,
     },
 
     estatisticas: {
@@ -118,9 +151,6 @@ const styles = StyleSheet.create({
 
     groupText: {
         flexDirection: "column"
-        
-              
-
     },
 
     emoji: {
@@ -130,8 +160,7 @@ const styles = StyleSheet.create({
     },
 
     textResult: {
-        fontSize: 17
-
+        fontSize: 17,
     },
 
     textBold: {
@@ -150,12 +179,11 @@ const styles = StyleSheet.create({
         borderStyle: 'solid',
         margin: "auto",
         width: 350,
-        height: 160,
+        height: 130,
         padding: 20,
         borderRadius: 20,
-        gap: 8,
         flexDirection: "row",
-        paddingTop: 20
+        paddingTop: 20,
     },
 
     navbar:{
