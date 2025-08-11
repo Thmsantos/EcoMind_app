@@ -11,7 +11,7 @@ export default function Navbar() {
                 style={styles.navItem}
                 onPress={() => router.push('/(tabs)/apresentaCalculadora')}
             >
-                <Icon name="calculator" size={24} color="#808080" />
+                <Icon name="calculator" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Calculadora</Text>
             </TouchableOpacity>
             
@@ -19,7 +19,7 @@ export default function Navbar() {
                 style={styles.navItem}
                 onPress={() => router.push('/(tabs)/ranking')}
             >
-                <Icon name="trophy" size={24} color="#808080" />
+                <Icon name="trophy" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Ranking</Text>
             </TouchableOpacity>
 
@@ -27,7 +27,7 @@ export default function Navbar() {
                 style={styles.navItem}
                 onPress={() => router.push('/(tabs)/estatisticas')}
             >
-                <Icon name="bar-chart" size={24} color="#808080" />
+                <Icon name="bar-chart" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Estatisticas</Text>
             </TouchableOpacity>
             
@@ -35,7 +35,7 @@ export default function Navbar() {
                 style={styles.navItem}
                 onPress={() => router.push(`/(tabs)/perfil?userId=${idUser}`)}
             >
-                <Icon name="user" size={24} color="#808080" />
+                <Icon name="user" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Perfil</Text>
             </TouchableOpacity>
         </View>   
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     navbar: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        backgroundColor: '#F8F8F8', 
+        backgroundColor: '#71BE70', 
         paddingVertical: 10,
         width: '100%',
         position: 'absolute',
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     navText: {
         fontFamily: 'system-ui',
         fontSize: 14,
-        color: '#808080',
+        color: '#000000ff',
         marginTop: 5,
         letterSpacing: 1
     },
