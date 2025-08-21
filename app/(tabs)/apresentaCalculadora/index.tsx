@@ -1,12 +1,14 @@
 import TypeWriterText from '@/components/animacao/chatBot';
 import Navbar from '@/components/navbar/navbar';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import Header from '../../../components/header'
 
 
 export default function TabOneScreen() {
+    const params =  useLocalSearchParams()
+    const userId = params.userId;
     const [balloonIndex, setBalloonIndex] = useState(0); 
     const [showButton, setShowButton] = useState(false); 
   
@@ -70,7 +72,7 @@ export default function TabOneScreen() {
                     <Text style={styles.textoDestaque}>Meio Ambiente</Text>
                   </Text>
                 </View>
-                <TouchableOpacity style={styles.btnAcessarCalculadora} onPress={() => router.push('/(tabs)/calculadora')}>
+                <TouchableOpacity style={styles.btnAcessarCalculadora} onPress={() => router.push(`/(tabs)/calculadora?userId=${userId}`)}>
                   <Text style={styles.btnTextAcessarCalculadora}>Calculadora</Text>
                 </TouchableOpacity>
               </View>

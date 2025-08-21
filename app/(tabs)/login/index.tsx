@@ -47,7 +47,7 @@ export default function Login() {
       setMensagem("Login realizado com sucesso!");
 
       setTimeout(() => {
-        router.push(`/(tabs)/calculadora?userId=${response.data.id}`);
+        router.push(`/(tabs)/apresentaCalculadora?userId=${response.data.id}`);
       }, 400);
     } catch (error: any) {
       const mensagemErro =

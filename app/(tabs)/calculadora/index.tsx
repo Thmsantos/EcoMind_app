@@ -37,11 +37,10 @@ function NavbarAnimated({ visible }) {
 
 export default function Calculadora() {
   const params =  useLocalSearchParams()
-  console.log(params)
   const userId = params.userId;
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [valorGas, setValorGas] = useState('');
-  const [tipoGas, setTipoGas] = useState('R$');
+  const [tipoGas, setTipoGas] = useState('m3');
   const [kmPercorridos, setKmPercorridos] = useState('');
   const [tecladoAberto, setTecladoAberto] = useState(false);
 
@@ -63,6 +62,33 @@ export default function Calculadora() {
     ];
   
 
+    
+    function saveAll(){
+      const emissaoGas = formatGas(); 
+      const emissaoEnergia = Number(valorEletricidade) * 0.1;
+      const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
+      const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+      const data = {
+        idUser: userId,
+        mes: mesSelecionado,
+        consumoCarbono: emissaoTotal,
+        consumoEnergia: emissaoEnergia,
+        consumoGas: emissaoGas,
+        consumoTransporte: emissaoCombustivel,
+        balanco: 'positivo'
+      }
+  
+      axios.post(`http://127.0.0.1:2010/api/calculos/create/${userId}`, data)
+    }
+  
+    function formatGas(){
+      if(tipoGas === 'botijao'){
+        setValorGas(String(Number(valorGas) * 0.485));
+      }
+
+      return valorGas;
+    }
+
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
     const hideListener = Keyboard.addListener('keyboardDidHide', () => setTecladoAberto(false));
@@ -72,27 +98,7 @@ export default function Calculadora() {
     };
   }, []);
 
-  function saveAll(){
-    const emissaoGas = Number(valorGas) * 2.9; 
-    const emissaoEnergia = Number(valorEletricidade) * 0.1;
-    const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
-    const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
-    const data = {
-      idUser: userId,
-      mes: mesSelecionado,
-      consumoCarbono: emissaoTotal,
-      consumoEnergia: emissaoEnergia,
-      consumoGas: emissaoGas,
-      consumoTransporte: emissaoCombustivel,
-      balanco: 'positivo'
-    }
-
-    axios.post('http://127.0.0.1:2010/api/calculos/create', data)
-  }
-
   return (
-
-
     <View style={styles.container}>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -151,11 +157,11 @@ export default function Calculadora() {
               />
               <RadioButton.Group value={tipoGas} onValueChange={setTipoGas}>
                 <View style={styles.radioItem}>
-                  <RadioButton value="m³" color="#71BE70" />
+                  <RadioButton onPress={() => setTipoGas('m3')} value="m3" color="#71BE70" />
                   <Text style={styles.textRadio}>m³</Text>
                 </View>
                 <View style={styles.radioItem}>
-                  <RadioButton value="botijao" color="#71BE70" />
+                  <RadioButton onPress={() => setTipoGas('botijao')} value="botijao" color="#71BE70" />
                   <Text style={styles.textRadio}>Botijão</Text>
                 </View>
               </RadioButton.Group>
