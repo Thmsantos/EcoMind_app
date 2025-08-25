@@ -38,14 +38,14 @@ function NavbarAnimated({ visible }) {
 export default function Calculadora() {
   const params =  useLocalSearchParams()
   const userId = params.userId;
+
   const [valorEletricidade, setValorEletricidade] = useState('');
   const [valorGas, setValorGas] = useState('');
   const [tipoGas, setTipoGas] = useState('m3');
   const [kmPercorridos, setKmPercorridos] = useState('');
   const [tecladoAberto, setTecladoAberto] = useState(false);
-
   const [mesSelecionado, setMesSelecionado] = useState('');
-  
+
     const meses = [
       { label: 'Janeiro', value: 'Janeiro' },
       { label: 'Fevereiro', value: 'Fevereiro' },
@@ -61,33 +61,31 @@ export default function Calculadora() {
       { label: 'Dezembro', value: 'Dezembro' },
     ];
   
-
-    
     function saveAll(){
-      const emissaoGas = formatGas(); 
+      const emissaoGas = valorGas ? formatGas() : 0;
       const emissaoEnergia = Number(valorEletricidade) * 0.1;
-      const emissaoCombustivel = (Number(kmPercorridos) / 6.9).toFixed(2)
-      const emissaoTotal = emissaoGas + emissaoEnergia + emissaoCombustivel;
+      const emissaoCombustivel = Number(kmPercorridos) / 6.9;
+      const emissaoTotal = (emissaoGas + emissaoEnergia + emissaoCombustivel).toFixed(2);
+
       const data = {
         idUser: userId,
-        mes: mesSelecionado,
+        mes: mesSelecionado.toLowerCase(),
         consumoCarbono: emissaoTotal,
-        consumoEnergia: emissaoEnergia,
-        consumoGas: emissaoGas,
-        consumoTransporte: emissaoCombustivel,
-        balanco: 'positivo'
-      }
+        consumoEnergia: emissaoEnergia.toFixed(2),
+        consumoGas: emissaoGas.toFixed(2),
+        consumoTransporte: emissaoCombustivel.toFixed(2),
+      };
   
       axios.post(`http://127.0.0.1:2010/api/calculos/create/${userId}`, data)
     }
   
-    function formatGas(){
-      if(tipoGas === 'botijao'){
-        setValorGas(String(Number(valorGas) * 0.485));
-      }
-
-      return valorGas;
+function formatGas() {
+    const gasNumber = Number(valorGas);
+    if (tipoGas === 'botijao' && gasNumber) {
+      return gasNumber * 0.485;
     }
+    return gasNumber;
+  }
 
   useEffect(() => {
     const showListener = Keyboard.addListener('keyboardDidShow', () => setTecladoAberto(true));
