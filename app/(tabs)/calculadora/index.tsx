@@ -12,9 +12,10 @@ const { width } = Dimensions.get('window');
 
 type NavbarAnimatedProps = {
   visible: boolean;
+  userId: string;
 };
 
-function NavbarAnimated({ visible }: NavbarAnimatedProps) {
+function NavbarAnimated({ visible, userId }: NavbarAnimatedProps) {
   const slideAnim = useRef(new Animated.Value(100)).current;
 
   useEffect(() => {
@@ -34,7 +35,7 @@ function NavbarAnimated({ visible }: NavbarAnimatedProps) {
         },
       ]}
     >
-      <Navbar />
+      <Navbar userId={userId} />
     </Animated.View>
   );
 }
@@ -192,7 +193,7 @@ function formatGas() {
         </ScrollView>
       </KeyboardAvoidingView>
 
-     <NavbarAnimated visible={!tecladoAberto} />
+     <NavbarAnimated visible={!tecladoAberto} userId={userId as string} />
     </View>
   );
 }

@@ -2,9 +2,12 @@ import { router } from "expo-router";
 import React from "react";
 import { Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { idUser } from "@/app/(tabs)/login";
 
-export default function Navbar() {
+type NavbarProps = {
+    userId: string;
+};
+
+export default function Navbar({ userId }: NavbarProps) {
     return (
         <View style={styles.navbar}>
             <TouchableOpacity 
@@ -33,7 +36,7 @@ export default function Navbar() {
             
             <TouchableOpacity 
                 style={styles.navItem}
-                onPress={() => router.push(`/(tabs)/perfil?userId=${idUser}`)}
+                onPress={() => router.push(`/(tabs)/perfil?userId=${userId}`)}
             >
                 <Icon name="user" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Perfil</Text>

@@ -5,14 +5,12 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, Image, ImageBackground, TouchableOpacity, Alert, ScrollView} from 'react-native';
 import Header from '../../../components/header'
 
-
 export default function TabOneScreen() {
     const params =  useLocalSearchParams()
     const userId = params.userId;
     const [balloonIndex, setBalloonIndex] = useState(0); 
     const [showButton, setShowButton] = useState(false); 
   
-   
     const onBalloonFinish = () => {
         setTimeout(() => {
           if (balloonIndex < 2) {
@@ -23,11 +21,9 @@ export default function TabOneScreen() {
         }, 200); 
       };
       
-  
     return (
       <View style={styles.container}>
         <Header/>
-  
         <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1, paddingBottom: 20 }} showsVerticalScrollIndicator={true}>
           <View style={styles.viewMain}>
             {balloonIndex >= 0 && (
@@ -40,7 +36,7 @@ export default function TabOneScreen() {
                 />
               </ImageBackground>
             )}
-  
+
             {balloonIndex >= 1 && (
               <ImageBackground source={require("../../../assets/images/mensagemcalculadora.png")} style={styles.mensagemChat}>
                 <TypeWriterText 
@@ -62,8 +58,7 @@ export default function TabOneScreen() {
                 />
               </ImageBackground>
             )}
-  
-            
+   
             {showButton && (
               <View style={styles.viewBtnAcessarCalculadora}>
                 <View style={styles.viewBtnIcone}>
@@ -80,7 +75,7 @@ export default function TabOneScreen() {
           </View>
         </ScrollView>
   
-        <Navbar />
+        <Navbar userId={userId as string} />
       </View>
     );
   }
