@@ -5,12 +5,16 @@ import Header from '@/components/header/index';
 import Navbar from '@/components/navbar/navbar'; 
 
 import { Picker } from '@react-native-picker/picker';
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 
-function NavbarAnimated({ visible }) {
+type NavbarAnimatedProps = {
+  visible: boolean;
+};
+
+function NavbarAnimated({ visible }: NavbarAnimatedProps) {
   const slideAnim = useRef(new Animated.Value(100)).current;
 
   useEffect(() => {
@@ -77,6 +81,7 @@ export default function Calculadora() {
       };
   
       axios.post(`http://127.0.0.1:2010/api/calculos/create/${userId}`, data)
+      router.push(`/(tabs)/estatisticas?userId=${userId}`)
     }
   
 function formatGas() {
@@ -175,9 +180,6 @@ function formatGas() {
                 keyboardType="numeric"
               />
             </View>
-
-
-           
             <TouchableOpacity
                   style={styles.btnSalvar}
                   onPress={() => {
@@ -230,6 +232,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 12,
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
+  },
+  navbarAnimated: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    zIndex: 100,
   },
   radioItem: {
     flexDirection: 'row',
