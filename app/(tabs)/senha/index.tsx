@@ -14,6 +14,7 @@ import {
   Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import colors from '@/components/colors/colors';
 
 const EmailImage = require('../../../assets/images/emaill.png');
 
@@ -72,12 +73,12 @@ export default function PasswordRecovery() {
                 <Icon
                   name="envelope"
                   size={18}
-                  color="#aaa"
+                  color={colors.placeholder}
                   style={styles.inputIcon}
                 />
                 <TextInput
                   placeholder="Email"
-                  placeholderTextColor="#aaa"
+                  placeholderTextColor={colors.placeholder}
                   style={styles.input}
                   keyboardType="email-address"
                   autoCapitalize="none"
@@ -98,31 +99,25 @@ export default function PasswordRecovery() {
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    paddingVertical: 40,
-  },
   content: {
     alignItems: 'center',
     paddingTop: 80,
-    paddingBottom: 80
+    paddingBottom: 80,
   },
   title: {
     fontSize: 30,
     textAlign: 'center',
     fontWeight: '700',
-    color: '#485935',
+    color: colors.secondary,
     letterSpacing: 1,
-    marginTop: 60, // ⬅️ aumentamos para descer o título
+    marginTop: 60,
   },
   alertaFixed: {
     position: 'absolute',
     top: Platform.OS === 'ios' ? 60 : 30,
     left: 20,
     right: 20,
-    backgroundColor: '#8B0000',
+    backgroundColor: colors.error,
     padding: 10,
     borderRadius: 10,
     zIndex: 9999,
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textoAlerta: {
-    color: 'white',
+    color: colors.textSecondary,
     fontSize: 16,
     textAlign: 'center',
   },
@@ -162,10 +157,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 20,
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 14,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.inputBackground,
   },
   inputIcon: {
     marginRight: 11,
@@ -173,14 +168,14 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 22,
-    color: '#000',
+    color: colors.textPrimary,
     marginLeft: 8,
     paddingVertical: 0,
     includeFontPadding: true,
   },
   entrarBtn: {
     width: 370,
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.primary,
     paddingVertical: 14,
     paddingHorizontal: 10,
     borderRadius: 30,
@@ -190,5 +185,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: colors.textSecondary,
   },
 });

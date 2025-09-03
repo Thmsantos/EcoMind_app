@@ -12,6 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/navbar/navbar';
 import Header from '@/components/header';
+import colors from '@/components/colors/colors';
 
 const { width } = Dimensions.get('window');
 
@@ -51,12 +52,12 @@ export default function Profile() {
     <View style={styles.container}>
       <Header title="Ranking"/>
 
-     <View style={styles.searchContainer}>
-        <Ionicons name="search" size={20} color="#999" style={styles.searchIcon} />
+      <View style={styles.searchContainer}>
+        <Ionicons name="search" size={20} color={colors.icon} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Pesquisar usuário"
-          placeholderTextColor="#000"
+          placeholderTextColor={colors.placeholder}
           value={search}
           onChangeText={setSearch}        
         />
@@ -87,25 +88,21 @@ export default function Profile() {
                       style={styles.medal}
                     />
                   ) : (
-                    <Text style={styles.positionText}>{user.rank}</Text>
+                    <Text style={[styles.positionText, {color: colors.textDark}]}>{user.rank}</Text>
                   )}
-                  <View style={styles.positionCircle} />
+                  <View style={[styles.positionCircle, {backgroundColor: colors.primary}]} />
                 </View>
 
-                {/* Informações do usuário */}
                 <View style={styles.info}>
                   <View style={styles.infoHeader}>
-                    <Text style={styles.username}>{user.name}</Text>
-                    <Text style={styles.progressText}>
+                    <Text style={[styles.username, {color: colors.textDark}]}>{user.name}</Text>
+                    <Text style={[styles.progressText, {color: colors.textMuted}]}>
                       {Math.round(user.progress * 100)}%
                     </Text>
                   </View>
-                  <View style={styles.progressBar}>
+                  <View style={[styles.progressBar, {backgroundColor: colors.progressBackground}]}>
                     <View
-                      style={[
-                        styles.progress,
-                        { width: `${user.progress * 100}%` },
-                      ]}
+                      style={[styles.progress, {width: `${user.progress * 100}%`, backgroundColor: colors.primary}]}
                     />
                   </View>
                 </View>
@@ -113,11 +110,11 @@ export default function Profile() {
             </View>
           ))
         ) : (
-          <Text style={styles.noResult}>Nenhum usuário encontrado.</Text>
+          <Text style={[styles.noResult, {color: colors.textMuted}]}>Nenhum usuário encontrado.</Text>
         )}
       </ScrollView>
 
-      <Navbar />
+      <Navbar userId={''} />
     </View>
   );
 }
@@ -125,30 +122,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    paddingTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: width * 0.12,
-    height: width * 0.12,
-    marginRight: -9,
-  },
-  headerTitle: {
-    fontSize: 24,
-    fontWeight: '700',
-  },
-  trophyBackground: {
-    width: 130,
-    height: 130,
-    position: 'absolute',
-    top: 1,
-    right: 110,
-    opacity: 0.16,
+    backgroundColor: colors.background,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -158,8 +132,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     paddingHorizontal: 12,
     borderWidth: 1,
-    borderColor: '#ddd',
-    shadowColor: '#000',
+    borderColor: colors.borderLight,
+    shadowColor: colors.textPrimary,
     shadowOpacity: 0.05,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
@@ -172,36 +146,32 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 16,
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
-    
   },
   scrollContent: {
     paddingHorizontal: 20,
     paddingBottom: 100,    
   },
   card: {
-    backgroundColor: '#E0F2E9',
-    borderColor: '#71BE70',
+    backgroundColor: colors.cardBackground,
+    borderColor: colors.primary,
     borderWidth: 1.5,
     borderRadius: 16,
     padding: 16,
     marginBottom: 16,
-    shadowColor: '#000',
+    shadowColor: colors.textPrimary,
     shadowOpacity: 0.05,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
-    
   },
   cardContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    
   },
   positionContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     marginRight: 14,
     marginLeft: -7,
-    
   },
   medal: {
     width: 40,
@@ -211,7 +181,6 @@ const styles = StyleSheet.create({
     marginLeft: -10,
   },
   positionText: {
-    color: '#333',
     fontWeight: 'bold',
     fontSize: 19,
     marginRight: 19,
@@ -220,9 +189,7 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#71BE70',
     marginLeft: 8,
-    
   },
   info: {
     flex: 1,
@@ -235,30 +202,22 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#333',
   },
   progressText: {
     fontSize: 14,
-    color: '#444',
   },
   progressBar: {
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#C8E6C9',
     overflow: 'hidden',
   },
   progress: {
     height: '100%',
-    backgroundColor: '#71BE70',
   },
   noResult: {
     textAlign: 'center',
     fontStyle: 'italic',
-    color: '#666',
     marginTop: 30,
     fontSize: 16,
   },
-
-
-  
 });

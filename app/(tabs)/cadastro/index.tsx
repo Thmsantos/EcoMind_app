@@ -13,6 +13,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import axios from 'axios';
 import { cadastroSchema } from './cadastroSchema';
+import colors from "../../../components/colors/colors";
 
 export default function Cadastro() {
   const [nome, setNome] = useState('');
@@ -78,11 +79,7 @@ export default function Cadastro() {
     }, 3000);
   };
 
-  
-
   return (
-
-    
     <KeyboardAvoidingView
       style={{ flex: 1 }}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -107,33 +104,33 @@ export default function Cadastro() {
         <Text style={styles.title}>Cadastre-se</Text>
 
         <View style={styles.inputContainer}>
-          <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <Icon name="user" size={20} color={colors.icon} style={styles.icon} />
           <TextInput
             style={styles.input}
             placeholder="Nome"
-            placeholderTextColor="#aaa"
+            placeholderTextColor={colors.placeholder}
             value={nome}
             onChangeText={setNome}
           />
         </View>
 
         <View style={styles.inputContainer}>
-          <Icon name="user" size={20} color="#888" style={styles.icon} />
+          <Icon name="user" size={20} color={colors.icon} style={styles.icon} />
           <TextInput
             style={styles.input}
             placeholder="Usuário"
-            placeholderTextColor="#aaa"
+            placeholderTextColor={colors.placeholder}
             value={usuario}
             onChangeText={setUsuario}
           />
         </View>
 
         <View style={styles.inputContainer}>
-          <Icon name="envelope" size={18} color="#888" style={styles.icon} />
+          <Icon name="envelope" size={18} color={colors.icon} style={styles.icon} />
           <TextInput
             style={styles.input}
             placeholder="Email"
-            placeholderTextColor="#aaa"
+            placeholderTextColor={colors.placeholder}
             keyboardType="email-address"
             autoCapitalize="none"
             value={email}
@@ -142,11 +139,11 @@ export default function Cadastro() {
         </View>
 
         <View style={styles.inputContainer}>
-          <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <Icon name="lock" size={20} color={colors.icon} style={styles.icon} />
           <TextInput
             style={styles.input}
             placeholder="Senha"
-            placeholderTextColor="#aaa"
+            placeholderTextColor={colors.placeholder}
             secureTextEntry={!senhaVisivel}
             value={senha}
             onChangeText={setSenha}
@@ -155,7 +152,7 @@ export default function Cadastro() {
             <Icon
               name={senhaVisivel ? 'eye' : 'eye-slash'}
               size={20}
-              color="#888"
+              color={colors.icon}
               style={styles.icon}
             />
           </TouchableOpacity>
@@ -167,11 +164,11 @@ export default function Cadastro() {
         </Text>
 
         <View style={styles.inputContainer}>
-          <Icon name="lock" size={20} color="#888" style={styles.icon} />
+          <Icon name="lock" size={20} color={colors.icon} style={styles.icon} />
           <TextInput
             style={styles.input}
             placeholder="Confirmar Senha"
-            placeholderTextColor="#aaa"
+            placeholderTextColor={colors.placeholder}
             secureTextEntry={!confirmarSenhaVisivel}
             value={confirmarSenha}
             onChangeText={setConfirmarSenha}
@@ -182,7 +179,7 @@ export default function Cadastro() {
             <Icon
               name={confirmarSenhaVisivel ? 'eye' : 'eye-slash'}
               size={20}
-              color="#888"
+              color={colors.icon}
               style={styles.icon}
             />
           </TouchableOpacity>
@@ -205,14 +202,14 @@ export default function Cadastro() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
     padding: 60,
   },
   title: {
     fontSize: 35,
     textAlign: 'center',
     fontWeight: '700',
-    color:  "#485935",
+    color: colors.secondary,
     marginBottom: 24,
   },
   inputContainer: {
@@ -222,10 +219,10 @@ const styles = StyleSheet.create({
     width: 370,
     paddingHorizontal: 12,
     elevation: 3,
-    backgroundColor: '#fff',
+    backgroundColor: colors.inputBackground,
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 14,
     marginBottom: 16,
@@ -233,25 +230,26 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 19,
-    color: '#000',
+    color: colors.textPrimary,
     borderWidth: 0,
     marginLeft: 8,
     paddingVertical: 0,
-    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
+    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {}),
   },
   icon: {
     marginRight: 11,
-    marginLeft: 8
+    marginLeft: 8,
   },
   requisitos: {
     fontSize: 15,
     marginBottom: 20,
     textAlign: 'center',
     width: 370,
+    color: colors.textDark,
   },
   entrarBtn: {
     width: 370,
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.primary,
     paddingVertical: 12,
     borderRadius: 30,
     borderWidth: 0,
@@ -261,6 +259,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 22,
     fontWeight: 'bold',
+    color: colors.textSecondary,
   },
   loginTextContainer: {
     flexDirection: 'row',
@@ -270,7 +269,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   linkText: {
-    color: '#000',
+    color: colors.textPrimary,
     fontWeight: 'bold',
     fontSize: 18,
     textDecorationLine: 'underline',
@@ -288,13 +287,13 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   erro: {
-    backgroundColor: '#8B0000',
+    backgroundColor: colors.error,
   },
   sucesso: {
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.success,
   },
   mensagemTexto: {
-    color: '#fff',
+    color: colors.textSecondary,
     fontSize: 15,
     fontWeight: '500',
     textAlign: 'center',

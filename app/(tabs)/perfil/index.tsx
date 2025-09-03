@@ -132,7 +132,7 @@ export default function Profile() {
 
 
       <Animated.View style={{ transform: [{ translateY: navbarTranslateY }] }}>
-        <Navbar />
+        <Navbar userId={''} />
       </Animated.View>
     </View>
   );

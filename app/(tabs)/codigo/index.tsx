@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import colors from '@/components/colors/colors';
 
 export default function ResetPassword() {
     const [code, setCode] = useState(["", "", "", ""]);
@@ -18,17 +19,15 @@ export default function ResetPassword() {
         setMensagemVisivel(true);
         setTimeout(() => {
             setMensagemVisivel(false);
-        }, 3000); // 3 segundos
+        }, 3000);
     };
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Enviamos um código de verificação para o seu e-mail</Text>
 
-            {/* Ícone do envelope */}
-            <Icon name="envelope" size={50} color="black" style={styles.icon} />
+            <Icon name="envelope" size={50} color={colors.secondary} style={styles.icon} />
 
-            {/* Campo de código de verificação */}
             <View style={styles.codeContainer}>
                 {code.map((digit, index) => (
                     <TextInput
@@ -42,22 +41,18 @@ export default function ResetPassword() {
                 ))}
             </View>
 
-            {/* Botão de verificar */}
             <TouchableOpacity style={styles.button} onPress={() => router.push('/(tabs)/login')}>
                 <Text style={styles.buttonText}>Verificar Código</Text>
             </TouchableOpacity>
 
-            {/* Mensagem de código reenviado */}
             {mensagemVisivel && (
                 <Text style={styles.successMessage}>Código reenviado com sucesso!</Text>
             )}
 
-            {/* Link para reenviar */}
             <TouchableOpacity onPress={handleReenviarCodigo}>
                 <Text style={styles.linkReenviar}>Reenviar código</Text>
             </TouchableOpacity>
 
-            {/* Botão para voltar à página de cadastro */}
             <TouchableOpacity onPress={() => router.push('/cadastro')}>
                 <Text style={styles.linkVoltar}>Voltar para página inicial</Text>
             </TouchableOpacity>
@@ -70,7 +65,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: colors.background,
         padding: 20,
     },
     title: {
@@ -78,7 +73,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         marginBottom: 20,
-        color: "#485935"
+        color: colors.secondary,
     },
     icon: {
         marginVertical: 15,
@@ -88,7 +83,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '60%',
         marginVertical: 30,
-     },
+    },
     input: {
         ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {}),
         width: 50,
@@ -96,21 +91,20 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         borderWidth: 2,
-        borderColor: '#000',
+        borderColor: colors.tertiary,
         borderRadius: 10,
-      
+        color: colors.textPrimary,
     },
     linkReenviar: {
         padding: 20,
         fontSize: 20,
         textAlign: 'center',
+        color: colors.primary,
     },
     button: {
         width: 370,
-        backgroundColor: '#71BE70',
-        padding: 10,
+        backgroundColor: colors.primary,
         paddingVertical: 12,
-        paddingHorizontal: 10,
         borderRadius: 30,
         borderWidth: 0,
         zIndex: 100,
@@ -119,13 +113,15 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 22,
         fontWeight: 'bold',
+        color: colors.textSecondary,
     },
     linkVoltar: {
         fontSize: 20,
         textAlign: 'center',
+        color: colors.textPrimary,
     },
     successMessage: {
-        color: 'green',
+        color: colors.success,
         fontSize: 16,
         marginTop: 15,
         fontWeight: '500',
