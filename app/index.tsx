@@ -1,19 +1,16 @@
 import React from 'react';
-import { Text, View, StyleSheet, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native';
-
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
+import colors from '../components/colors/colors';
+
 const logo = require('../assets/images/logo-home.png');
 
 export default function Home() {
-  
   return (
-    
     <View style={styles.view1}>
       
       {/* Cabeçalho com o botão "Entrar" */}
-      <View style={styles.headerContainer}>
-      </View>
+      <View style={styles.headerContainer}></View>
 
       {/* Container da Logo */}
       <View style={styles.logoContainer}>
@@ -21,30 +18,26 @@ export default function Home() {
       </View>
 
       <View style={styles.container}>
-        <Text style={styles.text3}><Text style={styles.green}>Reduza sua pegada. </Text>{'\n'} Aumente sua conscientização</Text>
+        <Text style={styles.text3}>
+          <Text style={styles.green}>Reduza sua pegada. </Text>{'\n'} 
+          Aumente sua conscientização
+        </Text>
       </View>
-
 
       <View style={styles.containerBotaos}>
         <TouchableOpacity
-            style={styles.logarBtn}
-            onPress={() => {
-              console.log('Botão Entrar clicado!');
-              router.push("/(tabs)/cadastro");
-            }}
-          >
-            <Text style={styles.entrarText}>Cadastre-se</Text>
-          </TouchableOpacity>
+          style={styles.logarBtn}
+          onPress={() => router.push("/(tabs)/cadastro")}
+        >
+          <Text style={styles.entrarText}>Cadastre-se</Text>
+        </TouchableOpacity>
 
-          <TouchableOpacity
-            style={styles.entrarBtn}
-            onPress={() => {
-              console.log('Botão Entrar clicado!');
-              router.push("/(tabs)/login");
-            }}
-          >
-            <Text style={styles.entrarText}>Logar</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.entrarBtn}
+          onPress={() => router.push("/(tabs)/login")}
+        >
+          <Text style={styles.entrarText}>Logar</Text>
+        </TouchableOpacity>
       </View>   
       
     </View>
@@ -69,13 +62,11 @@ const styles = StyleSheet.create({
     paddingBottom: 12, 
   },
 
-
   logoContainer: {
     justifyContent: 'center', 
     alignItems: 'center',
     width: '100%',
     marginVertical: -22,
-
   },
 
   logo: {
@@ -84,66 +75,62 @@ const styles = StyleSheet.create({
     marginVertical: -22,    
   },
 
-headerContainer: {
+  headerContainer: {
     position: 'absolute',
     top: 50,
     right: 20,
     zIndex: 100,
-},
+  },
 
-
-entrarBtn: {
+  entrarBtn: {
     width: 370,
-    backgroundColor: '#71BE70',
-    padding: 10,
-    paddingVertical: 12,
-    paddingHorizontal:10,
+    backgroundColor: colors.primary,
+    padding: 12,
     borderRadius: 30,
     borderWidth: 0,
     zIndex: 100, 
     alignItems: "center",
-},
+  },
 
-logarBtn: {
-  width: 370,
-  backgroundColor: 'transparent',
-  padding: 10,
-  paddingVertical: 12,
-  paddingHorizontal:10,
-  borderRadius: 30,
-  borderWidth: 2,
-  zIndex: 100, 
-  alignItems: "center",
-},
+  logarBtn: {
+    width: 370,
+    backgroundColor: 'transparent',
+    padding: 12,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: colors.tertiary,
+    zIndex: 100, 
+    alignItems: "center",
+  },
 
   entrarText: {
     fontSize: 20,
     fontWeight: '500',
-    color: '#',
+    color: colors.textPrimary,
     marginVertical: 3,
   },
 
   green: {
-    color: '#71BE70'
+    color: colors.primary
   },
 
   text2: {
-    color: '#000',
+    color: colors.textPrimary,
     fontSize: 40,
     textAlign: 'center',
     marginVertical: 10,
   },
 
   text3: {
-    color: '#000',
+    color: colors.textPrimary,
     fontSize: 25,
     textAlign: 'center',
     marginVertical: 30,  
-    fontWeight: 700,  
+    fontWeight: '700',  
   },
 
   rankingContainer: {
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.primary,
     width: '90%',
     maxWidth: 350, 
     padding: 10,
@@ -158,25 +145,22 @@ logarBtn: {
   rankingTitle: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#333',
+    color: colors.textDark,
     textAlign: 'center',
     marginBottom: 8,
-
   },
 
   rankingSubtitle: {
     fontSize: 20,
-    color: '#00000',
+    color: colors.textPrimary,
     marginBottom: 3,
     textAlign: 'center',
     alignSelf: 'flex-start',
-
-
   },
 
   rankingItem: {
     fontSize: 20,
-    color: '#00000',
+    color: colors.textPrimary,
     marginVertical: 4,
     textAlign: 'center',
     alignSelf: 'flex-start',
@@ -186,25 +170,5 @@ logarBtn: {
     fontWeight: 'bold',
   },
 
-  navbar: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#F8F8F8', 
-    paddingVertical: 10,
-    width: '100%',
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    borderTopWidth: 1,          
-    borderTopColor: '#DADADA', 
-},
-navItem: {
-    alignItems: 'center',
-},
-navText: {
-    fontSize: 14,
-    color: 'black',
-    marginTop: 5,
-},
+  
 });

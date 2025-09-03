@@ -14,6 +14,7 @@ import {
 import Icon from "react-native-vector-icons/FontAwesome";
 import { loginSchema } from "./loginSchema";
 import axios from "axios";
+import colors from "../../../components/colors/colors";
 
 const logo = require("../../../assets/images/logo-home.png");
 
@@ -38,10 +39,13 @@ export default function Login() {
     }
 
     try {
-      const response = await axios.post("http://127.0.0.1:2010/api/user/login", body);
+      const response = await axios.post(
+        "http://127.0.0.1:2010/api/user/login",
+        body
+      );
 
-      if(response.data.message === "logado"){
-        idUser = response.data.id
+      if (response.data.message === "logado") {
+        idUser = response.data.id;
       }
       setTipoMensagem("sucesso");
       setMensagem("Login realizado com sucesso!");
@@ -79,6 +83,7 @@ export default function Login() {
         showsVerticalScrollIndicator={false}
       >
         <View style={[styles.container, { flex: 1 }]}>
+          {/* Mensagens de alerta */}
           {mensagem !== "" && (
             <View
               style={[
@@ -90,20 +95,19 @@ export default function Login() {
             </View>
           )}
 
+          {/* Logo */}
           <Image source={logo} style={styles.logo} />
+
+          {/* Título */}
           <Text style={styles.welcomeText}>Bem vindo!</Text>
 
+          {/* Input de usuário */}
           <View style={styles.inputContainer}>
-            <Icon
-              name="envelope"
-              size={18}
-              color="#aaa"
-              style={styles.icon}
-            />
+            <Icon name="envelope" size={18} color={colors.icon} style={styles.icon} />
             <TextInput
               style={styles.input}
               placeholder="Usuário"
-              placeholderTextColor="#aaa"
+              placeholderTextColor={colors.placeholder}
               keyboardType="default"
               autoCapitalize="none"
               value={usuario}
@@ -111,12 +115,13 @@ export default function Login() {
             />
           </View>
 
+          {/* Input de senha */}
           <View style={styles.inputContainer}>
-            <Icon name="lock" size={22} color="#aaa" style={styles.icon} />
+            <Icon name="lock" size={22} color={colors.icon} style={styles.icon} />
             <TextInput
               style={styles.input}
               placeholder="Senha"
-              placeholderTextColor="#aaa"
+              placeholderTextColor={colors.placeholder}
               secureTextEntry={!isPasswordVisible}
               value={senha}
               onChangeText={setSenha}
@@ -128,19 +133,22 @@ export default function Login() {
               <Icon
                 name={isPasswordVisible ? "eye" : "eye-slash"}
                 size={20}
-                color="#aaa"
+                color={colors.icon}
               />
             </TouchableOpacity>
           </View>
 
+          {/* Botão de login */}
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
 
+          {/* Esqueci a senha */}
           <TouchableOpacity onPress={() => router.push("/(tabs)/senha")}>
             <Text style={styles.forgotPassword}>Esqueceu a senha?</Text>
           </TouchableOpacity>
 
+          {/* Link para cadastro */}
           <TouchableOpacity onPress={() => router.push("/cadastro")}>
             <Text style={styles.register}>Não tem conta? Cadastre-se</Text>
           </TouchableOpacity>
@@ -154,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     padding: 70,
-    backgroundColor: "#fff",
+    backgroundColor: colors.background,
   },
   logo: {
     width: 120,
@@ -166,9 +174,9 @@ const styles = StyleSheet.create({
     fontSize: 35,
     textAlign: "center",
     fontWeight: "700",
-    color: "#485935",
+    color: colors.secondary,
     marginBottom: 25,
-    marginTop: -18
+    marginTop: -18,
   },
   mensagemBox: {
     position: "absolute",
@@ -183,13 +191,13 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   erro: {
-    backgroundColor: "#8B0000",
+    backgroundColor: colors.error,
   },
   sucesso: {
-    backgroundColor: "#71BE70",
+    backgroundColor: colors.success,
   },
   mensagemTexto: {
-    color: "#fff",
+    color: colors.textSecondary,
     fontSize: 15,
     fontWeight: "500",
     textAlign: "center",
@@ -201,30 +209,30 @@ const styles = StyleSheet.create({
     width: 370,
     paddingHorizontal: 15,
     elevation: 3,
-    backgroundColor: "#fff",
+    backgroundColor: colors.inputBackground,
     justifyContent: "space-between",
     marginBottom: 20,
     borderWidth: 2,
-    borderColor: "#ccc",
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 14,
   },
   input: {
     flex: 1,
     fontSize: 19,
-    color: "#000",
+    color: colors.textPrimary,
     marginLeft: 8,
     paddingVertical: 0,
     includeFontPadding: true,
-    ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
+    ...(Platform.OS === "web" ? { outlineStyle: "none" } : {}),
   },
   icon: {
     marginRight: 11,
-    marginLeft: 8
+    marginLeft: 8,
   },
   button: {
     width: 370,
-    backgroundColor: "#71BE70",
+    backgroundColor: colors.primary,
     padding: 12,
     borderRadius: 30,
     alignItems: "center",
@@ -233,16 +241,20 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 22,
     fontWeight: "bold",
+    color: colors.textPrimary,
+
+    
+    
   },
   forgotPassword: {
-    color: "#71BE70",
+    color: colors.primary,
     fontSize: 18,
     marginTop: 20,
     textAlign: "center",
     fontWeight: "bold",
   },
   register: {
-    color: "#000",
+    color: colors.textPrimary,
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 15,

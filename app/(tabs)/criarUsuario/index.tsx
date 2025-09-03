@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
-import { View,  Text,  Image,  TextInput,  TouchableOpacity,  ScrollView,  StyleSheet,  Dimensions,  KeyboardAvoidingView,  Platform,} from 'react-native';
+import { 
+  View, Text, Image, TextInput, TouchableOpacity, 
+  ScrollView, StyleSheet, Dimensions, KeyboardAvoidingView, Platform 
+} from 'react-native';
 import Header from '@/components/header';
+import colors from '@/components/colors/colors';
 
 const { width, height } = Dimensions.get('window');
 const baseWidth = width * 0.9;
@@ -58,7 +62,7 @@ export default function CadastroUsuario() {
           <TextInput
             style={styles.input}
             placeholder="Digite seu nome de usuário"
-            placeholderTextColor="#888"
+            placeholderTextColor={colors.placeholder}
             value={username}
             onChangeText={setUsername}
           />
@@ -77,7 +81,7 @@ export default function CadastroUsuario() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.background,
   },
   scrollContent: {
     paddingHorizontal: width * 0.05,
@@ -88,22 +92,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 24,
     textAlign: 'left',
-    color: '#1a1a1a',
+    color: colors.textPrimary,
   },
-    title2: {
+  title2: {
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 0,
     textAlign: 'left',
-    color: '#1a1a1a',
+    color: colors.textPrimary,
   },
   subtitle: {
     fontSize: 20,
     marginTop: 20,
     marginBottom: 20,
     textAlign: 'left',
-    color: 'black',
-    fontWeight: 700,
+    color: colors.textPrimary,
+    fontWeight: '700',
   },
   main: {
     alignItems: 'flex-start',
@@ -113,7 +117,7 @@ const styles = StyleSheet.create({
     height: width * 0.3,
     borderRadius: width * 0.15,
     marginBottom: 30,
-    backgroundColor: "rgba(113, 190, 112, 1.00)",
+    backgroundColor: colors.primary,
   },
   avatarScroll: {
     marginBottom: 30,
@@ -130,7 +134,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   avatarSelected: {
-    borderColor: '#1a8917',
+    borderColor: colors.primary,
   },
   avatarThumb: {
     width: 60,
@@ -143,16 +147,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignSelf: 'flex-start',
     marginLeft: 10,
-    
+    color: colors.textPrimary,
   },
   input: {
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 14,
     fontSize: 16,
     width: baseWidth,
     alignSelf: 'center',
+    backgroundColor: colors.inputBackground,
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
   },
   footer: {
@@ -161,15 +166,15 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   button: {
-     backgroundColor: "rgba(113, 190, 112, 1.00)",
+    backgroundColor: colors.primary,
     borderRadius: 24,
     paddingVertical: 12,
     paddingHorizontal: 26,
     elevation: 2,
   },
   buttonText: {
-    color: '#black',
+    color: colors.textSecondary,
     fontWeight: 'bold',
-    fontSize: 16,  
+    fontSize: 16,
   },
 });

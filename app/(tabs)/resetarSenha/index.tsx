@@ -13,6 +13,7 @@ import {
   Platform
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import colors from '@/components/colors/colors'; // ⬅️ Importando seu arquivo de cores
 
 export default function CriarSenha() {
   const [codigo, setCodigo] = useState('');
@@ -90,11 +91,11 @@ export default function CriarSenha() {
             <Text style={styles.title}>Criar nova senha</Text>
 
             <View style={styles.codeInputContainer}>
-              <Icon name="key" size={20} color="#888" style={styles.leftIcon} />
+              <Icon name="key" size={20} color={colors.icon} style={styles.leftIcon} />
               <TextInput
                 style={styles.codeInput}
                 placeholder="Código de verificação"
-                placeholderTextColor="#aaa"
+                placeholderTextColor={colors.placeholder}
                 value={codigo}
                 onChangeText={setCodigo}
                 keyboardType="number-pad"
@@ -113,32 +114,32 @@ export default function CriarSenha() {
             )}
 
             <View style={styles.inputContainer}>
-              <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
+              <Icon name="lock" size={20} color={colors.icon} style={styles.leftIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Nova Senha"
-                placeholderTextColor="#aaa"
+                placeholderTextColor={colors.placeholder}
                 secureTextEntry={!mostrarSenha}
                 value={senha}
                 onChangeText={setSenha}
               />
               <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
-                <Icon name={mostrarSenha ? 'eye' : 'eye-slash'} size={20} color="#888" />
+                <Icon name={mostrarSenha ? 'eye' : 'eye-slash'} size={20} color={colors.icon} />
               </TouchableOpacity>
             </View>
 
             <View style={styles.inputContainer}>
-              <Icon name="lock" size={20} color="#888" style={styles.leftIcon} />
+              <Icon name="lock" size={20} color={colors.icon} style={styles.leftIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="Confirmar senha"
-                placeholderTextColor="#aaa"
+                placeholderTextColor={colors.placeholder}
                 secureTextEntry={!mostrarConfirmarSenha}
                 value={confirmarSenha}
                 onChangeText={setConfirmarSenha}
               />
               <TouchableOpacity onPress={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}>
-                <Icon name={mostrarConfirmarSenha ? 'eye' : 'eye-slash'} size={20} color="#888" />
+                <Icon name={mostrarConfirmarSenha ? 'eye' : 'eye-slash'} size={20} color={colors.icon} />
               </TouchableOpacity>
             </View>
 
@@ -159,7 +160,7 @@ export default function CriarSenha() {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: 'white',
+    backgroundColor: colors.background,
     paddingVertical: 40,
   },
   container: {
@@ -171,9 +172,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 50,
     fontWeight: '700',
-    color: '#485935',
+    color: colors.secondary,
     letterSpacing: 1,
-    marginTop: 20, // ⬅️ aumentamos para descer o título
+    marginTop: 20,
   },
   codeInputContainer: {
     flexDirection: 'row',
@@ -181,8 +182,8 @@ const styles = StyleSheet.create({
     width: 250,
     paddingHorizontal: 15,
     paddingVertical: 10,
-    backgroundColor: '#fff',
-    borderColor: '#A3C9A8',
+    backgroundColor: colors.inputBackground,
+    borderColor: colors.primary,
     borderWidth: 2,
     borderRadius: 10,
     marginBottom: 10,
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   codeInput: {
     flex: 1,
     fontSize: 22,
-    color: '#333',
+    color: colors.textDark,
     borderWidth: 0,
   },
   inputContainer: {
@@ -203,18 +204,18 @@ const styles = StyleSheet.create({
     width: 370,
     paddingHorizontal: 15,
     elevation: 3,
-    backgroundColor: '#fff',
+    backgroundColor: colors.inputBackground,
     justifyContent: 'space-between',
     marginBottom: 20,
     borderWidth: 2,
-    borderColor: '#ccc',
+    borderColor: colors.border,
     borderRadius: 12,
     padding: 14,
   },
   input: {
     flex: 1,
     fontSize: 22,
-    color: '#000',
+    color: colors.textPrimary,
     marginLeft: 8,
     paddingVertical: 0,
     includeFontPadding: true,
@@ -241,7 +242,7 @@ const styles = StyleSheet.create({
   },
   entrarBtn: {
     width: 370,
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.primary,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderRadius: 30,
@@ -255,7 +256,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   messageText: {
-    color: 'green',
+    color: colors.success,
     fontSize: 16,
     marginTop: 2,
     fontWeight: '500',
@@ -267,7 +268,7 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? 60 : 30,
     left: 20,
     right: 20,
-    backgroundColor: '#8B0000',
+    backgroundColor: colors.error,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -275,7 +276,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   errorText: {
-    color: '#fff',
+    color: colors.textSecondary,
     textAlign: 'center',
     fontSize: 16,
     fontWeight: '600',
@@ -285,7 +286,7 @@ const styles = StyleSheet.create({
     top: Platform.OS === 'ios' ? 60 : 30,
     left: 20,
     right: 20,
-    backgroundColor: '#71BE70',
+    backgroundColor: colors.success,
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 8,
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   successText: {
-    color: '#fff',
+    color: colors.textSecondary,
     textAlign: 'center',
     fontSize: 15,
     fontWeight: '500',
