@@ -60,7 +60,9 @@ export default function Calculadora() {
   const [tipoGas, setTipoGas] = useState('m3');
   const [kmPercorridos, setKmPercorridos] = useState('');
   const [tecladoAberto, setTecladoAberto] = useState(false);
+
   const [mesSelecionado, setMesSelecionado] = useState('');
+  const [anoSelecionado, setAnoSelecionado] = useState('');
 
   const meses = [
     { label: 'Janeiro', value: 'Janeiro' },
@@ -77,6 +79,10 @@ export default function Calculadora() {
     { label: 'Dezembro', value: 'Dezembro' },
   ];
 
+ 
+  const currentYear = new Date().getFullYear();
+  const anos = Array.from({ length: 11 }, (_, i) => currentYear - i);
+
   function formatGas() {
     const gasNumber = Number(valorGas);
     return tipoGas === 'botijao' && gasNumber ? gasNumber * 0.485 : gasNumber;
@@ -91,6 +97,7 @@ export default function Calculadora() {
     const data = {
       idUser: userId,
       mes: mesSelecionado.toLowerCase(),
+      ano: anoSelecionado,
       consumoCarbono: emissaoTotal,
       consumoEnergia: emissaoEnergia.toFixed(2),
       consumoGas: emissaoGas.toFixed(2),
@@ -121,22 +128,49 @@ export default function Calculadora() {
           <Header title="Calculadora" />
           <View style={styles.formulario}>
             
-            {/* Picker de mês */}
+           
             <View style={styles.container2}>
-              <Text style={styles.label}>Selecione o mês do cálculo</Text>
-              <View style={styles.pickerContainer}>
-                <Picker
-                  selectedValue={mesSelecionado}
-                  onValueChange={setMesSelecionado}
-                  style={{ height: 50, paddingHorizontal: 0, fontSize: 16, color: colors.placeholder }}
-                >
-                  <Picker.Item label="-- Escolha um mês --" value="" />
-                  {meses.map((mes) => (
-                    <Picker.Item key={mes.value} label={mes.label} value={mes.value} />
-                  ))}
-                </Picker>
+              <Text style={styles.label}>Selecione o período do cálculo</Text>
+              
+              <View style={styles.row}>
+                {/* Mês */}
+                <View style={styles.pickerWrapper}>
+                  <Text style={styles.subLabel}>Mês</Text>
+                  <View style={styles.pickerContainer}>
+                    <Picker
+                      selectedValue={mesSelecionado}
+                      onValueChange={setMesSelecionado}
+                      style={styles.picker}
+                    >
+                      <Picker.Item label=" Mês " value="" />
+                      {meses.map((mes) => (
+                        <Picker.Item key={mes.value} label={mes.label} value={mes.value} />
+                      ))}
+                    </Picker>
+                  </View>
+                </View>
+
+                {/* Ano */}
+                <View style={styles.pickerWrapper}>
+                  <Text style={styles.subLabel}>Ano</Text>
+                  <View style={styles.pickerContainer}>
+                    <Picker
+                      selectedValue={anoSelecionado}
+                      onValueChange={setAnoSelecionado}
+                      style={styles.picker}
+                    >
+                      <Picker.Item label=" Ano " value="" />
+                      {anos.map((ano) => (
+                        <Picker.Item key={ano} label={ano.toString()} value={ano.toString()} />
+                      ))}
+                    </Picker>
+                  </View>
+                </View>
               </View>
-              <Text style={styles.mesSelecionado}>Mês selecionado: {mesSelecionado || 'Nenhum'}</Text>
+
+              <Text style={styles.mesSelecionado}>
+                Selecionado: {mesSelecionado || 'Nenhum'} / {anoSelecionado || 'Nenhum'}
+              </Text>
             </View>
 
             {/* Consumo de eletricidade */}
@@ -211,7 +245,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20
   },
-  textTitulo: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: colors. textPrimary },
+  textTitulo: { fontSize: 18, fontWeight: 'bold', marginBottom: 10, color: colors.textPrimary },
   textInput: {
     height: 50,
     borderColor: colors.border,
@@ -239,13 +273,27 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     paddingHorizontal: 17
   },
-  label: { fontSize: 18, fontWeight: 'bold', marginBottom: 8, color: colors. textPrimary },
+  label: { fontSize: 18, fontWeight: 'bold', marginBottom: 8, color: colors.textPrimary },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 12,
+    marginTop: 10,
+  },
+  pickerWrapper: { flex: 1 },
+  subLabel: { fontSize: 14, color: "#555", marginBottom: 4 },
   pickerContainer: {
     borderWidth: 2,
     borderColor: colors.border,
     borderRadius: 12,
     overflow: 'hidden',
     ...(Platform.OS === 'web' ? { outlineStyle: 'none' } : {})
+  },
+  picker: {
+    height: 50,
+    color: "#333",
+    fontSize: 16,
+    paddingHorizontal: 8,
   },
   mesSelecionado: { marginTop: 16, fontSize: 16, color: colors.textMuted },
 });
