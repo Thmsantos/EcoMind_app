@@ -2,8 +2,9 @@ import Navbar from '@/components/navbar/navbar';
 import axios from 'axios';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState, useEffect, useRef } from 'react';
-import {View, Text, Image, TouchableOpacity,  StyleSheet,  ScrollView,  TextInput,  Dimensions,  Keyboard,  Animated, Platform} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet, ScrollView, TextInput, Dimensions, Keyboard, Animated, Platform} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AvatarSelectionModal from '@/components/AvatarSelectionModal';
 
 const { width } = Dimensions.get('window');
 const baseWidth = width * 0.9;
@@ -12,9 +13,11 @@ export default function Profile() {
   const params =  useLocalSearchParams()
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
   const [userForm, setUserForm] = useState<any>()
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState(require("../../../assets/images/avatar.png"));
 
   const navbarTranslateY = useRef(new Animated.Value(0)).current;
-
+  
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
       setKeyboardVisible(true);
@@ -33,7 +36,11 @@ export default function Profile() {
     alert('salvo')
   }
   
-
+  const handleAvatarSelect = (avatar: any) => {
+    setSelectedAvatar(avatar);
+    setModalVisible(false);
+  }
+  
   useEffect(() => {
     Animated.timing(navbarTranslateY, {
       toValue: isKeyboardVisible ? 100 : 0,
@@ -41,9 +48,6 @@ export default function Profile() {
       useNativeDriver: true,
     }).start();
   }, [isKeyboardVisible]);
-
-
-
   
   return (
     <View style={styles.container}>
@@ -54,11 +58,25 @@ export default function Profile() {
       >
         <View style={styles.header}>
           <View style={styles.headerContent}>
-            <Image source={require("../../../assets/images/avatar.png")} style={styles.avatar} />
+            <View style={styles.avatarContainer}>
+              <Image source={selectedAvatar} style={styles.avatar} />
+              <TouchableOpacity 
+                style={styles.editButton}
+                onPress={() => setModalVisible(true)}
+              >
+                <Icon name="pencil" size={16} color="white" />
+              </TouchableOpacity>
+            </View>
             <Text style={styles.username}>Mari_Siqueira</Text>
             <Text style={styles.email}>mari@gmail.com</Text>
           </View>
         </View>
+        
+        <AvatarSelectionModal 
+          visible={modalVisible} 
+          onClose={() => setModalVisible(false)} 
+          onSelectAvatar={handleAvatarSelect} 
+        />
 
         <View style={styles.statsContainer}>
           <View style={styles.statBox}>
@@ -146,11 +164,11 @@ const styles = StyleSheet.create({
     header: {
         backgroundColor: '#71BE70',
         height: 200,
+        borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
-        borderBottomEndRadius: 10,
-        borderBottomStartRadius: 10
+        borderWidth: 2,
+        borderColor: 'white',
     },
     headerContent: {
         flexDirection: 'column',
@@ -158,10 +176,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         gap: 5
     },
+    avatarContainer: {
+        position: 'relative',
+        marginBottom: 5,
+    },
     avatar: {
         width: 90,
         height: 90,
         borderRadius: 60,
+    },
+    editButton: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        backgroundColor: '#71BE70',
+        width: 30,
+        height: 30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: 'white',
     },
     scrollContent: {
         flexGrow: 1,
