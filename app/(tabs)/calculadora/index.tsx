@@ -104,7 +104,7 @@ export default function Calculadora() {
       consumoTransporte: emissaoCombustivel.toFixed(2),
     };
 
-    axios.post(`http://127.0.0.1:2010/api/calculos/create/${userId}`, data);
+    axios.post('http://127.0.0.1:2010/api/calculos/', data);
     router.push(`/(tabs)/estatisticas?userId=${userId}`);
   }
 

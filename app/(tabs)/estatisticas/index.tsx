@@ -1,32 +1,32 @@
 import Navbar from '@/components/navbar/navbar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '../../../components/header';
 import colors from '../../../components/colors/colors';
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
 import { ArrowDown, ArrowUp, ArrowRight } from "lucide-react";
+import { useLocalSearchParams } from 'expo-router';
+import axios from 'axios';
+export interface DataUser{
+    mes: string,
+    ano: string,
+    emissao: string
+}
+export interface EstatisticasData{
+    id?: String;
+    idUser: String;
+    dataUser: DataUser;
+}
 
 export default function Resultados() {
-
+  const { userId } = useLocalSearchParams();
   const happyEmoji = require("../../../assets/images/happy.png");
   const medioEmoji = require("../../../assets/images/neutral.png");
   const sadEmoji = require("../../../assets/images/sad-face.png");
 
+  const [resultados, setResultados] = useState<EstatisticasData[]>([]);
   const [abaSelecionada, setAbaSelecionada] = useState<'consumo' | 'grafico'>('consumo');
-
-  const resultados = [
-    { mes: "Fevereiro", consumo: 140 },
-    { mes: "Março", consumo: 160 },
-    { mes: "Abril", consumo: 150 },
-    { mes: "Maio", consumo: 150 },
-    { mes: "Junho", consumo: 380 },
-    { mes: "Julho", consumo: 430 },
-    { mes: "Agosto", consumo: 280 },
-    { mes: "Setembro", consumo: 260 },
-    { mes: "Outubro", consumo: 400 },
-    { mes: "Novembro", consumo: 400 },
-  ];
 
   const limites = { baixa: 166, media: 416 };
 
@@ -50,8 +50,8 @@ export default function Resultados() {
         icone: <ArrowRight color={colors.icon} size={22} />,
       };
 
-    const anterior = resultados[index - 1].consumo;
-    const atual = resultados[index].consumo;
+    const anterior = resultados[index - 1].dataUser.emissao;
+    const atual = resultados[index].dataUser.emissao;
 
     if (atual < anterior)
       return {
@@ -74,11 +74,23 @@ export default function Resultados() {
     };
   };
 
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const response = await axios.get(`http://127.0.0.1:2010/api/stats/${userId}`);
+        setResultados(response.data || []);
+      } catch (error) {
+        console.error("Erro ao buscar estatísticas:", error);
+      }
+    }
+
+    if (userId) fetchStats();
+  }, [userId]);
+
   return (
     <View style={styles.container}>
       <Header title="Estatísticas" />
 
-      {/* Abas no topo */}
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={[styles.tab, abaSelecionada === 'consumo' && styles.tabAtiva]}
@@ -100,22 +112,21 @@ export default function Resultados() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/*  Consumo Mensal */}
         {abaSelecionada === 'consumo' && (
           <View style={styles.viewMain}>
             {resultados.map((item, index) => {
               const balanco = getBalanco(index);
-              const emojiCor = getEmojiColor(item.consumo);
-              const emoji = getEmoji(item.consumo);
-
+              const emojiCor = getEmojiColor(Number(item.dataUser.emissao));
+              const emoji = getEmoji(Number(item.dataUser.emissao));
+              
               return (
                 <View key={index} style={styles.card}>
                   <View style={styles.groupText}>
                     <Text style={styles.textBold}>
-                      Mês: <Text style={styles.textMedium}>{item.mes}</Text>
+                      Mês: <Text style={styles.textMedium}>{item.dataUser.mes}</Text>
                     </Text>
                     <Text style={styles.textBold}>
-                      Emissão: <Text style={styles.textMedium}>{item.consumo} kg</Text>
+                      Emissão: <Text style={styles.textMedium}>{item.dataUser.emissao} kg</Text>
                     </Text>
 
                     <View style={styles.arrowRow}>
@@ -136,14 +147,13 @@ export default function Resultados() {
           </View>
         )}
 
-        {/* Gráfico */}
         {abaSelecionada === 'grafico' && (
           <View style={styles.chartContainer}>
             <Text style={styles.chartTitle}>Gráfico Anual de CO₂</Text>
             <LineChart
               data={{
-                labels: resultados.map((r) => r.mes.substring(0, 3)),
-                datasets: [{ data: resultados.map((r) => r.consumo) }],
+                labels: resultados.map((r) => r.dataUser.mes.substring(0, 3)),
+                datasets: [{ data: resultados.map((r) => Number(r.dataUser.emissao)) }],
               }}
               width={Dimensions.get("window").width - 30}
               height={220}
@@ -180,7 +190,7 @@ export default function Resultados() {
         )}
       </ScrollView>
 
-      <Navbar userId={''} />
+      <Navbar userId={String(userId)} />
     </View>
   );
 }
