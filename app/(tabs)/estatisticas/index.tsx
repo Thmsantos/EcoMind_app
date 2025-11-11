@@ -136,6 +136,16 @@ export default function Resultados() {
                       </Text>
                     </View>
 
+                    {/* Campo de compensação de árvores */}
+                    <View style={styles.compensacaoContainer}>
+                      <Text style={styles.textBold}>
+                        🌳 Compensação:{" "}
+                        <Text style={styles.textMedium}>
+                          {(item.consumo / 1835).toFixed(2)} árvores
+                        </Text>
+                      </Text>
+                    </View>
+
                     <Image
                       style={[styles.emoji, { tintColor: emojiCor }]}
                       source={emoji}
@@ -169,7 +179,6 @@ export default function Resultados() {
                 },
                 propsForDots: { r: "5", strokeWidth: "2", stroke: "#71BE70" },
               }}
-             
             />
 
             <View style={styles.legendContainer}>
@@ -268,6 +277,9 @@ const styles = StyleSheet.create({
   textResult: {
     fontWeight: "600",
     fontSize: 15,
+  },
+  compensacaoContainer: {
+    marginTop: 8,
   },
   chartContainer: {
     alignItems: 'center',
