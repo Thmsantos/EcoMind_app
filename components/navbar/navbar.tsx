@@ -20,7 +20,7 @@ export default function Navbar({ userId }: NavbarProps) {
             
             <TouchableOpacity 
                 style={styles.navItem}
-                onPress={() => router.push('/(tabs)/ranking')}
+                onPress={() => router.push(`/(tabs)/ranking?userId=${userId}`)}
             >
                 <Icon name="trophy" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Ranking</Text>

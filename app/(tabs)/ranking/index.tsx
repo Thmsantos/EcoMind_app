@@ -13,11 +13,13 @@ import { Ionicons } from '@expo/vector-icons';
 import Navbar from '@/components/navbar/navbar';
 import Header from '@/components/header';
 import colors from '@/components/colors/colors';
+import { useLocalSearchParams } from 'expo-router';
 
 const { width } = Dimensions.get('window');
 
 export default function Profile() {
   const [search, setSearch] = useState('');
+  const { userId } = useLocalSearchParams();
 
   const names = [
     'Claudia', 'João', 'Maria', 'Pedro', 'Ana',
@@ -114,7 +116,7 @@ export default function Profile() {
         )}
       </ScrollView>
 
-      <Navbar userId={''} />
+      <Navbar userId={String(userId)} />
     </View>
   );
 }
