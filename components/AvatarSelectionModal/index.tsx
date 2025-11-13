@@ -4,13 +4,13 @@ import { View, Text, Modal, TouchableOpacity, Image, StyleSheet, Dimensions } fr
 const { width } = Dimensions.get('window');
 
 const avatars = [
-  { id: 1, source: require('../../assets/ecoAvatar/1.png') },
-  { id: 2, source: require('../../assets/ecoAvatar/2.png') },
-  { id: 3, source: require('../../assets/ecoAvatar/3.png') },
-  { id: 4, source: require('../../assets/ecoAvatar/4.png') },
-  { id: 6, source: require('../../assets/ecoAvatar/6.png') },
-  { id: 7, source: require('../../assets/ecoAvatar/7.png') },
-  { id: 8, source: require('../../assets/ecoAvatar/8.png') },
+  { id: '1', source: require('../../assets/ecoAvatar/1.png') },
+  { id: '2', source: require('../../assets/ecoAvatar/2.png') },
+  { id: '3', source: require('../../assets/ecoAvatar/3.png') },
+  { id: '4', source: require('../../assets/ecoAvatar/4.png') },
+  { id: '5', source: require('../../assets/ecoAvatar/5.png') },
+  { id: '6', source: require('../../assets/ecoAvatar/6.png') },
+  { id: '7', source: require('../../assets/ecoAvatar/7.png') },
 ];
 
 interface AvatarSelectionModalProps {
@@ -20,17 +20,11 @@ interface AvatarSelectionModalProps {
 }
 
 const AvatarSelectionModal = ({ visible, onClose, onSelectAvatar }: AvatarSelectionModalProps) => {
-  const [selectedAvatarId, setSelectedAvatarId] = useState<number | null>(null);
-
-  const handleSelectAvatar = (id: number) => {
-    setSelectedAvatarId(id);
-  };
-
-  const handleSave = () => {
-    if (selectedAvatarId !== null) {
-      const selectedAvatar = avatars.find(avatar => avatar.id === selectedAvatarId);
+  const handleSave = (avatar: String) => {
+    if (avatar !== null) {
+      const selectedAvatar = avatars.find(avatars => avatars.id === avatar);
       if (selectedAvatar) {
-        onSelectAvatar(selectedAvatar.source); 
+        onSelectAvatar(selectedAvatar.id); 
       }
     }
     onClose();
@@ -53,12 +47,7 @@ const AvatarSelectionModal = ({ visible, onClose, onSelectAvatar }: AvatarSelect
             
                 key={avatar.id}
              
-                onPress={() => handleSelectAvatar(avatar.id)}
-                style={[
-                  styles.avatarWrapper,
-          
-                  selectedAvatarId === avatar.id && styles.avatarSelected,
-                ]}
+                onPress={() => handleSave(avatar.id)}
               >
              
                 <Image source={avatar.source} style={styles.avatarThumb} />
@@ -76,7 +65,7 @@ const AvatarSelectionModal = ({ visible, onClose, onSelectAvatar }: AvatarSelect
             
             <TouchableOpacity 
               style={[styles.button, styles.saveButton]}
-              onPress={handleSave}
+          
             >
               <Text style={styles.buttonText}>Salvar</Text>
             </TouchableOpacity>
