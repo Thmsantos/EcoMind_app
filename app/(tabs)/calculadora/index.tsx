@@ -209,7 +209,6 @@ export default function Calculadora() {
               </RadioButton.Group>
             </View>
 
-            {/* Quilômetros percorridos */}
             <View style={styles.card}>
               <Text style={styles.textTitulo}>Quilômetros percorridos</Text>
               <TextInput
@@ -230,7 +229,8 @@ export default function Calculadora() {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <NavbarAnimated visible={!tecladoAberto} userId={userId as string} />
+         <Navbar userId={String(userId)} />
+      <NavbarAnimated visible={!tecladoAberto} userId={String(userId)} />
     </View>
   );
 }
