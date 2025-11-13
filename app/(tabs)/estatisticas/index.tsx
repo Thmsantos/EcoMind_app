@@ -136,12 +136,11 @@ export default function Resultados() {
                       </Text>
                     </View>
 
-                    {/* Campo de compensação de árvores */}
                     <View style={styles.compensacaoContainer}>
                       <Text style={styles.textBold}>
                         🌳 Compensação:{" "}
                         <Text style={styles.textMedium}>
-                          {(item.consumo / 1835).toFixed(2)} árvores
+                          {(Number(item.dataUser.emissao) / 1835).toFixed(2)} árvores
                         </Text>
                       </Text>
                     </View>

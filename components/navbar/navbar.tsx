@@ -12,7 +12,7 @@ export default function Navbar({ userId }: NavbarProps) {
         <View style={styles.navbar}>
             <TouchableOpacity 
                 style={styles.navItem}
-                onPress={() => router.push('/(tabs)/apresentaCalculadora')}
+                onPress={() => router.push(`/(tabs)/apresentaCalculadora?userId=${userId}`)}
             >
                 <Icon name="calculator" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Calculadora</Text>
@@ -28,7 +28,7 @@ export default function Navbar({ userId }: NavbarProps) {
 
             <TouchableOpacity 
                 style={styles.navItem}
-                onPress={() => router.push('/(tabs)/estatisticas')}
+                onPress={() => router.push(`/(tabs)/estatisticas?userId=${userId}`)}
             >
                 <Icon name="bar-chart" size={24} color="#000000ff" />
                 <Text style={styles.navText}>Estatisticas</Text>
