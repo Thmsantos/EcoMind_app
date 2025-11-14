@@ -24,6 +24,7 @@ export default function Resultados() {
   const happyEmoji = require("../../../assets/images/happy.png");
   const medioEmoji = require("../../../assets/images/neutral.png");
   const sadEmoji = require("../../../assets/images/sad-face.png");
+  const logoCinza = require("../../../assets/images/logo-cinza-ecomind.png");
 
   const [resultados, setResultados] = useState<EstatisticasData[]>([]);
   const [abaSelecionada, setAbaSelecionada] = useState<'consumo' | 'grafico'>('consumo');
@@ -112,6 +113,11 @@ export default function Resultados() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
+        {resultados.length === 0 && (
+          <View style={styles.logoContainer}>
+            <Image source={logoCinza} style={styles.logo} resizeMode="contain" />
+          </View>
+        )}
         {abaSelecionada === 'consumo' && (
           <View style={styles.viewMain}>
             {resultados.map((item, index) => {
@@ -221,9 +227,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 8,
     borderRadius: 25,
+   
   },
   tabAtiva: {
     backgroundColor: colors.primary,
+  
   },
   tabText: {
     fontSize: 18,
@@ -282,7 +290,7 @@ const styles = StyleSheet.create({
   },
   chartContainer: {
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 55,
   },
   chartTitle: {
     fontSize: 20,
@@ -309,5 +317,21 @@ const styles = StyleSheet.create({
   legendText: {
     fontSize: 15,
     color: colors.textPrimary,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 40,
+    marginBottom: 20,
+    position: 'absolute',
+    opacity: 0.3,
+    top: -120,
+    left: -90,
+    zIndex: 2
+  },
+  logo: {
+    width: 600,
+    height: 600,
+    opacity: 0.4,
   },
 });
